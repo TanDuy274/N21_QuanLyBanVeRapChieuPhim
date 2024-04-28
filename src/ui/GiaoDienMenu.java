@@ -95,7 +95,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		ImageIcon imgScaled3 = new ImageIcon(scaledQLKhachhang);
 		JLabel lblImgScaled3 = new JLabel(imgScaled3);
 		
-		btnQLKhachhang = new CustomButton("Quản lý đặt vé");
+		btnQLKhachhang = new CustomButton("Quản lý khách hàng");
 		btnQLKhachhang.setFocusPainted(false); // Tắt viền khi button được focus
 		btnQLKhachhang.add(lblImgScaled3);
 		btnQLKhachhang.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -112,7 +112,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		ImageIcon imgScaled4 = new ImageIcon(scaledQLHoadon);
 		JLabel lblImgScaled4 = new JLabel(imgScaled4);
 		
-		btnQLHoadon = new CustomButton("Quản lý khách hàng");
+		btnQLHoadon = new CustomButton("Quản lý hóa đơn");
 		btnQLHoadon.setFocusPainted(false); // Tắt viền khi button được focus
 		btnQLHoadon.add(lblImgScaled4);
 		btnQLHoadon.setFont(new Font("SansSerif", Font.BOLD, 14));
