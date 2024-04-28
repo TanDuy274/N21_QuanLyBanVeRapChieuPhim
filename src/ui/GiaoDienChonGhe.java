@@ -10,9 +10,11 @@ import java.util.List;
 public class GiaoDienChonGhe extends JPanel implements ActionListener {
     private JButton datVe_button;
     private List<JButton> seatButtons; // Danh sách các nút ghế
+    private List<JButton> selectedSeats; // Danh sách các nút ghế đã chọn
 
     public GiaoDienChonGhe() {
         setLayout(new BorderLayout());
+        selectedSeats = new ArrayList<>();
         HangGhe(); // Gọi phương thức HangGhe() để thêm chức năng chọn ghế
         JPanel south = new JPanel(new BorderLayout());
         south.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 10));
@@ -170,12 +172,21 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
                 Color currentColor = clickedButton.getBackground();
                 if (currentColor.equals(Color.darkGray)) {
                     clickedButton.setBackground(getSeatColor(clickedButton));
+                    selectedSeats.remove(clickedButton); // Xóa nút khỏi danh sách đã chọn nếu bỏ chọn
                 } else {
                     clickedButton.setBackground(Color.darkGray);
+                    selectedSeats.add(clickedButton); // Thêm nút vào danh sách đã chọn nếu chọn
                 }
+//                printSelectedSeatCount(); // In số lượng và tên các ghế đã chọn
             }
         }
     }
+    
+    public List<JButton> getSelectedSeats() {
+        return selectedSeats;
+    }
+
+
     private Color getSeatColor(JButton seatButton) {
         // Thực hiện xử lý logic để xác định màu ban đầu của ghế dựa vào vị trí của nút ghế
         // Trong ví dụ này, chúng ta sẽ trả về màu tùy thuộc vào vị trí của ghế
@@ -187,11 +198,11 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
             return new  Color(192, 192, 192); // Màu cho ghế thường
         } 
         else if(seatButton.getText().charAt(0) == 'K') {
-        	
-        	return new Color(237, 90, 179); // Màu cho ghế đôi
+            
+            return new Color(237, 90, 179); // Màu cho ghế đôi
         }
         else {
-        	return new Color (255, 165, 0); // Màu cho ghế VIP
+            return new Color (255, 165, 0); // Màu cho ghế VIP
         }
     }
 //    public static void main(String[] args) {
@@ -205,5 +216,13 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
 //            
 //        });
 //        
+//    }
+    
+//    private void printSelectedSeatCount() {
+//        System.out.println("Số ghế được chọn: " + selectedSeats.size());
+//        System.out.println("Các ghế đã chọn:");
+//        for (JButton seat : selectedSeats) {
+//            System.out.println(seat.getText());
+//        }
 //    }
 }
