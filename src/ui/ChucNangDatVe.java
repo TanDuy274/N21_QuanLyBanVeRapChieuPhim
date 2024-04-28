@@ -8,10 +8,9 @@ import java.awt.event.ActionListener;
 public class ChucNangDatVe extends JPanel implements ActionListener {
     private CardLayout cardLayout;
     private JPanel cardPanel;
-	private JButton nextButton;
-	private JButton prevButton;
-	private JPanel panelButton;
-	
+    private JButton nextButton;
+    private JButton prevButton;
+    private JPanel panelButton;
 
     public ChucNangDatVe() {
         cardLayout = new CardLayout();
@@ -31,41 +30,57 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
         add(cardPanel, BorderLayout.CENTER);
 
-        
         nextButton = new JButton("Next");
         prevButton = new JButton("Prev");
-        
-        nextButton = new JButton("Next");
-        nextButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
 
-        prevButton = new JButton("Prev");
+        nextButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
         prevButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
 
         nextButton.addActionListener(this);
         prevButton.addActionListener(this);
-        
-//        nextButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                cardLayout.next(cardPanel);
-//                cardLayout.previous(cardPanel);
-//            }
-//        });
+
         panelButton = new JPanel();
         panelButton.add(prevButton);
         panelButton.add(nextButton);
         add(panelButton, BorderLayout.SOUTH);
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object o = e.getSource();
-		if(o.equals(nextButton)) {
-			cardLayout.next(cardPanel);
-		}
-		if(o.equals(prevButton)) {
-			cardLayout.previous(cardPanel);
-		}
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object o = e.getSource();
+        if (o.equals(nextButton)) {
+            int currentIndex = getCurrentIndex();
+            if (currentIndex < cardPanel.getComponentCount() - 1) { // Kiểm tra xem có phải là giao diện cuối cùng không
+                cardLayout.next(cardPanel);
+            }
+        }
+        if (o.equals(prevButton)) {
+            int currentIndex = getCurrentIndex();
+            if (currentIndex > 0) { // Kiểm tra xem có phải là giao diện đầu tiên không
+                cardLayout.previous(cardPanel);
+            }
+        }
+    }
+
+    // Phương thức này để lấy chỉ mục của giao diện hiện tại trong cardPanel
+    private int getCurrentIndex() {
+        for (int i = 0; i < cardPanel.getComponentCount(); i++) {
+            Component component = cardPanel.getComponent(i);
+            if (component.isVisible()) {
+                return i;
+            }
+        }
+        return -1; // Trả về -1 nếu không tìm thấy chỉ mục nào
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("ChucNangDatVe");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(new ChucNangDatVe());
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+    }
 }
