@@ -35,6 +35,7 @@ public class GiaoDienChinh extends JFrame {
             public void run() {
                 GiaoDienChinh frame = new GiaoDienChinh();
                 frame.setVisible(true);
+               
             }
         });
     }
