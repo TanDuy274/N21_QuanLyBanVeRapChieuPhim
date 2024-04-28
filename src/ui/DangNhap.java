@@ -1,9 +1,16 @@
 package ui;
 
 import javax.swing.*;
+
+import connectDB.ConnectDB;
+import dao.TaiKhoan_DAO;
+import entity.TaiKhoan;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DangNhap extends JFrame implements ActionListener {
 
@@ -26,6 +33,7 @@ public class DangNhap extends JFrame implements ActionListener {
 	private JPanel pnName2;
 	private JPanel pnPass1;
 	private JPanel pnPass2;
+	private TaiKhoan_DAO TK_DAO;
 
     public DangNhap() {
         setTitle("Đăng nhập");
@@ -33,6 +41,15 @@ public class DangNhap extends JFrame implements ActionListener {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+//        connectDB
+        try {
+			ConnectDB.getIntance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        TK_DAO = new TaiKhoan_DAO();
 
         leftPanel = new JPanel();
         rightPanel = new JPanel();
@@ -113,19 +130,42 @@ public class DangNhap extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		String username = txtName.getText();
-		String password = txtPass.getText();
-		if (username.equals("nv") && password.equals("123")) {
-			JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
-			setVisible(false);
-			new GiaoDienChinh().setVisible(true);
-		}else if (username.isEmpty() || password.isEmpty()){
-			JOptionPane.showMessageDialog(null, "Không được để trống!");
-		}else
-			JOptionPane.showMessageDialog(null, "Sai tên đăng nhập hoặc mật khẩu!");
-			txtName.setText("");
-			txtPass.setText("");
-			txtName.requestFocus();
+		String username = txtName.getText().trim();
+		String password = txtPass.getText().trim();
+		
+		ArrayList<TaiKhoan> dsTK = TK_DAO.getAllTaiKhoan();
+		
+		boolean flag = false;
+		
+		for(TaiKhoan tk : dsTK) {
+			if(username.equals(tk.getTaiKhoan().trim()) && password.equals(tk.getMatKhau().trim())) {
+				JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+				setVisible(false);
+				new GiaoDienChinh().setVisible(true);
+				flag = true;
+			} 
+		}
+			if(!flag) {
+				if (username.isEmpty() || password.isEmpty()){
+					JOptionPane.showMessageDialog(null, "Không được để trống!");
+				} else
+					JOptionPane.showMessageDialog(null, "Sai tên đăng nhập hoặc mật khẩu!");
+					txtName.setText("");
+					txtPass.setText("");
+					txtName.requestFocus();
+			}
+		
+//		if (username.equals("nv") && password.equals("123")) {
+//			JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+//			setVisible(false);
+//			new GiaoDienChinh().setVisible(true);
+//		}else if (username.isEmpty() || password.isEmpty()){
+//			JOptionPane.showMessageDialog(null, "Không được để trống!");
+//		}else
+//			JOptionPane.showMessageDialog(null, "Sai tên đăng nhập hoặc mật khẩu!");
+//			txtName.setText("");
+//			txtPass.setText("");
+//			txtName.requestFocus();
 //			setVisible(false);
 
 //		new GiaoDienChinh().setVisible(true);
