@@ -62,7 +62,7 @@ public class KhachHang_DAO {
 			String sql = "select * from KhachHang where tenKhachHang = ?";
 			statement = con.prepareStatement(sql);
 			statement.setString(1, ten);
-			ResultSet rs = statement.executeQuery(sql);
+			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				String ma = rs.getString("maKhachHang");
 				String tenKH = rs.getString("tenKhachHang");

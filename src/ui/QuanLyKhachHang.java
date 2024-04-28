@@ -227,21 +227,14 @@ public class QuanLyKhachHang extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String maKH = txtMa.getText().trim();
-                String tenKH = txtTen.getText().trim();
-                int tuoi = Integer.parseInt(txtTuoi.getText().trim());
-                String soDienThoai = txtDT.getText().trim();
-                boolean coTheThanhVien = ckcTTV.isSelected();
-                
-                KhachHang kh = new KhachHang(maKH, tenKH, soDienThoai, tuoi, coTheThanhVien);
-                
-                if(KH_DAO.update(kh)) {
-                	JOptionPane.showMessageDialog(null, "Cập nhật thành công");
-                } else {
-                	JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
-                }
-                
+//                String maKH = txtMa.getText().trim();
+//                String tenKH = txtTen.getText().trim();
+//                int tuoi = Integer.parseInt(txtTuoi.getText().trim());
+//                String soDienThoai = txtDT.getText().trim();
+//                boolean coTheThanhVien = ckcTTV.isSelected();
+
                 suaKhachHang();
+                
             }
         });
 
@@ -272,18 +265,46 @@ public class QuanLyKhachHang extends JPanel {
         searchBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                timKiemKhachHang();
+//                timKiemKhachHang();
+            	String name = searchTxt.getText().trim();
+            	xoaHetDuLieuTrenModal();
+            	
+            	ArrayList<KhachHang> ds = KH_DAO.timKiemKhachHangTheoTen(name);
+            	
+            	for (KhachHang kh : ds) {
+                    tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không"});
+                }
             }
         });
+        
+        lamMoiBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Xóa nội dung trong các ô TextField sau khi sửa
+	            txtMa.setText("");
+	            txtTen.setText("");
+	            txtTuoi.setText("");
+	            txtDT.setText("");
+	            ckcTTV.setSelected(false);
+	            
+	            xoaHetDuLieuTrenModal();
+	            docDuLieuVaoTable();
+				
+			}
+		});
     }
 
     // Phương thức sửa thông tin khách hàng
     private void suaKhachHang() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
-            String tenKH = txtTen.getText().trim();
-            String tuoi = txtTuoi.getText().trim();
-            String soDienThoai = txtDT.getText().trim();
+        	
+          String maKH = txtMa.getText().trim();
+          String tenKH = txtTen.getText().trim();
+          String tuoi = txtTuoi.getText().trim();
+          String soDienThoai = txtDT.getText().trim();
+          boolean coTheThanhVien = ckcTTV.isSelected();
 
             // Kiểm tra tính hợp lệ của dữ liệu nhập vào
             if (tenKH.isEmpty() || tuoi.isEmpty() || soDienThoai.isEmpty()) {
@@ -309,7 +330,7 @@ public class QuanLyKhachHang extends JPanel {
             }
 
             // Nếu dữ liệu hợp lệ, cập nhật thông tin của khách hàng
-            boolean coTheThanhVien = ckcTTV.isSelected();
+//            boolean coTheThanhVien = ckcTTV.isSelected();
             tableModel.setValueAt(coTheThanhVien ? "Có" : "Không", selectedRow, 4);
             tableModel.setValueAt(tenKH, selectedRow, 1);
             tableModel.setValueAt(tuoi, selectedRow, 2);
@@ -321,6 +342,14 @@ public class QuanLyKhachHang extends JPanel {
             txtTuoi.setText("");
             txtDT.setText("");
             ckcTTV.setSelected(false);
+            
+            KhachHang kh = new KhachHang(maKH, tenKH, soDienThoai, Integer.parseInt(tuoi), coTheThanhVien);
+            
+            if(KH_DAO.update(kh)) {
+            	JOptionPane.showMessageDialog(null, "Cập nhật thành công");
+            } else {
+            	JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng để sửa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
@@ -363,7 +392,7 @@ public class QuanLyKhachHang extends JPanel {
     
     private void xoaHetDuLieuTrenModal() {
     	DefaultTableModel dm = (DefaultTableModel) table.getModel();
-    	dm.getDataVector().removeAllElements();
+    	dm.setRowCount(0);
     }
 
     public static void main(String[] args) {
