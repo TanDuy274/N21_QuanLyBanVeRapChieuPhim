@@ -40,4 +40,3 @@ public class GiaoDienChinh extends JFrame {
     }
 }
 
-
