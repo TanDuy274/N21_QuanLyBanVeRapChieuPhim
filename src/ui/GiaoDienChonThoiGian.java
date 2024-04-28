@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
+	
+	JButton currentSelectedButton = null;
     private JLabel lblTitle;
 	private ImageIcon phimDoremon;
 	private Object scaled7;
@@ -148,7 +150,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         btnSuatChieu23 = new JButton("23:40");
         btnSuatChieu24 = new JButton("00:20");
 
-        
+       
         
         pnSuatChieu.add(btnSuatChieu1);
         pnSuatChieu.add(btnSuatChieu2);
@@ -199,11 +201,21 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         btnSuatChieu23.setPreferredSize(new Dimension(100, 50)); 
         btnSuatChieu24.setPreferredSize(new Dimension(100, 50)); 
         
-        btnSuatChieu1.setBackground(Color.ORANGE);
-        btnSuatChieu2.setBackground(Color.ORANGE);
-        btnSuatChieu3.setBackground(Color.ORANGE);
-        btnSuatChieu4.setBackground(Color.ORANGE);
-        btnSuatChieu5.setBackground(Color.ORANGE);
+        btnSuatChieu1.setBackground(new Color(0, 153, 255));
+        btnSuatChieu2.setBackground(new Color(0, 153, 255));
+        btnSuatChieu3.setBackground(new Color(0, 153, 255));
+        btnSuatChieu4.setBackground(new Color(0, 153, 255));
+        btnSuatChieu5.setBackground(new Color(0, 153, 255));
+        
+        
+        btnSuatChieu1.setEnabled(false);
+        
+        btnSuatChieu2.setEnabled(false);
+        btnSuatChieu3.setEnabled(false);
+        btnSuatChieu4.setEnabled(false);
+        btnSuatChieu5.setEnabled(false);
+        
+        
         btnSuatChieu6.setBackground(Color.ORANGE);
         btnSuatChieu7.setBackground(Color.ORANGE);
         btnSuatChieu8.setBackground(Color.ORANGE);
@@ -228,95 +240,103 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         btnSuatChieu1.setForeground(Color.darkGray);
         pnNgay = new JPanel();
         
-        
+        btnNgay1 = new JButton("28 thg 4");
+        btnNgay2 = new JButton("29 thg 4");
+        btnNgay3 = new JButton("30 thg 4");
+        btnNgay4 = new JButton("01 thg 5");
+        btnNgay5 = new JButton("02 thg 5");
+        btnNgay6 = new JButton("03 thg 5");
+        btnNgay7 = new JButton("04 thg 5");
+        btnNgay8 = new JButton("05 thg 5");
         
         // Ngày 1
-        pnTg1 = new JPanel(new GridLayout(2, 1));
-        lblNgay1 = new JLabel("28 thg 4");
-        lblThu1 = new JLabel("Hôm nay");
-        pnTg1.add(lblNgay1);
-        pnTg1.add(lblThu1);
-        btnNgay1 = new JButton();
+//        pnTg1 = new JPanel(new GridLayout(2, 1));
+//        lblNgay1 = new JLabel("28 thg 4");
+//        lblThu1 = new JLabel("Hôm nay");
+//        pnTg1.add(lblNgay1);
+//        pnTg1.add(lblThu1);
+//        btnNgay1 = new JButton();
         btnNgay1.setBackground(Color.ORANGE);
-        pnTg1.setBackground(btnNgay1.getBackground());
-        btnNgay1.add(pnTg1);
+//        pnTg1.setBackground(btnNgay1.getBackground());
+//        btnNgay1.add(pnTg1);
+       
 
         // Ngày 2
-        pnTg2 = new JPanel(new GridLayout(2, 1));
-        lblNgay2 = new JLabel("29 thg 4");
-        lblThu2 = new JLabel("Thứ 2");
-        pnTg2.add(lblNgay2);
-        pnTg2.add(lblThu2);
-        btnNgay2 = new JButton();
+//        pnTg2 = new JPanel(new GridLayout(2, 1));
+//        lblNgay2 = new JLabel("29 thg 4");
+//        lblThu2 = new JLabel("Thứ 2");
+//        pnTg2.add(lblNgay2);
+//        pnTg2.add(lblThu2);
+//        btnNgay2 = new JButton();
         btnNgay2.setBackground(Color.ORANGE);
-        pnTg2.setBackground(btnNgay1.getBackground());
-        btnNgay2.add(pnTg2);
-
-        // Ngày 3
-        pnTg3 = new JPanel(new GridLayout(2, 1));
-        lblNgay3 = new JLabel("30 thg 4");
-        lblThu3 = new JLabel("Thứ 3");
-        pnTg3.add(lblNgay3);
-        pnTg3.add(lblThu3);
-        btnNgay3 = new JButton();
+//        pnTg2.setBackground(btnNgay1.getBackground());
+//        btnNgay2.add(pnTg2);
+//
+//        // Ngày 3
+//        pnTg3 = new JPanel(new GridLayout(2, 1));
+//        lblNgay3 = new JLabel("30 thg 4");
+//        lblThu3 = new JLabel("Thứ 3");
+//        pnTg3.add(lblNgay3);
+//        pnTg3.add(lblThu3);
+//        btnNgay3 = new JButton();
         btnNgay3.setBackground(Color.ORANGE);
-        pnTg3.setBackground(btnNgay1.getBackground());
-        btnNgay3.add(pnTg3);
-
-        // Ngày 4
-        pnTg4 = new JPanel(new GridLayout(2, 1));
-        lblNgay4 = new JLabel("1 thg 5");
-        lblThu4 = new JLabel("Thứ 4");
-        pnTg4.add(lblNgay4);
-        pnTg4.add(lblThu4);
-        btnNgay4 = new JButton();
+//        pnTg3.setBackground(btnNgay1.getBackground());
+//        btnNgay3.add(pnTg3);
+//
+//        // Ngày 4
+//        pnTg4 = new JPanel(new GridLayout(2, 1));
+//        lblNgay4 = new JLabel("1 thg 5");
+//        lblThu4 = new JLabel("Thứ 4");
+//        pnTg4.add(lblNgay4);
+//        pnTg4.add(lblThu4);
+//        btnNgay4 = new JButton();
         btnNgay4.setBackground(Color.ORANGE);
-        pnTg4.setBackground(btnNgay1.getBackground());
-        btnNgay4.add(pnTg4);
-
-        // Ngày 5
-        pnTg5 = new JPanel(new GridLayout(2, 1));
-        lblNgay5 = new JLabel("2 thg 5");
-        lblThu5 = new JLabel("Thứ 5");
-        pnTg5.add(lblNgay5);
-        pnTg5.add(lblThu5);
-        btnNgay5 = new JButton();
+//        pnTg4.setBackground(btnNgay1.getBackground());
+//        btnNgay4.add(pnTg4);
+//
+//        // Ngày 5
+//        pnTg5 = new JPanel(new GridLayout(2, 1));
+//        lblNgay5 = new JLabel("2 thg 5");
+//        lblThu5 = new JLabel("Thứ 5");
+//        pnTg5.add(lblNgay5);
+//        pnTg5.add(lblThu5);
+//        btnNgay5 = new JButton();
         btnNgay5.setBackground(Color.ORANGE);
-        pnTg5.setBackground(btnNgay1.getBackground());
-        btnNgay5.add(pnTg5);
-
-        // Ngày 6
-        pnTg6 = new JPanel(new GridLayout(2, 1));
-        lblNgay6 = new JLabel("3 thg 5");
-        lblThu6 = new JLabel("Thứ 6");
-        pnTg6.add(lblNgay6);
-        pnTg6.add(lblThu6);
-        btnNgay6 = new JButton();
+//        pnTg5.setBackground(btnNgay1.getBackground());
+//        btnNgay5.add(pnTg5);
+//
+//        // Ngày 6
+//        pnTg6 = new JPanel(new GridLayout(2, 1));
+//        lblNgay6 = new JLabel("3 thg 5");
+//        lblThu6 = new JLabel("Thứ 6");
+//        pnTg6.add(lblNgay6);
+//        pnTg6.add(lblThu6);
+//        btnNgay6 = new JButton();
         btnNgay6.setBackground(Color.ORANGE);
-        pnTg6.setBackground(btnNgay1.getBackground());
-        btnNgay6.add(pnTg6);
-
-        // Ngày 7
-        pnTg7 = new JPanel(new GridLayout(2, 1));
-        lblNgay7 = new JLabel("4 thg 5");
-        lblThu7 = new JLabel("Thứ 7");
-        pnTg7.add(lblNgay7);
-        pnTg7.add(lblThu7);
-        btnNgay7 = new JButton();
+//        pnTg6.setBackground(btnNgay1.getBackground());
+//        btnNgay6.add(pnTg6);
+//
+//        // Ngày 7
+//        pnTg7 = new JPanel(new GridLayout(2, 1));
+//        lblNgay7 = new JLabel("4 thg 5");
+//        lblThu7 = new JLabel("Thứ 7");
+//        pnTg7.add(lblNgay7);
+//        pnTg7.add(lblThu7);
+//        btnNgay7 = new JButton();
         btnNgay7.setBackground(Color.ORANGE);
-        pnTg7.setBackground(btnNgay1.getBackground());
-        btnNgay7.add(pnTg7);
-
-        // Ngày 8
-        pnTg8 = new JPanel(new GridLayout(2, 1));
-        lblNgay8 = new JLabel("5 thg 5");
-        lblThu8 = new JLabel("Chủ Nhật");
-        pnTg8.add(lblNgay8);
-        pnTg8.add(lblThu8);
-        btnNgay8 = new JButton();
+//        pnTg7.setBackground(btnNgay1.getBackground());
+//        btnNgay7.add(pnTg7);
+//
+//        // Ngày 8
+//        pnTg8 = new JPanel(new GridLayout(2, 1));
+//        lblNgay8 = new JLabel("5 thg 5");
+//        lblThu8 = new JLabel("Chủ Nhật");
+//        pnTg8.add(lblNgay8);
+//        pnTg8.add(lblThu8);
+//        btnNgay8 = new JButton();
         btnNgay8.setBackground(Color.ORANGE);
-        pnTg8.setBackground(btnNgay1.getBackground());
-        btnNgay8.add(pnTg8);
+//        pnTg8.setBackground(btnNgay1.getBackground());
+//        btnNgay8.add(pnTg8);
 
         btnNgay1.setPreferredSize(new Dimension(100, 50)); 
         btnNgay2.setPreferredSize(new Dimension(100, 50)); 
@@ -447,6 +467,8 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         btnNgay6.addActionListener(this);
         btnNgay7.addActionListener(this);
         btnNgay8.addActionListener(this);
+        
+       
 
     }
 
@@ -454,88 +476,57 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	    Object o = e.getSource();
-	    if (o.equals(btnRap1)) {
-	        txtSoPhong.setText(btnRap1.getText());
-	    } else if (o.equals(btnRap2)) {
-	        txtSoPhong.setText(btnRap2.getText());
-	    } else if (o.equals(btnRap3)) {
-	        txtSoPhong.setText(btnRap3.getText());
-	    } else if (o.equals(btnRap4)) {
-	        txtSoPhong.setText(btnRap4.getText());
-	    } else if (o.equals(btnRap5)) {
-	        txtSoPhong.setText(btnRap5.getText());
-	    } else if (o.equals(btnRap6)) {
-	        txtSoPhong.setText(btnRap6.getText());
-	    } else if (o.equals(btnRap7)) {
-	        txtSoPhong.setText(btnRap7.getText());
-	    } else if (o.equals(btnRap8)) {
-	        txtSoPhong.setText(btnRap8.getText());
-	    } else if (o.equals(btnSuatChieu1)) {
-	        txtSoSuatChieu.setText(btnSuatChieu1.getText());
-	    } else if (o.equals(btnSuatChieu2)) {
-	        txtSoSuatChieu.setText(btnSuatChieu2.getText());
-	    } else if (o.equals(btnSuatChieu3)) {
-	        txtSoSuatChieu.setText(btnSuatChieu3.getText());
-	    } else if (o.equals(btnSuatChieu4)) {
-	        txtSoSuatChieu.setText(btnSuatChieu4.getText());
-	    } else if (o.equals(btnSuatChieu5)) {
-	        txtSoSuatChieu.setText(btnSuatChieu5.getText());
-	    } else if (o.equals(btnSuatChieu6)) {
-	        txtSoSuatChieu.setText(btnSuatChieu6.getText());
-	    } else if (o.equals(btnSuatChieu7)) {
-	        txtSoSuatChieu.setText(btnSuatChieu7.getText());
-	    } else if (o.equals(btnSuatChieu8)) {
-	        txtSoSuatChieu.setText(btnSuatChieu8.getText());
-	    } else if (o.equals(btnSuatChieu9)) {
-	        txtSoSuatChieu.setText(btnSuatChieu9.getText());
-	    } else if (o.equals(btnSuatChieu10)) {
-	        txtSoSuatChieu.setText(btnSuatChieu10.getText());
-	    } else if (o.equals(btnSuatChieu11)) {
-	        txtSoSuatChieu.setText(btnSuatChieu11.getText());
-	    } else if (o.equals(btnSuatChieu12)) {
-	        txtSoSuatChieu.setText(btnSuatChieu12.getText());
-	    } else if (o.equals(btnSuatChieu13)) {
-	        txtSoSuatChieu.setText(btnSuatChieu13.getText());
-	    } else if (o.equals(btnSuatChieu14)) {
-	        txtSoSuatChieu.setText(btnSuatChieu14.getText());
-	    } else if (o.equals(btnSuatChieu15)) {
-	        txtSoSuatChieu.setText(btnSuatChieu15.getText());
-	    } else if (o.equals(btnSuatChieu16)) {
-	        txtSoSuatChieu.setText(btnSuatChieu16.getText());
-	    } else if (o.equals(btnSuatChieu17)) {
-	        txtSoSuatChieu.setText(btnSuatChieu17.getText());
-	    } else if (o.equals(btnSuatChieu18)) {
-	        txtSoSuatChieu.setText(btnSuatChieu18.getText());
-	    } else if (o.equals(btnSuatChieu19)) {
-	        txtSoSuatChieu.setText(btnSuatChieu19.getText());
-	    } else if (o.equals(btnSuatChieu20)) {
-	        txtSoSuatChieu.setText(btnSuatChieu20.getText());
-	    } else if (o.equals(btnSuatChieu21)) {
-	        txtSoSuatChieu.setText(btnSuatChieu21.getText());
-	    } else if (o.equals(btnSuatChieu22)) {
-	        txtSoSuatChieu.setText(btnSuatChieu22.getText());
-	    } else if (o.equals(btnSuatChieu23)) {
-	        txtSoSuatChieu.setText(btnSuatChieu23.getText());
-	    } else if (o.equals(btnSuatChieu24)) {
-	        txtSoSuatChieu.setText(btnSuatChieu24.getText());
-	    } else if (o.equals(btnNgay1)) {
-	        txtSoThoiGian.setText(lblNgay1.getText());
-	    } else if (o.equals(btnNgay2)) {
-	        txtSoThoiGian.setText(lblNgay2.getText());
-	    } else if (o.equals(btnNgay3)) {
-	        txtSoThoiGian.setText(lblNgay3.getText());
-	    } else if (o.equals(btnNgay4)) {
-	        txtSoThoiGian.setText(lblNgay4.getText());
-	    } else if (o.equals(btnNgay5)) {
-	        txtSoThoiGian.setText(lblNgay5.getText());
-	    } else if (o.equals(btnNgay6)) {
-	        txtSoThoiGian.setText(lblNgay6.getText());
-	    } else if (o.equals(btnNgay7)) {
-	        txtSoThoiGian.setText(lblNgay7.getText());
-	    } else if (o.equals(btnNgay8)) {
-	        txtSoThoiGian.setText(lblNgay8.getText());
+
+	 // Xử lý sự kiện cho các nút
+	    if (o instanceof JButton) {
+	        JButton selectedButton = (JButton) o;
+
+	        // Hủy màu của nút trước đó nếu có
+	        if (currentSelectedButton != null) {
+	            currentSelectedButton.setBackground(Color.ORANGE);
+	            
+
+	        }
+
+	        // Đặt màu nền của nút hiện tại thành màu mới
+	        selectedButton.setBackground(new Color(0, 153, 255));
+
+	        // Lưu trữ nút hiện tại vào biến currentSelectedButton
+	        currentSelectedButton = selectedButton;
+
+	        // Cập nhật thông tin phòng nếu là nút phòng
+	        if (selectedButton.equals(btnRap1) || selectedButton.equals(btnRap2) || selectedButton.equals(btnRap3) ||
+	            selectedButton.equals(btnRap4) || selectedButton.equals(btnRap5) || selectedButton.equals(btnRap6) ||
+	            selectedButton.equals(btnRap7) || selectedButton.equals(btnRap8)) {
+	            txtSoPhong.setText(selectedButton.getText());
+	        }
+	        
+	        // Cập nhật thông tin suất chiếu nếu là nút suất chiếu
+	        else if (selectedButton.equals(btnSuatChieu1) || selectedButton.equals(btnSuatChieu2) || 
+	                 selectedButton.equals(btnSuatChieu3) || selectedButton.equals(btnSuatChieu4) || 
+	                 selectedButton.equals(btnSuatChieu5) || selectedButton.equals(btnSuatChieu6) || 
+	                 selectedButton.equals(btnSuatChieu7) || selectedButton.equals(btnSuatChieu8) || 
+	                 selectedButton.equals(btnSuatChieu9) || selectedButton.equals(btnSuatChieu10) || 
+	                 selectedButton.equals(btnSuatChieu11) || selectedButton.equals(btnSuatChieu12) || 
+	                 selectedButton.equals(btnSuatChieu13) || selectedButton.equals(btnSuatChieu14) || 
+	                 selectedButton.equals(btnSuatChieu15) || selectedButton.equals(btnSuatChieu16) || 
+	                 selectedButton.equals(btnSuatChieu17) || selectedButton.equals(btnSuatChieu18) || 
+	                 selectedButton.equals(btnSuatChieu19) || selectedButton.equals(btnSuatChieu20) || 
+	                 selectedButton.equals(btnSuatChieu21) || selectedButton.equals(btnSuatChieu22) || 
+	                 selectedButton.equals(btnSuatChieu23) || selectedButton.equals(btnSuatChieu24)) {
+	            txtSoSuatChieu.setText(selectedButton.getText());
+	        }
+
+	        // Cập nhật thông tin ngày nếu là nút ngày
+	        else if (selectedButton.equals(btnNgay1) || selectedButton.equals(btnNgay2) || 
+	                 selectedButton.equals(btnNgay3) || selectedButton.equals(btnNgay4) || 
+	                 selectedButton.equals(btnNgay5) || selectedButton.equals(btnNgay6) || 
+	                 selectedButton.equals(btnNgay7) || selectedButton.equals(btnNgay8)) {
+	            
+	            txtSoThoiGian.setText(selectedButton.getText());
+	        }
 	    }
-	}
+
 
 	
-}
+	}}
