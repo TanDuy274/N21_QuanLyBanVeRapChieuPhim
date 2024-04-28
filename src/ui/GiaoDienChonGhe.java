@@ -85,7 +85,7 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
                 button.setForeground(Color.WHITE);
                 button.setBackground(new Color(192, 192, 192));
                 if (row >= 'E' && row <= 'J') {
-                    button.setBackground(new Color(213, 44, 99));
+                    button.setBackground(new Color(255, 165, 0));
                 }
                 button.addActionListener(this); // Thêm trình xử lý sự kiện cho nút
                 rowPanel.add(button);
@@ -110,14 +110,14 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
         JButton dangChon_button = new JButton();
         dangChon_button.setEnabled(false);
         dangChon_button.setPreferredSize(new Dimension(25, 25));
-        dangChon_button.setBackground(Color.red);
+        dangChon_button.setBackground(Color.darkGray);
         dangChon_button.setBorderPainted(false);
         JLabel dangChon_lable = new JLabel("Đang chọn");
 
         JButton daDat_button = new JButton();
         daDat_button.setEnabled(false);
         daDat_button.setPreferredSize(new Dimension(25, 25));
-        daDat_button.setBackground(Color.yellow);
+        daDat_button.setBackground(Color.gray);
         daDat_button.setBorderPainted(false);
         JLabel daDat_lable = new JLabel("Đã đặt");
 
@@ -148,7 +148,7 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
         JButton vIP_button = new JButton();
         vIP_button.setEnabled(false);
         vIP_button.setPreferredSize(new Dimension(25, 25));
-        vIP_button.setBackground(new Color(213, 44, 99));
+        vIP_button.setBackground(Color.orange);
         vIP_button.setBorderPainted(false);
         JLabel vIP_lable = new JLabel("VIP");
 
@@ -168,10 +168,10 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
             JButton clickedButton = (JButton) o;
             if (seatButtons.contains(clickedButton)) { // Kiểm tra xem nút được click có trong danh sách ghế không
                 Color currentColor = clickedButton.getBackground();
-                if (currentColor.equals(Color.RED)) {
+                if (currentColor.equals(Color.darkGray)) {
                     clickedButton.setBackground(getSeatColor(clickedButton));
                 } else {
-                    clickedButton.setBackground(Color.RED);
+                    clickedButton.setBackground(Color.darkGray);
                 }
             }
         }
@@ -184,13 +184,14 @@ public class GiaoDienChonGhe extends JPanel implements ActionListener {
         // Nếu ghế nằm trong các hàng 'E' - 'I', sẽ trả về màu đặc trưng cho các ghế thường
         // Tùy thuộc vào logic cụ thể của bạn, bạn có thể thay đổi cách xác định màu của ghế ở đây
         if (seatButton.getText().charAt(0) >= 'A' && seatButton.getText().charAt(0) <= 'D') {
-            return new  Color(192, 192, 192); // Màu cho ghế VIP
+            return new  Color(192, 192, 192); // Màu cho ghế thường
         } 
         else if(seatButton.getText().charAt(0) == 'K') {
-        	return new Color(237, 90, 179); // Màu cho ghế VIP
+        	
+        	return new Color(237, 90, 179); // Màu cho ghế đôi
         }
         else {
-            return new Color(213, 44, 99); // Màu cho ghế thường
+        	return new Color (255, 165, 0); // Màu cho ghế VIP
         }
     }
 //    public static void main(String[] args) {
