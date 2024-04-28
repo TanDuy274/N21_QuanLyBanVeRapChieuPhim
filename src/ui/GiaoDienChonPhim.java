@@ -35,7 +35,10 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
 	private LoaiPhim_DAO categoryDAO;
 	private JButton btnBooking;
 	
-	public final String maPhim = "";
+	private String maPhimVar;
+	private String posterPathVar;
+	private String tenPhimVar;
+	
 	
 	/*
 	 * Mã màu: #0080ff - button xanh
@@ -60,7 +63,6 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         this.setLayout(new BorderLayout());
         JPanel wrapPanel = new JPanel();
         wrapPanel.setLayout(new BorderLayout());
-        wrapPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
         JPanel topPanel = new JPanel();
         Box topContainer = Box.createVerticalBox();
@@ -121,8 +123,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         midContainer = new JPanel(new GridBagLayout());
         midContainer.setDoubleBuffered(true);
         midPanel.add(midContainer, BorderLayout.CENTER);
-        midPanel.setBackground(Color.LIGHT_GRAY);
-        midPanel.setBackground(Color.decode("#e1e1e1"));
+//        midPanel.setBackground(Color.decode("#e1e1e1"));
         
         JScrollPane scrollPane = new JScrollPane(midPanel);
         wrapPanel.add(scrollPane, BorderLayout.CENTER);
@@ -151,10 +152,10 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(25, 15, 25, 15); // Khoảng cách giữa các ô
+        gbc.insets = new Insets(25, 25, 25, 25); // Khoảng cách giữa các ô
 //        for (int i = 0; i < 12; i++) { // hiển thị 12 phim
 //            JPanel moviePanel = createMoviePanel("img//cai-gia-cua-hanh-phuc.jpg", 
-//            		"Tên phim dàiiiiiiiiiiiii" + (i + 1), "Đạo diễn: ABC", "Hành động", 120);
+//            		"Tên phim " + (i + 1), "Hành động", 130, "Mã");
 //            
 //            midContainer.add(moviePanel, gbc);
 //            gbc.gridx++;
@@ -188,7 +189,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         ImageIcon imgTmp = new ImageIcon(posterPath);
-        Image scaled = scaleImage(imgTmp.getImage(), 220, 285); // 190 285
+        Image scaled = scaleImage(imgTmp.getImage(), 240, 285); // 190 285
         ImageIcon poster = new ImageIcon(scaled);
         JLabel posterLabel = new JLabel(poster);
         
@@ -217,6 +218,10 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         btnBooking.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	maPhimVar = maphim;
+            	posterPathVar = posterPath;
+            	tenPhimVar = title;
+            	
             	JOptionPane.showMessageDialog(null, "Bạn đã chọn phim: " + title
             			+ "\nMã: " + maphim);
 //            	JOptionPane.showMessageDialog(null, posterPath);
@@ -233,6 +238,19 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
     private Image scaleImage(Image image, int w, int h) {
         Image scaled = image.getScaledInstance(w, h, Image.SCALE_SMOOTH);
         return scaled;	 
+    }
+    
+    // hàm lấy ma, ten, hinh
+    public String getTenPhim() {
+    	return tenPhimVar;
+    }
+    
+    public String getMaPhim() {
+    	return maPhimVar;
+    }
+    
+    public String getPosterPath() {
+    	return posterPathVar;
     }
 
 	/**
