@@ -41,7 +41,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
 	
 	
 	/*
-	 * Mã màu: #0080ff - button xanh
+	 * Mã màu: new Color(00, 153, 255) - xanh
 	 */
 	
     public GiaoDienChonPhim() {
@@ -83,17 +83,17 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         tfSearch.setText("Tìm kiếm phim theo tên");
         tfSearch.setFont(new Font("Helvetica", Font.ITALIC, 15));
         tfSearch.setForeground(Color.LIGHT_GRAY);
-        tfSearch.setBorder(new LineBorder(Color.blue, 2, true));
+        tfSearch.setBorder(new LineBorder(new Color(00, 153, 255), 2, true));
         
         btnSearch = new CustomButton(new ImageIcon("img//icons8-search-30.png"));  
         btnSearch.setPreferredSize(new Dimension(100, 33));
         btnSearch.setForeground(Color.WHITE);
         btnSearch.setFont(new Font("Helvetica", Font.BOLD, 14));
-        btnSearch.setBorder(new LineBorder(Color.decode("#0080ff"), 2, true));
-        btnSearch.setBackground(Color.decode("#0080ff"));
+        btnSearch.setBorder(new LineBorder(new Color(00, 153, 255), 2, true));
+        btnSearch.setBackground(new Color(00, 153, 255));
 
         comboCategory = new JComboBox<String>();
-        comboCategory.setBorder(new LineBorder(Color.blue, 2, getFocusTraversalKeysEnabled()));
+        comboCategory.setBorder(new LineBorder(new Color(00, 153, 255), 2, getFocusTraversalKeysEnabled()));
         loadCategoryToComboBox();
 
         topTitle.add(lblTitle);
@@ -210,7 +210,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         bMovieDesc.add(lengthLabel);
         
         btnBooking = new JButton("Đặt vé");
-        btnBooking.setBackground(Color.decode("#0080ff"));
+        btnBooking.setBackground(new Color(00, 153, 255));
         btnBooking.setForeground(Color.white);
         btnBooking.setPreferredSize(new Dimension(0, 30));
         btnBooking.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
