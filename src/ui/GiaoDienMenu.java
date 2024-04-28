@@ -157,9 +157,9 @@ ImageIcon imgDangxuat = new ImageIcon("img/sign-out-icon.png");
         
         
         setBackground(orangeDark); // Thay đổi màu nền thành màu cam
-        
-        
-        
+        btnDatVe.addActionListener(this);
+        btnQLKhachhang.addActionListener(this);
+        btnQuanLi.addActionListener(this);
         
     }
 
