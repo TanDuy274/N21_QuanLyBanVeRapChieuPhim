@@ -19,6 +19,7 @@ public class ThemGiaoDienMenuVaoCard extends JPanel {
         cardPanel.add(movieManagementPanel, "QlPhim");
         cardPanel.add(ticketBookingPanel, "QlBanVe");
         cardPanel.add(customerManagementPanel, "QlKhachHang");
+        
 
         setLayout(new BorderLayout());
         add(cardPanel, BorderLayout.CENTER);
