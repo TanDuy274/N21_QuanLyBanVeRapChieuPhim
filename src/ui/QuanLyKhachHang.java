@@ -5,8 +5,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.JTextComponent;
-
 import connectDB.ConnectDB;
 import dao.KhachHang_DAO;
 import entity.KhachHang;
@@ -18,8 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QuanLyKhachHang extends JPanel {
-    private JTextField txtMaKH, txtTenKH, txtTuoi, txtSoDienThoai, txtTimKiem;
-    private JCheckBox chkCoTheThanhVien;
+    private JTextField txtTuoi;
     private DefaultTableModel tableModel;
     private JTable table;
     private KhachHang_DAO KH_DAO;
@@ -31,7 +28,6 @@ public class QuanLyKhachHang extends JPanel {
 	private JLabel lblMa;
 	private JTextField txtMa;
 	private JLabel lblTen;
-	private JTextComponent txtTenTen;
 	private JTextField txtTen;
 	private JPanel pnTuoi;
 	private JLabel lblTuoi;
