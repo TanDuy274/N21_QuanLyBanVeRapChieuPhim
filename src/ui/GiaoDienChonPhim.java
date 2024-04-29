@@ -57,6 +57,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
     	return maPhimVar;
     }
     
+    
     public void setMaPhim(String maPhimVar) {
     	this.maPhimVar = maPhimVar;
     }
@@ -185,7 +186,10 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
 
         loadMovieFromDatabase();
     }
-
+//    public void chonPhimMoi(String tenPhimMoi) {  
+//        GiaoDienChonThoiGian.capNhatTenPhim(tenPhimMoi);
+//    }
+    
     private void loadCategoryToComboBox() {
         List<LoaiPhim> categoryList = categoryDAO.getAllLoaiPhim();
         for (LoaiPhim loaiPhim : categoryList) {
