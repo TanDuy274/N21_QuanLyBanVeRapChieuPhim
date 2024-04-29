@@ -81,6 +81,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titlePanel.add(lblTitle);
         
+        
         lblPhimDoremon = new JLabel(new ImageIcon("img/3_hiepsimongmo.jpg"));
      
         JPanel imagePanel = new JPanel();
