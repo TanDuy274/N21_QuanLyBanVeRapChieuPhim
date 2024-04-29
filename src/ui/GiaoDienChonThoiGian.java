@@ -479,6 +479,8 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 
 	 // Xử lý sự kiện cho các nút
 	    if (o instanceof JButton) {
+
+	        JOptionPane.showMessageDialog(null, new GiaoDienChonPhim().getTenPhim());
 	        JButton selectedButton = (JButton) o;
 
 	        // Hủy màu của nút trước đó nếu có

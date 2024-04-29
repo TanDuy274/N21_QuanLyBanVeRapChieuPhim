@@ -30,6 +30,7 @@ public class LoaiPhim_DAO {
 		}
 		return dsLoaiPhim;
 	}
+	
 	public static void main(String[] args) {
 		try {
 			ConnectDB.getIntance().connect();
