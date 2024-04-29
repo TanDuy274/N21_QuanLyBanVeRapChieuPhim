@@ -30,12 +30,16 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
         add(cardPanel, BorderLayout.CENTER);
 
-        nextButton = new JButton("Next");
-        prevButton = new JButton("Prev");
-
+        nextButton = new JButton("Tiếp tục");
+        prevButton = new JButton("Trở về");
+        
+        nextButton.setBackground(Color.orange);
+        prevButton.setBackground(Color.orange);
+        
         nextButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
         prevButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
-
+        nextButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        prevButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         nextButton.addActionListener(this);
         prevButton.addActionListener(this);
 

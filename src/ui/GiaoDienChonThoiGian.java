@@ -9,9 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
-	
+	 private int widthImg = 380; 
+	 private int heightImg = 500; 
 	JButton currentSelectedButton = null;
-    private JLabel lblTitle;
+    private static JLabel lblTitle;
 	private ImageIcon phimDoremon;
 	private Object scaled7;
 	private JLabel lblPhimDoremon;
@@ -68,11 +69,21 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	private JTextField txtSoSuatChieu;
 	private JTextField txtSoThoiGian;
 	
+	private JButton btnTest;
+	private GiaoDienChonPhim gdChonPhim;
+	private String duongDanHinhAnh;
 
 	public GiaoDienChonThoiGian() {
         setLayout(new BorderLayout());
         
-        lblTitle = new JLabel("PHIM: Nobita và ba chàng hiệp sĩ mộng mơ");
+      
+        gdChonPhim = new GiaoDienChonPhim();
+        
+        lblTitle = new JLabel("Phim:");
+       
+        
+        
+        
         Font font = lblTitle.getFont(); 
         Font newFont = font.deriveFont(Font.BOLD, 22); 
         lblTitle.setFont(newFont);
@@ -81,11 +92,18 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titlePanel.add(lblTitle);
         
-        lblPhimDoremon = new JLabel(new ImageIcon("img/3_hiepsimongmo.jpg"));
-     
+
+        
+        duongDanHinhAnh = "img/3_hiepsimongmo.jpg";
+
+        ImageIcon imageIcon = new ImageIcon(duongDanHinhAnh);
+        lblPhimDoremon = new JLabel(imageIcon);
+        lblPhimDoremon.setIcon(resizeImageIcon(imageIcon, widthImg, heightImg));
+        
         JPanel imagePanel = new JPanel();
         imagePanel.add(lblPhimDoremon);
-       
+        add(imagePanel, BorderLayout.WEST);
+        
         pnRap = new JPanel();
         
         btnRap1 = new JButton("Rạp 1");
@@ -408,25 +426,30 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         pnThoiGian = new JPanel();
         
         
-       
+        btnTest = new JButton("LOAD DỮ LIỆU PHIM");
+        btnTest.setPreferredSize(new Dimension(180, 40));  
+        btnTest.setBackground(Color.white);
         
         pnThoiGian.add(pnRap);     
         pnThoiGian.add(pnNgay);        
         pnThoiGian.add(pnSuatChieu);
         pnThoiGian.add(pnThongTin);
+        pnThoiGian.add(btnTest);
       
         pnRap.setBorder(BorderFactory.createTitledBorder("Chọn Phòng"));
         pnSuatChieu.setBorder(BorderFactory.createTitledBorder("Chọn Suất Chiếu"));   
         pnNgay.setBorder(BorderFactory.createTitledBorder("Chọn Thời Gian"));  
         
         
+       
+        
         
         add(titlePanel, BorderLayout.NORTH);
-        add(imagePanel,BorderLayout.WEST);
+       
         add(pnThoiGian,BorderLayout.CENTER);
         
         
-        
+        btnTest.addActionListener(this);
         btnRap1.addActionListener(this);
         btnRap2.addActionListener(this);
         btnRap3.addActionListener(this);
@@ -471,14 +494,41 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
        
 
     }
+	 private ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
+	        Image image = icon.getImage();
+	        Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+	        return new ImageIcon(newImage);
+	    }
 
+	 private void capNhatHinhAnh(String duongDanMoi) {
+	        duongDanHinhAnh = duongDanMoi;
+	        ImageIcon imageIconMoi = new ImageIcon(duongDanHinhAnh);
+	        lblPhimDoremon.setIcon(imageIconMoi); 
+	        lblPhimDoremon.setIcon(resizeImageIcon(imageIconMoi, widthImg , heightImg));
+	    }
+//	public static void capNhatTenPhim(String tenPhimMoi) {
+//		lblTitle.setText(tenPhimMoi);
+//    }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	    Object o = e.getSource();
-
+	    if(o.equals(btnTest)) {
+	    	lblTitle.setText("PHIM: "+gdChonPhim.getTenPhim());
+	    	
+	    	String duongDanMoi = "img/"+gdChonPhim.getPosterPath();
+            capNhatHinhAnh(duongDanMoi);                       
+	        revalidate();
+	        repaint();
+	    	
+	        
+	    	
+	    }
 	 // Xử lý sự kiện cho các nút
 	    if (o instanceof JButton) {
+
+//	        JOptionPane.showMessageDialog(null, new GiaoDienChonPhim().getTenPhim());
+//	        JOptionPane.showMessageDialog(null, new GiaoDienChonPhim().getPosterPath());
 	        JButton selectedButton = (JButton) o;
 
 	        // Hủy màu của nút trước đó nếu có
