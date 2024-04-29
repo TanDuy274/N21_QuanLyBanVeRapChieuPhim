@@ -152,6 +152,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		btnDatVe.addActionListener(this);
 		btnQLKhachhang.addActionListener(this);
 		btnQuanLi.addActionListener(this);
+		btnDangxuat.addActionListener(this);
 
 	}
 
@@ -183,10 +184,12 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 			mainFrame.displayContent("QlKhachHang");
 		} else if (source.equals(btnQuanLi)) {
 			mainFrame.displayContent("QlPhim");
+		}else if(source.equals(btnDangxuat)) {
+			 mainFrame.hienThiGiaoDienDangNhap();
 		}
 
 	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 

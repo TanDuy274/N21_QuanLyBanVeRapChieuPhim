@@ -18,6 +18,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 
@@ -156,7 +157,116 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
 
         this.add(wrapPanel, BorderLayout.CENTER);
         
+<<<<<<< HEAD
         movieList.addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
+=======
+        // Add event
+        tfSearch.addFocusListener(this);
+        comboCategory.addActionListener(this);
+     // Sử dụng SwingWorker để tải dữ liệu phim từ cơ sở dữ liệu
+        LoadMovieWorker worker = new LoadMovieWorker();
+        worker.execute();
+        
+        // Load danh sách phim từ database vào panel
+       // loadMovieFromDatabase();
+    }
+ // Lớp SwingWorker để thực hiện tác vụ tải dữ liệu từ cơ sở dữ liệu trong một luồng con
+    class LoadMovieWorker extends SwingWorker<Void, Void> {
+        @Override
+        protected Void doInBackground() throws Exception {
+            loadMovieFromDatabase(); // Tải dữ liệu từ cơ sở dữ liệu
+            return null;
+        }
+
+        @Override
+        protected void done() {
+            try {
+                // Cập nhật giao diện sau khi tải xong
+                get(); // Đợi cho đến khi tác vụ hoàn thành
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void loadCategoryToComboBox() {
+    	List<LoaiPhim> categoryList = categoryDAO.getAllLoaiPhim();
+    	for (LoaiPhim loaiPhim : categoryList) {
+			comboCategory.addItem(loaiPhim.getTenLoaiPhim());
+		}
+    }
+    
+    private void loadMovieFromDatabase() {
+    	List<Phim> movieList = movieDAO.getAllPhim();
+    	List<LoaiPhim> categoryList = categoryDAO.getAllLoaiPhim();
+    	
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(25, 25, 25, 25); // Khoảng cách giữa các ô
+//        for (int i = 0; i < 12; i++) { // hiển thị 12 phim
+//            JPanel moviePanel = createMoviePanel("img//cai-gia-cua-hanh-phuc.jpg", 
+//            		"Tên phim " + (i + 1), "Hành động", 130, "Mã");
+//            
+//            midContainer.add(moviePanel, gbc);
+//            gbc.gridx++;
+//            if (gbc.gridx > 3) { // Số cột tối đa là 4, sau đó chuyển sang hàng mới
+//                gbc.gridx = 0;
+//                gbc.gridy++;
+//            }
+//        }
+
+        for (Phim movie : movieList) {
+        	for (LoaiPhim loaiPhim : categoryList) {
+				if (movie.getLoaiPhim().getMaLoaiPhim().equals(loaiPhim.getMaLoaiPhim())) {
+					
+					JPanel moviePanel = createMoviePanel("img//" + movie.getPoster(), 
+							movie.getTenPhim(), loaiPhim.getTenLoaiPhim(), movie.getThoiLuong(), movie.getMaPhim());
+					
+					midContainer.add(moviePanel, gbc);
+					gbc.gridx++;
+					if (gbc.gridx > 3) { // Số cột tối đa là 4, sau đó chuyển sang hàng mới
+						gbc.gridx = 0;
+						gbc.gridy++;
+					}
+				}
+			}
+		}
+    }
+    
+
+    // Tạo một panel cho mỗi phim
+    private JPanel createMoviePanel(String posterPath, String title, String genre, double length, String maphim) { //, String director
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        ImageIcon imgTmp = new ImageIcon(posterPath);
+        Image scaled = scaleImage(imgTmp.getImage(), 240, 285); // 190 285
+        ImageIcon poster = new ImageIcon(scaled);
+        JLabel posterLabel = new JLabel(poster);
+        
+        Box bMovieDesc = Box.createVerticalBox();
+        String truncatedTitle = title.length() > 30 ? title.substring(0, 30) + "..." : title;
+        JLabel titleLabel = new JLabel(truncatedTitle);
+
+        // Thiết lập kích thước cố định cho tiêu đề
+        titleLabel.setPreferredSize(new Dimension(100, 30));
+
+        titleLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+//        JLabel directorLabel = new JLabel(director); // Đạo diễn
+        JLabel genreLabel = new JLabel("Thể loại: " + genre);
+        JLabel lengthLabel = new JLabel("Thời lượng: " + length + " phút");
+        bMovieDesc.add(titleLabel);
+//        bMovieDesc.add(directorLabel);
+        bMovieDesc.add(genreLabel);
+        bMovieDesc.add(lengthLabel);
+        
+        btnBooking = new JButton("Đặt vé");
+        btnBooking.setBackground(new Color(00, 153, 255));
+        btnBooking.setForeground(Color.white);
+        btnBooking.setPreferredSize(new Dimension(0, 30));
+        btnBooking.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        // gắn sự kiện
+        btnBooking.addActionListener(new ActionListener() {
+>>>>>>> b51fc111cd30e8548e038f3f4619a3325b808999
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
