@@ -39,5 +39,14 @@ public class GiaoDienChinh extends JFrame {
             }
         });
     }
+
+	public void hienThiGiaoDienDangNhap() {
+		// Hiển thị giao diện đăng nhập
+	     DangNhap dangNhapUI = new DangNhap();
+	     dangNhapUI.setVisible(true);
+	    // Sau khi đăng nhập thành công, bạn cần ẩn giao diện hiện tại.
+	     setVisible(false);
+		
+	}
 }
 

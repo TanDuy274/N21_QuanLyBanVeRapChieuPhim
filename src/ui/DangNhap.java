@@ -68,7 +68,7 @@ public class DangNhap extends JFrame implements ActionListener {
         lblTiTle = new JLabel("ĐĂNG NHẬP");
         Font = new Font("Arial", Font.BOLD, 20);
         lblTiTle.setFont(Font);
-        Color orangeDark = Color.decode("#F23C21"); // Tạo màu cam tùy chỉnh
+        Color orangeDark = Color.orange; // Tạo màu cam tùy chỉnh
         lblTiTle.setForeground(orangeDark);
         pnTitle.add(lblTiTle);
         
@@ -155,20 +155,6 @@ public class DangNhap extends JFrame implements ActionListener {
 					txtName.requestFocus();
 			}
 		
-//		if (username.equals("nv") && password.equals("123")) {
-//			JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
-//			setVisible(false);
-//			new GiaoDienChinh().setVisible(true);
-//		}else if (username.isEmpty() || password.isEmpty()){
-//			JOptionPane.showMessageDialog(null, "Không được để trống!");
-//		}else
-//			JOptionPane.showMessageDialog(null, "Sai tên đăng nhập hoặc mật khẩu!");
-//			txtName.setText("");
-//			txtPass.setText("");
-//			txtName.requestFocus();
-//			setVisible(false);
-
-//		new GiaoDienChinh().setVisible(true);
 		
 	}
 }
