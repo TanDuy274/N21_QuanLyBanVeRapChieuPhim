@@ -18,6 +18,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 
@@ -133,11 +134,31 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         // Add event
         tfSearch.addFocusListener(this);
         comboCategory.addActionListener(this);
+     // Sử dụng SwingWorker để tải dữ liệu phim từ cơ sở dữ liệu
+        LoadMovieWorker worker = new LoadMovieWorker();
+        worker.execute();
         
         // Load danh sách phim từ database vào panel
-        loadMovieFromDatabase();
+       // loadMovieFromDatabase();
     }
-    
+ // Lớp SwingWorker để thực hiện tác vụ tải dữ liệu từ cơ sở dữ liệu trong một luồng con
+    class LoadMovieWorker extends SwingWorker<Void, Void> {
+        @Override
+        protected Void doInBackground() throws Exception {
+            loadMovieFromDatabase(); // Tải dữ liệu từ cơ sở dữ liệu
+            return null;
+        }
+
+        @Override
+        protected void done() {
+            try {
+                // Cập nhật giao diện sau khi tải xong
+                get(); // Đợi cho đến khi tác vụ hoàn thành
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     private void loadCategoryToComboBox() {
     	List<LoaiPhim> categoryList = categoryDAO.getAllLoaiPhim();
     	for (LoaiPhim loaiPhim : categoryList) {
