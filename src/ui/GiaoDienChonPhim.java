@@ -151,6 +151,8 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         movieList.setVisibleRowCount(-1); // hiển thị càng nhiều hàng càng tốt
         movieList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // chỉ cho phép chọn một phim
         JScrollPane scrollPane = new JScrollPane(movieList);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPane.getViewport().setScrollMode(JViewport.BACKINGSTORE_SCROLL_MODE);
         midPanel.add(scrollPane, BorderLayout.CENTER);	
         
         wrapPanel.add(scrollPane, BorderLayout.CENTER);

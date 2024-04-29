@@ -82,7 +82,9 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         titlePanel.add(lblTitle);
         
         
+//        GiaoDienChonPhim gd = new GiaoDienChonPhim();
         lblPhimDoremon = new JLabel(new ImageIcon("img/3_hiepsimongmo.jpg"));
+//        lblPhimDoremon = new JLabel(new ImageIcon("img/" + gd.getPosterPath()));
      
         JPanel imagePanel = new JPanel();
         imagePanel.add(lblPhimDoremon);
@@ -482,6 +484,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	    if (o instanceof JButton) {
 
 	        JOptionPane.showMessageDialog(null, new GiaoDienChonPhim().getTenPhim());
+//	        JOptionPane.showMessageDialog(null, new GiaoDienChonPhim().getPosterPath());
 	        JButton selectedButton = (JButton) o;
 
 	        // Hủy màu của nút trước đó nếu có
