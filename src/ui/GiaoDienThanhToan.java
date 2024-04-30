@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,6 +43,14 @@ public class GiaoDienThanhToan extends JPanel {
 	private JLabel lblThoiLuong;
 	private JLabel lblTheLoai;
 	private JLabel lblTongTien;
+	private JTextField txtTen;
+	private JTextField txtRap;
+	private JTextField txtPhong;
+	private JTextField txtSuatChieu;
+	private JTextField txtGhe;
+	private JTextField txtThoiLuong;
+	private JTextField txtTongTien;
+	private JTextField txtTheLoai;
 
     public GiaoDienThanhToan() {
         setLayout(new BorderLayout());
@@ -49,6 +58,10 @@ public class GiaoDienThanhToan extends JPanel {
         pnTitle = new JPanel(new FlowLayout(FlowLayout.LEFT,20,30));
         pnTitle.add(lblTitle1);
         add(pnTitle, BorderLayout.NORTH);
+        
+//      màu xanh chủ đạo: 
+		Color blueDark = new Color(0, 153, 255);
+
        
         String[] columnNames = {"Combo", "Số lượng", "Đơn giá(VNĐ)", "Tổng(VNĐ)"};
 
@@ -105,38 +118,95 @@ public class GiaoDienThanhToan extends JPanel {
 		Image scaledPhim = scaleImage(imgPhim.getImage(), 200, 280);
 		ImageIcon imgScaled = new ImageIcon(scaledPhim);
 		JLabel lblImgScaled = new JLabel(imgScaled);
-		pnThongTinPhim = new JPanel(new BorderLayout());
-		pnThongTinPhim.add(lblImgScaled, BorderLayout.WEST);
+//		pnThongTinPhim = new JPanel(new BorderLayout());
+		Box boxThongTinVe = Box.createHorizontalBox();
+		boxThongTinVe.add(lblImgScaled, BorderLayout.WEST);
+		
         //thông tin phim
-		lblTen = new JLabel("Tên:");
-		lblRap = new JLabel("Rạp:");
-		lblPhong = new JLabel("Phòng:");
-		lblSuatChieu = new JLabel("Xuất chiếu:");
-		lblGhe = new JLabel("Ghế:");
-		lblThoiLuong = new JLabel("Thời lượng:");
-		lblTheLoai = new JLabel("Thể loại:");
-		lblTongTien = new JLabel("Tổng tiền:");
+		lblTen = new JLabel("Tên:  ");
+		lblRap = new JLabel("Rạp:  ");
+		lblPhong = new JLabel("Phòng:  ");
+		lblSuatChieu = new JLabel("Xuất chiếu:  ");
+		lblGhe = new JLabel("Ghế:  ");
+		lblThoiLuong = new JLabel("Thời lượng:  ");
+		lblTheLoai = new JLabel("Thể loại:  ");
+		lblTongTien = new JLabel("Tổng tiền:  ");
+		txtTen = new JTextField("Quật mộ trùng ma");
+		txtRap = new JTextField("Galaxy");
+		txtPhong = new JTextField("1");
+		txtSuatChieu = new JTextField("21:00");
+		txtGhe = new JTextField("H5");
+		txtThoiLuong = new JTextField("1 giờ");
+		txtTheLoai = new JTextField("Kinh Dị");
+		txtTongTien = new JTextField("24000");
+		
+		// Định nghĩa màu trong suốt
+		Color transparentColor = new Color(255, 255, 255, 100); // 100 là độ mờ, giá trị nằm trong khoảng từ 0 đến 255
+		Color systemColor = new Color(0xF0F0F0); 
+		
+		// Đặt màu nền trong suốt cho các JTextField
+		txtTen.setBackground(systemColor);
+		txtRap.setBackground(systemColor);
+		txtPhong.setBackground(systemColor);
+		txtSuatChieu.setBackground(systemColor);
+		txtGhe.setBackground(systemColor);
+		txtThoiLuong.setBackground(systemColor);
+		txtTheLoai.setBackground(systemColor);
+		txtTongTien.setBackground(systemColor);
+		
+		// Đặt border cho JTextField
+        
+		Border border = BorderFactory.createLineBorder(systemColor);
+		txtTen.setBorder(border);
+		txtRap.setBorder(border);
+		txtPhong.setBorder(border);
+		txtSuatChieu.setBorder(border);
+		txtGhe.setBorder(border);
+		txtThoiLuong.setBorder(border);
+		txtTheLoai.setBorder(border);
+		txtTongTien.setBorder(border);
+	        
+		
+		Box boxTen = Box.createHorizontalBox();
+		Box boxRap = Box.createHorizontalBox();
+		Box boxPhong = Box.createHorizontalBox();
+		Box boxSuatChieu = Box.createHorizontalBox();
+		Box boxGhe = Box.createHorizontalBox();
+		Box boxThoiLuong = Box.createHorizontalBox();
+		Box boxTheLoai = Box.createHorizontalBox();
+		Box boxTongTien = Box.createHorizontalBox();
+		
+		boxTen.add(lblTen); boxTen.add(txtTen);
+		boxRap.add(lblRap); boxRap.add(txtRap);
+		boxPhong.add(lblPhong); boxPhong.add(txtPhong);
+		boxSuatChieu.add(lblSuatChieu); boxSuatChieu.add(txtSuatChieu);
+		boxGhe.add(lblGhe); boxGhe.add(txtGhe);
+		boxThoiLuong.add(lblThoiLuong); boxThoiLuong.add(txtThoiLuong);
+		boxTheLoai.add(lblTheLoai); boxTheLoai.add(txtTheLoai);
+		boxTongTien.add(lblTongTien); boxTongTien.add(txtTongTien);
+		
 		Box boxThongTinPhim = Box.createVerticalBox();
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblTen);
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblRap);
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblPhong);
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblSuatChieu);
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblGhe);
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblThoiLuong);
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblTheLoai);
-		boxThongTinPhim.add(Box.createVerticalStrut(10));
-		boxThongTinPhim.add(lblTongTien);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxTen);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxRap);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxPhong);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxSuatChieu);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxGhe);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxThoiLuong);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxTheLoai);
+		boxThongTinPhim.add(Box.createVerticalStrut(12));
+		boxThongTinPhim.add(boxTongTien);
 		// Đặt khoảng cách từ lề trái
 		boxThongTinPhim.setAlignmentX(Component.LEFT_ALIGNMENT);
-		boxThongTinPhim.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0)); // Cách trái 15px
-		pnThongTinPhim.add(boxThongTinPhim, BorderLayout.CENTER);
+		boxThongTinPhim.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0)); // Cách trái 50px
+		boxThongTinVe.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 0)); // Cách trái 15px
+		boxThongTinVe.add(boxThongTinPhim, BorderLayout.CENTER);
 		
         pnThongTin = new  JPanel();
         radioButtonDaCoThe = new JRadioButton("Đã có thẻ thành viên");
@@ -158,27 +228,28 @@ public class GiaoDienThanhToan extends JPanel {
         txtGhiChu = new JTextArea(2,40);
         JScrollPane scrollPaneGhiChu = new JScrollPane(txtGhiChu);
         btnThanhtoan = new JButton("Thanh toán");
-//        txtSDT.setPreferredSize(new Dimension(40, 25));
-//        txtHoTen.setPreferredSize(new Dimension(40, 25));
-//        txtTuoi.setPreferredSize(new Dimension(40,25));
+        btnThanhtoan.setBackground(blueDark);
+        txtSDT.setPreferredSize(new Dimension(40, 30));
+        txtHoTen.setPreferredSize(new Dimension(40, 30));
+        txtTuoi.setPreferredSize(new Dimension(40,30));
       
-        pnSDT = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
+        pnSDT = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,5));
         pnSDT.add(lblSDT); pnSDT.add(txtSDT);
-        pnHoTen = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
+        pnHoTen = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,8));
         pnHoTen.add(lblHoTen); pnHoTen.add(txtHoTen);
-        pnTuoi = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
+        pnTuoi = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
         pnTuoi.add(lblTuoi); pnTuoi.add(txtTuoi);
-        pnGhiChu = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
+        pnGhiChu = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
         pnGhiChu.add(lblGhiChu); pnGhiChu.add(scrollPaneGhiChu);
         
-       
-        pnThongTin.add(pnThongTinPhim);
-        pnThongTin.add(radioPanel);
-        pnThongTin.add(pnSDT);
-        pnThongTin.add(pnHoTen);
-        pnThongTin.add(pnTuoi);
-        pnThongTin.add(pnGhiChu);
-        pnThongTin.add(btnThanhtoan);
+        Box boxThongTin = Box.createVerticalBox();
+        boxThongTin.add(boxThongTinVe);
+        boxThongTin.add(radioPanel);
+        boxThongTin.add(pnSDT);
+        boxThongTin.add(pnHoTen);
+        boxThongTin.add(pnTuoi);
+        boxThongTin.add(pnGhiChu);
+        boxThongTin.add(btnThanhtoan);
         
         radioButtonDaCoThe.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -251,7 +322,7 @@ public class GiaoDienThanhToan extends JPanel {
         buttonGroup.add(radioButtonKhongThe);
         
         add(box, BorderLayout.WEST);
-        add(pnThongTin, BorderLayout.CENTER);
+        add(boxThongTin, BorderLayout.CENTER);
         
     }
 
