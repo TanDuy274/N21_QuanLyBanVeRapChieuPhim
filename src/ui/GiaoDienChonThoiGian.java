@@ -9,13 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
-	 private int widthImg = 380; 
-	 private int heightImg = 500; 
+	 private static int widthImg = 380; 
+	 private static int heightImg = 500; 
 	JButton currentSelectedButton = null;
     private static JLabel lblTitle;
 	private ImageIcon phimDoremon;
 	private Object scaled7;
-	private JLabel lblPhimDoremon;
+	private static JLabel lblPhimDoremon;
 	private JButton btnSuatChieu1;
 	private JPanel pnSuatChieu;
 	private JButton btnSuatChieu2;
@@ -70,8 +70,8 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	private JTextField txtSoThoiGian;
 	
 	private JButton btnTest;
-	private GiaoDienChonPhim gdChonPhim;
-	private String duongDanHinhAnh;
+	private static GiaoDienChonPhim gdChonPhim;
+	private static String duongDanHinhAnh;
 
 	public GiaoDienChonThoiGian() {
         setLayout(new BorderLayout());
@@ -434,7 +434,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
         pnThoiGian.add(pnNgay);        
         pnThoiGian.add(pnSuatChieu);
         pnThoiGian.add(pnThongTin);
-        pnThoiGian.add(btnTest);
+//        pnThoiGian.add(btnTest);
       
         pnRap.setBorder(BorderFactory.createTitledBorder("Chọn Phòng"));
         pnSuatChieu.setBorder(BorderFactory.createTitledBorder("Chọn Suất Chiếu"));   
@@ -494,21 +494,35 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
        
 
     }
-	 private ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
+	 private static ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
 	        Image image = icon.getImage();
 	        Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 	        return new ImageIcon(newImage);
 	    }
 
-	 private void capNhatHinhAnh(String duongDanMoi) {
-	        duongDanHinhAnh = duongDanMoi;
-	        ImageIcon imageIconMoi = new ImageIcon(duongDanHinhAnh);
-	        lblPhimDoremon.setIcon(imageIconMoi); 
-	        lblPhimDoremon.setIcon(resizeImageIcon(imageIconMoi, widthImg , heightImg));
+//	 private void capNhatHinhAnh(String duongDanMoi) {
+//	        duongDanHinhAnh = duongDanMoi;
+//	        ImageIcon imageIconMoi = new ImageIcon(duongDanHinhAnh);
+//	        lblPhimDoremon.setIcon(imageIconMoi); 
+//	        lblPhimDoremon.setIcon(resizeImageIcon(imageIconMoi, widthImg , heightImg));
+//	        
+//	    }
+	 public static void capNhatHinhAnh(String duongDanMoi) {
+		    if (!duongDanHinhAnh.equals(duongDanMoi)) { 
+		        duongDanHinhAnh = duongDanMoi;
+		        ImageIcon imageIconMoi = new ImageIcon(duongDanHinhAnh);
+		        lblPhimDoremon.setIcon(imageIconMoi); 
+		        lblPhimDoremon.setIcon(resizeImageIcon(imageIconMoi, widthImg , heightImg));
+		        
+		        duongDanMoi = "img/" + gdChonPhim.getPosterPath();
+		        capNhatHinhAnh(duongDanMoi);   
+		    }
+		}
+
+	 public static void layThongTinPhim(String tenPhim) {
+		 lblTitle.setText(tenPhim);	        
 	    }
-//	public static void capNhatTenPhim(String tenPhimMoi) {
-//		lblTitle.setText(tenPhimMoi);
-//    }
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
