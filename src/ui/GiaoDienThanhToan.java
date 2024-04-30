@@ -32,22 +32,34 @@ public class GiaoDienThanhToan extends JPanel {
 	private JPanel pnTuoi;
 	private JPanel pnTien;
 	private JPanel pnLeft;
+	private ImageIcon imgQLKhachhang;
+	private JPanel pnThongTinPhim;
+	private JLabel lblTen;
+	private JLabel lblRap;
+	private JLabel lblSuatChieu;
+	private JLabel lblPhong;
+	private JLabel lblGhe;
+	private JLabel lblThoiLuong;
+	private JLabel lblTheLoai;
+	private JLabel lblTongTien;
 
     public GiaoDienThanhToan() {
         setLayout(new BorderLayout());
         lblTitle1 = new JLabel("Chọn bắp/nước");
-        pnTitle = new JPanel(new FlowLayout(FlowLayout.LEFT,20,80));
+        pnTitle = new JPanel(new FlowLayout(FlowLayout.LEFT,20,30));
         pnTitle.add(lblTitle1);
         add(pnTitle, BorderLayout.NORTH);
        
         String[] columnNames = {"Combo", "Số lượng", "Đơn giá(VNĐ)", "Tổng(VNĐ)"};
 
         Object[][] data = {
-                {"Pepsi vị chanh lớn", 0, 50000, 0},
-                {"Bắp rang bơ vị phô mai vừa", 0, 50000, 0},
-                {"Bắp rang bơ vị phô mai lớn", 0, 60000, 0},
-                {"Pepsi vị chanh vừa", 0, 40000, 0}
-        };
+                {"Bắp + Pepsi vị chanh lớn", 0, 60000, 0},
+                {"Bắp + Pepsi vị chanh vừa", 0, 80000, 0},
+                {"Bắp + Pepsi vị chanh lớn", 0, 100000, 0},
+                {"Bắp rang bơ vị phô mai nhỏ", 0, 80000, 0},
+                {"Bắp rang bơ vị phô mai vừa", 0, 100000,0},
+                {"Bắp rang bơ vị phô mai lớn", 0, 12000,0}
+        	};
 
         //BẢNG
         JTable table = new JTable(data, columnNames);
@@ -84,16 +96,56 @@ public class GiaoDienThanhToan extends JPanel {
         
         Box box = Box.createVerticalBox();
         box.add(scrollPane);
-//        box.add(pnTien);
+        //box.add(pnTien);
     
         
         // THÔNG TIN KHÁCH HÀNG, THANH TOÁN
+        // ẢNH PHIM
+		ImageIcon imgPhim = new ImageIcon("img/quat-mo-trung-ma.jpg");
+		Image scaledPhim = scaleImage(imgPhim.getImage(), 200, 280);
+		ImageIcon imgScaled = new ImageIcon(scaledPhim);
+		JLabel lblImgScaled = new JLabel(imgScaled);
+		pnThongTinPhim = new JPanel(new BorderLayout());
+		pnThongTinPhim.add(lblImgScaled, BorderLayout.WEST);
+        //thông tin phim
+		lblTen = new JLabel("Tên:");
+		lblRap = new JLabel("Rạp:");
+		lblPhong = new JLabel("Phòng:");
+		lblSuatChieu = new JLabel("Xuất chiếu:");
+		lblGhe = new JLabel("Ghế:");
+		lblThoiLuong = new JLabel("Thời lượng:");
+		lblTheLoai = new JLabel("Thể loại:");
+		lblTongTien = new JLabel("Tổng tiền:");
+		Box boxThongTinPhim = Box.createVerticalBox();
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblTen);
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblRap);
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblPhong);
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblSuatChieu);
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblGhe);
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblThoiLuong);
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblTheLoai);
+		boxThongTinPhim.add(Box.createVerticalStrut(10));
+		boxThongTinPhim.add(lblTongTien);
+		// Đặt khoảng cách từ lề trái
+		boxThongTinPhim.setAlignmentX(Component.LEFT_ALIGNMENT);
+		boxThongTinPhim.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0)); // Cách trái 15px
+		pnThongTinPhim.add(boxThongTinPhim, BorderLayout.CENTER);
+		
         pnThongTin = new  JPanel();
         radioButtonDaCoThe = new JRadioButton("Đã có thẻ thành viên");
         radioButtonLamThe = new JRadioButton("Làm thẻ thành viên");
         radioButtonKhongThe = new JRadioButton("Không có thẻ thành viên");
-        
-        
+        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,20));
+        radioPanel.add(radioButtonDaCoThe);
+        radioPanel.add(radioButtonLamThe);
+        radioPanel.add(radioButtonKhongThe);
         
         
         lblSDT = new JLabel("Số điện thoại:");
@@ -103,23 +155,25 @@ public class GiaoDienThanhToan extends JPanel {
         lblTuoi = new JLabel("Tuổi");
         txtTuoi = new JTextField(40);
         lblGhiChu = new JLabel("Ghi chú:");
-        txtGhiChu = new JTextArea(3,40);
+        txtGhiChu = new JTextArea(2,40);
         JScrollPane scrollPaneGhiChu = new JScrollPane(txtGhiChu);
         btnThanhtoan = new JButton("Thanh toán");
+//        txtSDT.setPreferredSize(new Dimension(40, 25));
+//        txtHoTen.setPreferredSize(new Dimension(40, 25));
+//        txtTuoi.setPreferredSize(new Dimension(40,25));
       
-        pnSDT = new JPanel(new FlowLayout(FlowLayout.RIGHT,30,10));
+        pnSDT = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
         pnSDT.add(lblSDT); pnSDT.add(txtSDT);
-        pnHoTen = new JPanel(new FlowLayout(FlowLayout.RIGHT,30,10));
+        pnHoTen = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
         pnHoTen.add(lblHoTen); pnHoTen.add(txtHoTen);
-        pnTuoi = new JPanel(new FlowLayout(FlowLayout.RIGHT,30,10));
+        pnTuoi = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
         pnTuoi.add(lblTuoi); pnTuoi.add(txtTuoi);
-        pnGhiChu = new JPanel(new FlowLayout(FlowLayout.RIGHT,30,10));
+        pnGhiChu = new JPanel(new FlowLayout(FlowLayout.LEFT,30,5));
         pnGhiChu.add(lblGhiChu); pnGhiChu.add(scrollPaneGhiChu);
         
        
-        pnThongTin.add(radioButtonLamThe);
-        pnThongTin.add(radioButtonDaCoThe);
-        pnThongTin.add(radioButtonKhongThe);
+        pnThongTin.add(pnThongTinPhim);
+        pnThongTin.add(radioPanel);
         pnThongTin.add(pnSDT);
         pnThongTin.add(pnHoTen);
         pnThongTin.add(pnTuoi);
@@ -203,7 +257,20 @@ public class GiaoDienThanhToan extends JPanel {
 
   
 
-    // Renderer để chèn hình ảnh vào bên trái của văn bản
+
+
+
+	private Image scaleImage(Image image, int i, int j) {
+		Image scaled = image.getScaledInstance(i, j, Image.SCALE_SMOOTH);
+		return scaled;
+	}
+
+
+
+
+
+
+	// Renderer để chèn hình ảnh vào bên trái của văn bản
     static class ImageTextRenderer extends DefaultTableCellRenderer {
         private JLabel label = new JLabel();
 
