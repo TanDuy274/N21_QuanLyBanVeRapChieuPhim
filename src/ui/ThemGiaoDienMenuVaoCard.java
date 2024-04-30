@@ -15,10 +15,16 @@ public class ThemGiaoDienMenuVaoCard extends JPanel {
         QuanLyPhim movieManagementPanel = new QuanLyPhim();
         ChucNangDatVe ticketBookingPanel = new ChucNangDatVe();
         QuanLyKhachHang customerManagementPanel = new QuanLyKhachHang();
+        QuanLyHoaDon qlhd = new QuanLyHoaDon();
+        QuanLyTheThanhVien qlttv = new QuanLyTheThanhVien();
+        
         
         cardPanel.add(movieManagementPanel, "QlPhim");
         cardPanel.add(ticketBookingPanel, "QlBanVe");
         cardPanel.add(customerManagementPanel, "QlKhachHang");
+        cardPanel.add(qlhd, "QlHoaDon");
+        cardPanel.add(qlttv, "QlTheThanhVien");
+
         
 
         setLayout(new BorderLayout());
