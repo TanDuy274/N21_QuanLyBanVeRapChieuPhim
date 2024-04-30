@@ -85,10 +85,10 @@ public class TheThanhVien_DAO {
            
             pstmt.executeUpdate();
             
-            System.out.println("Thêm thành viên thành công.");
+            System.out.println("Thêm thẻ thành viên thành công.");
         } catch (SQLException e) {
-            System.out.println("Lỗi khi thêm thành viên: " + e.getMessage());
-        } finally {
+            System.out.println("Lỗi khi thêm thẻ thành viên: " + e.getMessage());
+        } finally { 
          
             if (pstmt != null) {
                 try {
