@@ -15,6 +15,7 @@ public class LoaiPhim_DAO {
 		try {
 			ConnectDB.getIntance();
 			Connection con = ConnectDB.getConnection();
+			
 			String sql = "select * from LoaiPhim";
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(sql);

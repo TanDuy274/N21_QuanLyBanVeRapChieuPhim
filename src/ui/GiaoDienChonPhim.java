@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -35,6 +37,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
 
     private Phim_DAO movieDAO;
     private LoaiPhim_DAO categoryDAO;
+	private JPanel midPanel;
 
     // biến global để lưu trữ thông tin phim
     public static String maPhimVar;
@@ -50,7 +53,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
     }
     
     public void setTenPhim(String tenPhimVar) {
-    	this.tenPhimVar = tenPhimVar;
+    	GiaoDienChonPhim.tenPhimVar = tenPhimVar;
     }
     
     public String getMaPhim() {
@@ -59,7 +62,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
     
     
     public void setMaPhim(String maPhimVar) {
-    	this.maPhimVar = maPhimVar;
+    	GiaoDienChonPhim.maPhimVar = maPhimVar;
     }
     
     public String getPosterPath() {
@@ -67,7 +70,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
     }
     
     public void setPosterPath(String posterPathVar) {
-    	this.posterPathVar = posterPathVar;
+    	GiaoDienChonPhim.posterPathVar = posterPathVar;
     }
     
     
@@ -141,7 +144,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         wrapPanel.add(topPanel, BorderLayout.NORTH);
 
         // Container phim
-        JPanel midPanel = new JPanel();
+         midPanel = new JPanel();
         midPanel.setLayout(new BorderLayout());
 
         movieListModel = new DefaultListModel<>();
@@ -156,7 +159,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         scrollPane.getViewport().setScrollMode(JViewport.BACKINGSTORE_SCROLL_MODE);
         midPanel.add(scrollPane, BorderLayout.CENTER);	
         
-        wrapPanel.add(scrollPane, BorderLayout.CENTER);
+        wrapPanel.add(midPanel, BorderLayout.CENTER);
 
         this.add(wrapPanel, BorderLayout.CENTER);
         
@@ -177,6 +180,21 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
                             + "\nMã: " + maPhimVar);
                     }
                 }
+            }
+        });
+        
+        // hover
+        movieList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Change cursor to hand when mouse enters the area of the list cell
+                movieList.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Change cursor back to default when mouse exits the area of the list cell
+                movieList.setCursor(Cursor.getDefaultCursor());
             }
         });
 
@@ -219,8 +237,15 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
 
         public PhimListRenderer() {
             setLayout(new BorderLayout());
-            setPreferredSize(new Dimension(320, 420)); // scroll dọc
-//            setPreferredSize(new Dimension(420, 600)); // scroll ngang
+            // Lấy kích thước của màn hình
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int screenWidth = (int) screenSize.getWidth();
+            int screenHeight = (int) screenSize.getHeight();
+
+            // Thiết lập kích thước dựa trên kích thước của màn hình
+            int preferredWidth = (screenWidth - 240) / 4; 
+            int preferredHeight = screenHeight / 2; 
+            setPreferredSize(new Dimension(preferredWidth, preferredHeight));
             
             add(posterLabel, BorderLayout.NORTH);
             Box bMovieDesc = Box.createVerticalBox();
@@ -239,8 +264,17 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         public Component getListCellRendererComponent(JList<? extends Phim> list, Phim value, int index,
                                                       boolean isSelected, boolean cellHasFocus) {
             ImageIcon poster = new ImageIcon("img//" + value.getPoster());
-            Image scaled = scaleImage(poster.getImage(), 270, 320); // scroll dọc
+//            Image scaled = scaleImage(poster.getImage(), 240, 320); // scroll dọc
 //            Image scaled = scaleImage(poster.getImage(), 370, 480); // scroll ngang
+            
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int screenWidth = (int) screenSize.getWidth();
+            int screenHeight = (int) screenSize.getHeight();
+            int preferredWidth = (screenWidth - 240) / 4; 
+            int preferredHeight = screenHeight / 2; 
+            setPreferredSize(new Dimension(preferredWidth, preferredHeight));
+            Image scaled = scaleImage(poster.getImage(), preferredWidth, preferredHeight - 100);
+            
             posterLabel.setIcon(new ImageIcon(scaled));
             titleLabel.setText(value.getTenPhim());
             String loai = "";
