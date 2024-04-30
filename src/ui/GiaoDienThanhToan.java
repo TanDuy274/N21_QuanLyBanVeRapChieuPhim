@@ -30,6 +30,8 @@ public class GiaoDienThanhToan extends JPanel {
 	private JLabel lblTuoi;
 	private JTextField txtTuoi;
 	private JPanel pnTuoi;
+	private JPanel pnTien;
+	private JPanel pnLeft;
 
     public GiaoDienThanhToan() {
         setLayout(new BorderLayout());
@@ -49,7 +51,7 @@ public class GiaoDienThanhToan extends JPanel {
 
         //BẢNG
         JTable table = new JTable(data, columnNames);
-        table.setPreferredScrollableViewportSize(new Dimension(600, 200));
+        table.setPreferredScrollableViewportSize(new Dimension(600, 150));
         table.setGridColor(Color.WHITE); // Set màu của đường biên
         table.setBorder(BorderFactory.createEmptyBorder()); // Đặt đường biên trống
         table.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font chữ
@@ -77,11 +79,13 @@ public class GiaoDienThanhToan extends JPanel {
         //  HẾT BANG
         
         lblTien = new JLabel("Tiền sản phẩm:");
-       
+        pnTien = new JPanel(new FlowLayout(FlowLayout.RIGHT,20,10));
+        pnTien.add(lblTien);
+        
         Box box = Box.createVerticalBox();
         box.add(scrollPane);
-        box.add(lblTien);
-        
+//        box.add(pnTien);
+    
         
         // THÔNG TIN KHÁCH HÀNG, THANH TOÁN
         pnThongTin = new  JPanel();
