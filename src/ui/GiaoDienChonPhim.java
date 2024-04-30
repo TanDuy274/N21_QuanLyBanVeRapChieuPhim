@@ -238,14 +238,15 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         public PhimListRenderer() {
             setLayout(new BorderLayout());
             // Lấy kích thước của màn hình
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension screenSize = midPanel.getSize();
             int screenWidth = (int) screenSize.getWidth();
             int screenHeight = (int) screenSize.getHeight();
 
             // Thiết lập kích thước dựa trên kích thước của màn hình
-            int preferredWidth = (screenWidth - 240) / 4; 
-            int preferredHeight = screenHeight / 2; 
-            setPreferredSize(new Dimension(preferredWidth, preferredHeight));
+            int preferredWidth = (screenWidth - 20) / 4; 
+            float preferredHeight = (float) (screenHeight / 1.5); 
+            setPreferredSize(new Dimension(preferredWidth, (int)preferredHeight));
             
             add(posterLabel, BorderLayout.NORTH);
             Box bMovieDesc = Box.createVerticalBox();
@@ -264,16 +265,13 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
         public Component getListCellRendererComponent(JList<? extends Phim> list, Phim value, int index,
                                                       boolean isSelected, boolean cellHasFocus) {
             ImageIcon poster = new ImageIcon("img//" + value.getPoster());
-//            Image scaled = scaleImage(poster.getImage(), 240, 320); // scroll dọc
-//            Image scaled = scaleImage(poster.getImage(), 370, 480); // scroll ngang
-            
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension screenSize = midPanel.getSize();
             int screenWidth = (int) screenSize.getWidth();
             int screenHeight = (int) screenSize.getHeight();
-            int preferredWidth = (screenWidth - 240) / 4; 
-            int preferredHeight = screenHeight / 2; 
-            setPreferredSize(new Dimension(preferredWidth, preferredHeight));
-            Image scaled = scaleImage(poster.getImage(), preferredWidth, preferredHeight - 100);
+            int preferredWidth = (screenWidth - 20) / 4; 
+            float preferredHeight = (float) (screenHeight / 1.5); 
+            setPreferredSize(new Dimension(preferredWidth, (int)preferredHeight));
+            Image scaled = scaleImage(poster.getImage(), preferredWidth, (int)preferredHeight - 100);
             
             posterLabel.setIcon(new ImageIcon(scaled));
             titleLabel.setText(value.getTenPhim());
@@ -287,8 +285,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
             genreLabel.setText("Thể loại: " + loai);
             lengthLabel.setText("Thời lượng: " + value.getThoiLuong() + " phút");
             
-            setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20)); // scroll dọc
-//            setBorder(BorderFactory.createEmptyBorder(25, 20, 25, 20)); //scroll ngang
+            setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
    
             return this;
         }
