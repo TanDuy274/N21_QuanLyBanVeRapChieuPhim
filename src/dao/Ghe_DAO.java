@@ -12,12 +12,16 @@ import ui.Ghe;
 
 public class Ghe_DAO {
 	public ArrayList<entity.Ghe> getAllGhe() {
+		
 		ArrayList<entity.Ghe> dsGhe = new ArrayList<entity.Ghe>();
 		try {
 			ConnectDB.getIntance();
 			Connection con = ConnectDB.getConnection();
-			String sql = "select * from Ghe";
+			
+			
 			Statement statement = con.createStatement();
+			String sql = "select * from Ghe";
+			
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
 				String maGhe = rs.getString("maGhe");
@@ -32,4 +36,6 @@ public class Ghe_DAO {
 		}
 		return dsGhe;
 	}
+	
+	
 }
