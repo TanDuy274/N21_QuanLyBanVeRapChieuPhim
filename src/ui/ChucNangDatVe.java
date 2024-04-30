@@ -35,8 +35,8 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
         nextButton = new JButton("Tiếp tục");
         prevButton = new JButton("Trở về");
         
-        nextButton.setBackground(Color.orange);
-        prevButton.setBackground(Color.orange);
+        nextButton.setBackground(new Color(108, 126, 225));
+        prevButton.setBackground(new Color(108, 126, 225));
         
         nextButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
         prevButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
