@@ -8,11 +8,19 @@ import javax.swing.table.JTableHeader;
 
 import com.toedter.calendar.JDateChooser;
 
+import connectDB.ConnectDB;
+import dao.LoaiPhim_DAO;
+import dao.Phim_DAO;
+import entity.LoaiPhim;
+import entity.Phim;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -37,8 +45,20 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 	private CustomButton btnReset;
 	private DefaultTableModel modelPhim;
 	private JTable tablePhim;
+	private Phim_DAO movieDAO;
+	private LoaiPhim_DAO categoryDAO;
 
 	public QuanLyPhim() {
+		
+		try {
+            ConnectDB.getIntance().connect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        movieDAO = new Phim_DAO();
+        categoryDAO = new LoaiPhim_DAO();
+		
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 //        add(new JLabel("Giao diện quản lý phim"), BorderLayout.CENTER);
@@ -79,6 +99,7 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		comboCategory = new JComboBox<String>();
 		comboCategory.setBorder(new LineBorder(new Color(00, 153, 255), 2, getFocusTraversalKeysEnabled()));
 		comboCategory.addItem("Tất cả");
+		loadCategoryToComboBox();
 
 		bSearch1.add(lblSearchName);
 		bSearch1.add(Box.createHorizontalStrut(10));
@@ -195,14 +216,14 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		tablePhim.setShowGrid(true);
 		tablePhim.setBackground(Color.WHITE);
 		tablePhim.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		tablePhim.setSelectionBackground(new Color(164, 44, 167, 30));
-		tablePhim.setSelectionForeground(new Color(114, 23, 153));
+		tablePhim.setSelectionBackground(new Color(00, 153, 255, 30));
+		tablePhim.setSelectionForeground(new Color(00, 153, 255));
 		tablePhim.setRowHeight(30);
 		
 		JTableHeader tableHeader = tablePhim.getTableHeader();
 		tableHeader.setBackground(new Color(00, 153, 255));
 		tableHeader.setForeground(Color.white);
-		tableHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
+		tableHeader.setFont(new Font("Helvetica", Font.BOLD, 14));
 
 		// thanh cuốn lên xuống
 		JScrollPane scrollPhim = new JScrollPane(tablePhim, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -218,9 +239,31 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		tfSearchName.addFocusListener(this);
 		btnAdd.addActionListener(this);
 		btnUpdate.addActionListener(this);
-		
+		loadMovieToTable();
 		
 	}
+	
+	private void loadCategoryToComboBox() {
+        List<LoaiPhim> categoryList = categoryDAO.getAllLoaiPhim();
+        for (LoaiPhim loaiPhim : categoryList) {
+            comboCategory.addItem(loaiPhim.getTenLoaiPhim());
+        }
+    }
+	
+	public void loadMovieToTable() {
+		List<Phim> movieList = movieDAO.getAllPhim();
+		List<LoaiPhim> cateList = categoryDAO.getAllLoaiPhim();
+		int i = 0;
+		for (Phim phim : movieList) {
+			for (LoaiPhim loaiPhim : cateList) {
+				if (phim.getLoaiPhim().getMaLoaiPhim().equals(loaiPhim.getMaLoaiPhim()))
+					modelPhim.addRow(new Object[] {++i, phim.getMaPhim(), phim.getTenPhim(), phim.getNgayKhoiChieu(),
+							phim.getThoiLuong(), phim.getNgonNgu(), phim.getGioiHanDoTuoi(), phim.getTrangThai() ? "Đang chiếu": "Ngừng chiếu",
+							phim.getGiaTien(), loaiPhim.getTenLoaiPhim(), phim.getPoster()});
+			}
+		}
+	}
+	
 	
 	/**
      * placeholder tìm kiếm
