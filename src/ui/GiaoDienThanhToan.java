@@ -140,6 +140,16 @@ public class GiaoDienThanhToan extends JPanel {
 		txtTheLoai = new JTextField("Kinh Dị");
 		txtTongTien = new JTextField("24000");
 		
+		txtTen.setBorder(null); txtTen.setOpaque(false);txtTen.setEditable(false);txtTen.setFocusable(false);
+		txtRap.setBorder(null); txtRap.setOpaque(false);txtRap.setEditable(false);txtRap.setFocusable(false);
+		txtPhong.setBorder(null); txtPhong.setOpaque(false);txtPhong.setEditable(false);txtPhong.setFocusable(false);
+		txtSuatChieu.setBorder(null); txtSuatChieu.setOpaque(false);txtSuatChieu.setEditable(false);txtSuatChieu.setFocusable(false);
+		txtGhe.setBorder(null); txtGhe.setOpaque(false);txtGhe.setEditable(false);txtGhe.setFocusable(false);
+		txtThoiLuong.setBorder(null); txtThoiLuong.setOpaque(false);txtThoiLuong.setEditable(false);txtThoiLuong.setFocusable(false);
+		txtTheLoai.setBorder(null); txtTheLoai.setOpaque(false);txtTheLoai.setEditable(false);txtTheLoai.setFocusable(false);
+		txtTongTien.setBorder(null); txtTongTien.setOpaque(false);txtTongTien.setEditable(false);txtTongTien.setFocusable(false);
+		
+		
 		// Định nghĩa màu trong suốt
 		Color transparentColor = new Color(255, 255, 255, 100); // 100 là độ mờ, giá trị nằm trong khoảng từ 0 đến 255
 		Color systemColor = new Color(0xF0F0F0); 
@@ -233,13 +243,13 @@ public class GiaoDienThanhToan extends JPanel {
         txtHoTen.setPreferredSize(new Dimension(40, 30));
         txtTuoi.setPreferredSize(new Dimension(40,30));
       
-        pnSDT = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,5));
+        pnSDT = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
         pnSDT.add(lblSDT); pnSDT.add(txtSDT);
-        pnHoTen = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,8));
+        pnHoTen = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,8));
         pnHoTen.add(lblHoTen); pnHoTen.add(txtHoTen);
-        pnTuoi = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
+        pnTuoi = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,10));
         pnTuoi.add(lblTuoi); pnTuoi.add(txtTuoi);
-        pnGhiChu = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
+        pnGhiChu = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,10));
         pnGhiChu.add(lblGhiChu); pnGhiChu.add(scrollPaneGhiChu);
         
         Box boxThongTin = Box.createVerticalBox();
@@ -262,6 +272,8 @@ public class GiaoDienThanhToan extends JPanel {
                 // Ẩn input nhập họ tên 
                 lblHoTen.setVisible(false);
                 txtHoTen.setVisible(false);
+                lblTuoi.setVisible(false);
+                txtTuoi.setVisible(false);
                
             }
         });
@@ -287,13 +299,13 @@ public class GiaoDienThanhToan extends JPanel {
                 // Hiển thị input yêu cầu nhập ghi chú
                 lblGhiChu.setVisible(true);
                 txtGhiChu.setVisible(true);
-                lblTuoi.setVisible(true);
-                txtTuoi.setVisible(true);
                 // Ẩn input nhập số điện thoại và họ tên
                 lblSDT.setVisible(false);
                 txtSDT.setVisible(false);
                 lblHoTen.setVisible(false);
                 txtHoTen.setVisible(false);
+                lblTuoi.setVisible(true);
+                txtTuoi.setVisible(true);
             }
         });
         
@@ -326,19 +338,10 @@ public class GiaoDienThanhToan extends JPanel {
         
     }
 
-  
-
-
-
-
 	private Image scaleImage(Image image, int i, int j) {
 		Image scaled = image.getScaledInstance(i, j, Image.SCALE_SMOOTH);
 		return scaled;
 	}
-
-
-
-
 
 
 	// Renderer để chèn hình ảnh vào bên trái của văn bản

@@ -143,7 +143,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 //        panel đẩy
 		pnDay = new JPanel();
 		pnDay.setBackground(orangeDark);
-		pnDay.setPreferredSize(new Dimension(210, 300));
+		pnDay.setPreferredSize(new Dimension(210, 250));
 		add(pnDay);
 
 //      panel Đăng xuất
