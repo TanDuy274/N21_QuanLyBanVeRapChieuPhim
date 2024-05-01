@@ -11,6 +11,8 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
     private JButton nextButton;
     private JButton prevButton;
     private JPanel panelButton;
+	private GiaoDienChonPhim giaoDienChonPhim;
+	private GiaoDienChonThoiGian giaoDienChonThoiGian;
 
     public ChucNangDatVe() {
         cardLayout = new CardLayout();
@@ -33,8 +35,8 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
         nextButton = new JButton("Tiếp tục");
         prevButton = new JButton("Trở về");
         
-        nextButton.setBackground(Color.orange);
-        prevButton.setBackground(Color.orange);
+        nextButton.setBackground(new Color(108, 126, 225));
+        prevButton.setBackground(new Color(108, 126, 225));
         
         nextButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
         prevButton.setPreferredSize(new Dimension(200, 40)); // Thay width và height bằng kích thước mong muốn
@@ -52,12 +54,28 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
-        if (o.equals(nextButton)) {
-            int currentIndex = getCurrentIndex();
-            if (currentIndex < cardPanel.getComponentCount() - 1) { // Kiểm tra xem có phải là giao diện cuối cùng không
-                cardLayout.next(cardPanel);
+
+        if (e.getSource() == nextButton) {
+            
+            if(giaoDienChonPhim.tenPhimVar!= null  && giaoDienChonPhim.posterPathVar !=null ) {           	      
+                String tenPhim = giaoDienChonPhim.tenPhimVar;    
+                String duongDanHinh = giaoDienChonPhim.posterPathVar;          
+                GiaoDienChonThoiGian.layThongTinPhim("PHIM: "+tenPhim);
+                GiaoDienChonThoiGian.capNhatHinhAnh(duongDanHinh);
+                cardLayout.next(cardPanel);    
             }
+            else {
+            	JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN PHIM!!!");
+            }
+            
         }
+        
+//        if (o.equals(nextButton)) {
+//            int currentIndex = getCurrentIndex();
+//            if (currentIndex < cardPanel.getComponentCount() - 1) { // Kiểm tra xem có phải là giao diện cuối cùng không
+//                cardLayout.next(cardPanel);
+//            }
+//        }
         if (o.equals(prevButton)) {
             int currentIndex = getCurrentIndex();
             if (currentIndex > 0) { // Kiểm tra xem có phải là giao diện đầu tiên không

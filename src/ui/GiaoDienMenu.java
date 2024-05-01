@@ -41,7 +41,9 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		setPreferredSize(new Dimension(220, 600));
 
 //      màu cam chủ đạo: 
-		Color orangeDark = Color.ORANGE;
+	//	Color orangeDark = Color.orange;
+		Color orangeDark = new Color(108, 126, 225);
+
 
 //      pnImgUser
 		pnUer = new JPanel();
