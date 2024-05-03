@@ -327,7 +327,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
             String cate = (String) comboCategory.getSelectedItem();
             loadMoviesByCategoryFromDatabase(cate);
         } else if (o.equals(btnSearch)) {
-            System.out.println(getMaPhim());
+//            System.out.println(getMaPhim());
             String tenPhim = tfSearch.getText();
             if ((tenPhim.length() > 0)) {
                 loadMoviesByNameFromDatabase(tenPhim);

@@ -19,7 +19,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,11 +48,17 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 	private CustomButton btnAdd;
 	private CustomButton btnUpdate;
 	private CustomButton btnRemove;
-	private CustomButton btnReset;
+	private CustomButton btnRefresh;
 	private DefaultTableModel modelPhim;
 	private JTable tablePhim;
 	private Phim_DAO movieDAO;
 	private LoaiPhim_DAO categoryDAO;
+	private CustomButton btnFilterDate;
+	private LocalDate now = LocalDate.now();
+	@SuppressWarnings("deprecation")
+	private Date dfNow = new Date(now.getYear() - 1900, now.getMonthValue() - 1, now.getDayOfMonth());
+	@SuppressWarnings("deprecation")
+	private Date dfFrom = new Date(now.getYear() - 1910, now.getMonthValue() - 1, now.getDayOfMonth());
 
 	public QuanLyPhim() {
 		
@@ -114,6 +126,7 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		Box bSearch2 = Box.createHorizontalBox();
 //        JLabel lblSearchDate = new JLabel("Tìm theo ngày công chiếu");
 //        lblSearchDate.setFont(new Font("Helvetica", Font.BOLD, 14));
+		
 		JLabel lblFrom = new JLabel("Từ ngày: ");
 		lblFrom.setFont(new Font("Helvetica", Font.BOLD, 14));
 		tfFrom = new JDateChooser();
@@ -124,6 +137,7 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		tfFrom.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		tfFrom.setDateFormatString("dd/MM/yyyy");
 		tfFrom.setBorder(new LineBorder(new Color(00, 153, 255), 1, true));
+		tfFrom.setDate(dfFrom);
 		JLabel lblTo = new JLabel("Đến ngày: ");
 		lblTo.setFont(new Font("Helvetica", Font.BOLD, 14));
 		tfTo = new JDateChooser();
@@ -134,6 +148,14 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		tfTo.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		tfTo.setDateFormatString("dd/MM/yyyy");
 		tfTo.setBorder(new LineBorder(new Color(00, 153, 255), 1, true));
+		tfTo.setDate(dfNow);
+		btnFilterDate = new CustomButton(new ImageIcon("img//icons8-filter-32.png"));
+		btnFilterDate.setFocusPainted(false);
+		btnFilterDate.setPreferredSize(new Dimension(50, 33));
+		btnFilterDate.setForeground(Color.WHITE);
+		btnFilterDate.setFont(new Font("Helvetica", Font.BOLD, 16));
+		btnFilterDate.setBorder(new LineBorder(new Color(00, 153, 255), 2, true));
+		btnFilterDate.setBackground(new Color(00, 153, 255, 200));
 
 		bSearch2.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.white), "Tìm theo ngày công chiếu", TitledBorder.LEFT,
 				TitledBorder.TOP, new Font("Helvetica", Font.PLAIN, 14), Color.gray));
@@ -145,6 +167,8 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		bSearch2.add(lblTo);
 		bSearch2.add(Box.createHorizontalStrut(10));
 		bSearch2.add(tfTo);
+		bSearch2.add(Box.createHorizontalStrut(25));
+		bSearch2.add(btnFilterDate);
 
 		bFilter.add(bSearch1);
 		bFilter.add(Box.createVerticalStrut(10));
@@ -176,20 +200,20 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		btnRemove.setFont(new Font("SansSerif", Font.BOLD, 15));
 		btnRemove.setBackground(new Color(0xE91940));
 		// nút reset
-		btnReset = new CustomButton("Làm mới");
-		btnReset.setFocusPainted(false);
-		btnReset.setPreferredSize(new Dimension(100, 33));
-		btnReset.setForeground(Color.WHITE);
-		btnReset.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnReset.setFont(new Font("SansSerif", Font.BOLD, 15));
-		btnReset.setBackground(new Color(114, 23, 153));
+		btnRefresh = new CustomButton("Làm mới");
+		btnRefresh.setFocusPainted(false);
+		btnRefresh.setPreferredSize(new Dimension(100, 33));
+		btnRefresh.setForeground(Color.WHITE);
+		btnRefresh.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRefresh.setFont(new Font("SansSerif", Font.BOLD, 15));
+		btnRefresh.setBackground(new Color(114, 23, 153));
 		pnTools.add(btnAdd);
 		pnTools.add(Box.createHorizontalStrut(30));
 		pnTools.add(btnUpdate);
 		pnTools.add(Box.createHorizontalStrut(30));
 		pnTools.add(btnRemove);
 		pnTools.add(Box.createHorizontalStrut(30));
-		pnTools.add(btnReset);
+		pnTools.add(btnRefresh);
 		pnTools.setBackground(Color.WHITE);
 
 		bTopContent.add(bTitle);
@@ -239,7 +263,12 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 		tfSearchName.addFocusListener(this);
 		btnAdd.addActionListener(this);
 		btnUpdate.addActionListener(this);
-		loadMovieToTable();
+		btnRemove.addActionListener(this);
+		btnRefresh.addActionListener(this);
+		btnSearch.addActionListener(this);
+		comboCategory.addActionListener(this);
+		btnFilterDate.addActionListener(this);
+		loadAllMovieToTable();
 		
 	}
 	
@@ -250,8 +279,63 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
         }
     }
 	
-	public void loadMovieToTable() {
+	public void removeTableData() {
+		DefaultTableModel dtm = (DefaultTableModel) tablePhim.getModel();
+		dtm.getDataVector().removeAllElements();
+	}
+	
+	public void loadAllMovieToTable() {
+		removeTableData();
 		List<Phim> movieList = movieDAO.getAllPhim();
+		List<LoaiPhim> cateList = categoryDAO.getAllLoaiPhim();
+		int i = 0;
+		for (Phim phim : movieList) {
+			for (LoaiPhim loaiPhim : cateList) {
+				if (phim.getLoaiPhim().getMaLoaiPhim().equals(loaiPhim.getMaLoaiPhim()))
+					modelPhim.addRow(new Object[] {++i, phim.getMaPhim(), phim.getTenPhim(), phim.getNgayKhoiChieu(),
+							phim.getThoiLuong(), phim.getNgonNgu(), phim.getGioiHanDoTuoi(), phim.getTrangThai() ? "Đang chiếu": "Ngừng chiếu",
+							phim.getGiaTien(), loaiPhim.getTenLoaiPhim(), phim.getPoster()});
+			}
+		}
+	}
+	
+	private void loadMoviesBySearchName(String tenPhim) {
+		removeTableData();
+        List<Phim> movieList = movieDAO.getPhimByTen(tenPhim);
+        List<LoaiPhim> cateList = categoryDAO.getAllLoaiPhim();
+		int i = 0;
+		for (Phim phim : movieList) {
+			for (LoaiPhim loaiPhim : cateList) {
+				if (phim.getLoaiPhim().getMaLoaiPhim().equals(loaiPhim.getMaLoaiPhim()))
+					modelPhim.addRow(new Object[] {++i, phim.getMaPhim(), phim.getTenPhim(), phim.getNgayKhoiChieu(),
+							phim.getThoiLuong(), phim.getNgonNgu(), phim.getGioiHanDoTuoi(), phim.getTrangThai() ? "Đang chiếu": "Ngừng chiếu",
+							phim.getGiaTien(), loaiPhim.getTenLoaiPhim(), phim.getPoster()});
+			}
+		}
+    }
+	
+	private void loadMoviesBySearchByCategory(String cate) {
+		removeTableData();
+        if (cate.equals("Tất cả")) {
+            loadAllMovieToTable();
+        } else {
+            List<Phim> movieList = movieDAO.getPhimByLoaiPhim(cate);
+            List<LoaiPhim> cateList = categoryDAO.getAllLoaiPhim();
+    		int i = 0;
+    		for (Phim phim : movieList) {
+    			for (LoaiPhim loaiPhim : cateList) {
+    				if (phim.getLoaiPhim().getMaLoaiPhim().equals(loaiPhim.getMaLoaiPhim()))
+    					modelPhim.addRow(new Object[] {++i, phim.getMaPhim(), phim.getTenPhim(), phim.getNgayKhoiChieu(),
+    							phim.getThoiLuong(), phim.getNgonNgu(), phim.getGioiHanDoTuoi(), phim.getTrangThai() ? "Đang chiếu": "Ngừng chiếu",
+    							phim.getGiaTien(), loaiPhim.getTenLoaiPhim(), phim.getPoster()});
+    			}
+    		}
+        }
+    }
+	
+	public void loadMoviesByDate(Date from, Date to) {
+		removeTableData();
+		List<Phim> movieList = movieDAO.getPhimByNgayCongChieu(from, to);
 		List<LoaiPhim> cateList = categoryDAO.getAllLoaiPhim();
 		int i = 0;
 		for (Phim phim : movieList) {
@@ -288,7 +372,7 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Quản Lý Phim");
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    QuanLyPhim quanLyPhim = new QuanLyPhim(); // Khởi tạo QuanLyPhim
+	    QuanLyPhim quanLyPhim = new QuanLyPhim();
 	    frame.getContentPane().add(quanLyPhim);
 	    frame.pack();
 	    frame.setLocationRelativeTo(null);
@@ -303,10 +387,78 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
             // Hiển thị dialog Thêm phim
             AddEditMovieDialog addEditDialog = new AddEditMovieDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Thêm Phim", true);
             addEditDialog.setVisible(true);
-            // Sau khi dialog đóng, kiểm tra xem có dữ liệu nào được thêm vào không và cập nhật bảng nếu có
+            // cập nhật bảng
+            loadAllMovieToTable();
         } else if (o == btnUpdate) {
-        	AddEditMovieDialog addEditDialog = new AddEditMovieDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Cập Nhật Phim", true);
-            addEditDialog.setVisible(true);
+            int selectedRow = tablePhim.getSelectedRow();
+            if (selectedRow != -1) {
+                String maPhim = tablePhim.getValueAt(selectedRow, 1).toString();
+                String tenPhim = tablePhim.getValueAt(selectedRow, 2).toString();
+                String ngayKhoiChieu = tablePhim.getValueAt(selectedRow, 3).toString();
+                String thoiLuong = tablePhim.getValueAt(selectedRow, 4).toString();
+                String ngonNgu = tablePhim.getValueAt(selectedRow, 5).toString().trim();
+                String gioiHanTuoi = tablePhim.getValueAt(selectedRow, 6).toString();
+                String trangThai = tablePhim.getValueAt(selectedRow, 7).toString();
+                String giaTien = tablePhim.getValueAt(selectedRow, 8).toString();
+                String loaiPhim = tablePhim.getValueAt(selectedRow, 9).toString();
+                String poster = tablePhim.getValueAt(selectedRow, 10).toString();
+                // Hiển thị dialog Sửa phim
+                AddEditMovieDialog addEditDialog = new AddEditMovieDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Cập Nhật Phim", true);
+                // Thiết lập thông tin của phim lên dialog
+                addEditDialog.setMovieInfo(maPhim, tenPhim, ngayKhoiChieu, thoiLuong, ngonNgu, gioiHanTuoi, trangThai, giaTien, loaiPhim, poster);
+                addEditDialog.setVisible(true);
+                loadAllMovieToTable();
+            } else {
+            	JOptionPane.showMessageDialog(null, "Vui lòng chọn phim cần sửa");
+            }
+        } else if (o.equals(btnRemove)) {
+        	int selectedRow = tablePhim.getSelectedRow();
+        	if (selectedRow != -1) {
+        		if (JOptionPane.showConfirmDialog(null, "Bạn chắc chắn xóa ?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        			String maPhim = modelPhim.getValueAt(selectedRow, 1).toString();
+        			String posterImg = (String) modelPhim.getValueAt(selectedRow, 10);
+        			if (movieDAO.remove(maPhim)) {
+        				// xóa poster trong folder img
+        				Path posterPath = Paths.get("img//" + posterImg);
+        	            try {
+        	                Files.deleteIfExists(posterPath);
+        	            } catch (IOException ex) {
+        	                ex.printStackTrace();
+        	            }
+        	            JOptionPane.showMessageDialog(null, "Xóa thành công");
+        				loadAllMovieToTable();
+        			} else {
+        				JOptionPane.showMessageDialog(null, "Xóa thất bại");
+        			}
+        		}
+        	} else {
+        		JOptionPane.showMessageDialog(null, "Vui lòng chọn phim cần xóa");
+        	}
+        } else if (o.equals(btnSearch)) {
+        	String tenPhim = tfSearchName.getText().trim();
+            if ((tenPhim.length() > 0)) {
+            	loadMoviesBySearchName(tenPhim);
+                if (tenPhim.equals("Tìm kiếm phim theo tên")) {
+                	loadAllMovieToTable();
+                }
+            } else {
+            	loadAllMovieToTable();
+            }
+        } else if (o.equals(comboCategory)) {
+        	String cate = (String) comboCategory.getSelectedItem();
+        	loadMoviesBySearchByCategory(cate);
+        } else if (o.equals(btnFilterDate)) {
+        	Date from = tfFrom.getDate();
+        	Date to = tfTo.getDate();
+        	loadMoviesByDate(from, to);
+        } else if (o.equals(btnRefresh)) {
+        	tfSearchName.setText("Tìm kiếm phim theo tên");
+        	tfSearchName.setFont(new Font("Helvetica", Font.ITALIC, 15));
+    		tfSearchName.setForeground(Color.LIGHT_GRAY);
+        	comboCategory.setSelectedIndex(0);
+        	tfFrom.setDate(dfFrom);
+        	tfTo.setDate(dfNow);
+        	loadAllMovieToTable();
         }
 	}
 }
