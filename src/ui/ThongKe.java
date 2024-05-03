@@ -10,6 +10,7 @@ public class ThongKe extends JPanel {
     private JPanel panelThongKe4;
     
     
+    
     private JTabbedPane tabbedPanel;
 
     
