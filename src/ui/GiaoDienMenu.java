@@ -33,7 +33,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 	private JButton btnQLKhachhang;
 	private JButton btnQLHoadon;
 	private JButton btnDangxuat;
-	private CustomButton btnQuanLyTheThanhVien;
+	private CustomButton btnThongKe;
 
 	public GiaoDienMenu(GiaoDienChinh mainFrame) {
 		this.mainFrame = mainFrame;
@@ -131,15 +131,15 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		Image scaledQLTheThanhVien = scaleImage(imgQLTheThanhVien.getImage(), 30, 30);
 		ImageIcon imgScaled6 = new ImageIcon(scaledQLTheThanhVien);
 
-		btnQuanLyTheThanhVien = new CustomButton("Quản lý thẻ thành viên", imgScaled6); // Thêm hình ảnh trực tiếp vào button
-		btnQuanLyTheThanhVien.setFocusPainted(false);
-		btnQuanLyTheThanhVien.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnQuanLyTheThanhVien.setBackground(Color.white);
-		btnQuanLyTheThanhVien.setBorder(new LineBorder(Color.white, 2, true));
-		btnQuanLyTheThanhVien.setForeground(Color.black);
-		btnQuanLyTheThanhVien.setPreferredSize(new Dimension(210, 50));
-		((CustomButton) btnQuanLyTheThanhVien).setBorderRadius(0);
-		add(btnQuanLyTheThanhVien);
+		btnThongKe = new CustomButton("Thống Kê", imgScaled6); // Thêm hình ảnh trực tiếp vào button
+		btnThongKe.setFocusPainted(false);
+		btnThongKe.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnThongKe.setBackground(Color.white);
+		btnThongKe.setBorder(new LineBorder(Color.white, 2, true));
+		btnThongKe.setForeground(Color.black);
+		btnThongKe.setPreferredSize(new Dimension(210, 50));
+		((CustomButton) btnThongKe).setBorderRadius(0);
+		add(btnThongKe);
 
 
 //        panel đẩy
@@ -172,7 +172,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		btnQuanLi.addActionListener(this);
 		btnDangxuat.addActionListener(this);
 		btnQLHoadon.addActionListener(this);;
-		btnQuanLyTheThanhVien.addActionListener(this);
+		btnThongKe.addActionListener(this);
 
 	}
 
@@ -208,8 +208,8 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 			 mainFrame.hienThiGiaoDienDangNhap();
 		}else if(source.equals(btnQLHoadon)) {
 			 mainFrame.displayContent("QlHoaDon");
-		}else if(source.equals(btnQuanLyTheThanhVien)) {
-			 mainFrame.displayContent("QlTheThanhVien");
+		}else if(source.equals(btnThongKe)) {
+			 mainFrame.displayContent("ThongKe");
 		}
 
 	}
