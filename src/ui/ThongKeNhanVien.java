@@ -76,6 +76,11 @@ public class ThongKeNhanVien extends JPanel implements FocusListener, ActionList
 	NhanVien_DAO nhanVienDAO;
 	ChiTietHoaDon_DAO cthdDAO;
 	
+	/**
+	 * 
+	 * @author nguyentrunghau
+	 */
+	
 	public ThongKeNhanVien() {
 		
 		try {

@@ -1,5 +1,16 @@
-/ui/
+<<<<<<< HEAD
 /ThuNghiemChucNang/
 /connectDB/
 /dao/
 /entity/
+=======
+>>>>>>> 2b2816bbbd52c92299802d60a93532d4320defdb
+/ui/
+<<<<<<< HEAD
+/ThuNghiemChucNang/
+/connectDB/
+/dao/
+/entity/
+=======
+/dao/
+>>>>>>> 805bddec1b010ac3be8eb0f23497b1748ba020df

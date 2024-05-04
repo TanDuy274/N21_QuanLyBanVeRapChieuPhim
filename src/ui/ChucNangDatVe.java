@@ -23,11 +23,13 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
         GiaoDienChonThoiGian step2Panel = new GiaoDienChonThoiGian();
         GiaoDienChonGhe step3Panel = new GiaoDienChonGhe();
         GiaoDienThanhToan step4Panel = new GiaoDienThanhToan();
+        GiaoDienThanhToan2 step5Panel = new GiaoDienThanhToan2();
 
         cardPanel.add(step1Panel, "step1");
         cardPanel.add(step2Panel, "step2");
         cardPanel.add(step3Panel, "step3");
         cardPanel.add(step4Panel, "step4");
+        cardPanel.add(step5Panel, "step5");
 
         setLayout(new BorderLayout());
         add(cardPanel, BorderLayout.CENTER);
