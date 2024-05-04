@@ -17,8 +17,8 @@ public class ThongKe extends JPanel {
     public ThongKe() {
         setLayout(new BorderLayout());     
         tabbedPanel = new JTabbedPane();
-        tabbedPanel.add("Thống kê 1", new ThongKe1());       
-        tabbedPanel.add("Thống kê 2", new ThongKe2());
+        tabbedPanel.add("Thống kê nhân viên", new ThongKeNhanVien());       
+        tabbedPanel.add("Thống kê hóa đơn", new ThongKeHoaDon());
         tabbedPanel.add("Thống kê 3", new ThongKe3());
         tabbedPanel.add("Thống kê 4", new ThongKe4());
         add(tabbedPanel, BorderLayout.CENTER);

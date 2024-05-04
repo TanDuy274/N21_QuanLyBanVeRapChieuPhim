@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import connectDB.ConnectDB;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
+import entity.Phong;
 
 public class HoaDon_DAO {
 	public ArrayList<HoaDon> getAllHoaDon() {
@@ -34,4 +36,36 @@ public class HoaDon_DAO {
 		}
 		return dsHoaDon;
 	}
+	
+	public	ArrayList<HoaDon> getHDTheoNgay(Date ngayBatDau,Date ngayKetThuc) {
+
+		ArrayList<HoaDon> lsHD = new ArrayList<HoaDon>();
+		String ngayBD = (ngayBatDau.getYear()+1900) +"/"+ (ngayBatDau.getMonth()+1) +"/"+ngayBatDau.getDate();
+		String ngayKT = (ngayKetThuc.getYear()+1900) +"/"+ (ngayKetThuc.getMonth()+1) +"/"+ngayKetThuc.getDate();
+
+		ConnectDB.getIntance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from QuanLyBanVe.[dbo].[HoaDon] where ngayLapHD between '"+ngayBD+"' and '"+ngayKT+"'";
+
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				HoaDon  hd = new HoaDon();
+				hd.setMaHoaDon(rs.getString(1));
+				hd.setNgayLapHoaDon(rs.getDate(2));
+				hd.setNhanVien(new NhanVien(rs.getString(3)));
+				hd.setKhachHang(new KhachHang(rs.getString(4)));
+				lsHD.add(hd);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lsHD;
+
+	}
+	
+	
+
+	
 }
