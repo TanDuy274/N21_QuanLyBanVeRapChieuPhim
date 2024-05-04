@@ -5,7 +5,6 @@ import java.util.Date;
 public class HoaDon {
 	private String maHoaDon;
 	private Date ngayLapHoaDon;
-	
 	private KhachHang khachHang;
 	private NhanVien nhanVien;
 	public HoaDon() {
@@ -47,17 +46,15 @@ public class HoaDon {
 	public void setNhanVien(NhanVien nhanVien) {
 		this.nhanVien = nhanVien;
 	}
-	public double tongTien() {
-		return 0;
-		
-	}
+//	public double tongTien() {
+//		return 0;
+//		
+//	}
 	@Override
 	public String toString() {
 		return "HoaDon [maHoaDon=" + maHoaDon + ", ngayLapHoaDon=" + ngayLapHoaDon + ", khachHang=" + khachHang
 				+ ", nhanVien=" + nhanVien + "]";
 	}
-	
-	
 	
 	
 }

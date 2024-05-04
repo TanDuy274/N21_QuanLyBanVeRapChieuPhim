@@ -7,13 +7,16 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import connectDB.ConnectDB;
 import dao.KhachHang_DAO;
+import dao.TheThanhVien_DAO;
 import entity.KhachHang;
+import entity.TheThanhVien;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class QuanLyKhachHang extends JPanel {
     private JTextField txtTuoi;
@@ -42,6 +45,11 @@ public class QuanLyKhachHang extends JPanel {
 	private JPanel btns;
 	private JButton searchBtn;
 	private JButton lamMoiBtn;
+	private TheThanhVien_DAO TTV_DAO;
+    private String maTTV;
+	private String loaiTTV;
+	private double diemTL;
+	private String ngayDk;
 
     public QuanLyKhachHang() {
         //    	ket noi DB
@@ -52,6 +60,7 @@ public class QuanLyKhachHang extends JPanel {
         }
 
         KH_DAO = new KhachHang_DAO();
+        TTV_DAO = new TheThanhVien_DAO();
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Thêm border trống xung quanh panel
@@ -193,6 +202,10 @@ public class QuanLyKhachHang extends JPanel {
         tableModel.addColumn("Tuổi");
         tableModel.addColumn("Số điện thoại");
         tableModel.addColumn("Thẻ thành viên");
+        tableModel.addColumn("Mã thẻ thành viên");
+        tableModel.addColumn("Loại thành viên");
+        tableModel.addColumn("Điểm tích luỹ");
+        tableModel.addColumn("Ngày đăng ký");
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chỉ cho phép chọn một dòng tại một thời điểm
         JScrollPane scrollPane = new JScrollPane(table);
@@ -203,7 +216,8 @@ public class QuanLyKhachHang extends JPanel {
 
      // Tạo ListSelectionListener cho bảng
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
+
+			@Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) { // Đảm bảo chỉ xử lý sự kiện sau khi lựa chọn hoàn thành
                     int selectedRow = table.getSelectedRow();
@@ -214,6 +228,10 @@ public class QuanLyKhachHang extends JPanel {
                         txtTuoi.setText(tableModel.getValueAt(selectedRow, 2).toString());
                         txtDT.setText(tableModel.getValueAt(selectedRow, 3).toString());
                         ckcTTV.setSelected(tableModel.getValueAt(selectedRow, 4).toString().equals("Có"));
+                        maTTV = tableModel.getValueAt(selectedRow, 5).toString();
+                        loaiTTV = tableModel.getValueAt(selectedRow, 6).toString();
+                        diemTL = Double.parseDouble(tableModel.getValueAt(selectedRow, 7).toString());
+                        ngayDk = (tableModel.getValueAt(selectedRow, 8).toString());
                     }
                 }
             }
@@ -261,15 +279,15 @@ public class QuanLyKhachHang extends JPanel {
         searchBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                timKiemKhachHang();
             	String name = searchTxt.getText().trim();
             	xoaHetDuLieuTrenModal();
+            	timKiemKhachHang();
             	
-            	ArrayList<KhachHang> ds = KH_DAO.timKiemKhachHangTheoTen(name);
-            	
-            	for (KhachHang kh : ds) {
-                    tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không"});
-                }
+//            	ArrayList<KhachHang> ds = KH_DAO.timKiemKhachHangTheoTen(name);
+//            	
+//            	for (KhachHang kh : ds) {
+//                    tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không"});
+//                }
             }
         });
         
@@ -331,6 +349,10 @@ public class QuanLyKhachHang extends JPanel {
             tableModel.setValueAt(tenKH, selectedRow, 1);
             tableModel.setValueAt(tuoi, selectedRow, 2);
             tableModel.setValueAt(soDienThoai, selectedRow, 3);
+            tableModel.setValueAt(maTTV, selectedRow, 5);
+            tableModel.setValueAt(loaiTTV, selectedRow, 6);
+            tableModel.setValueAt(diemTL, selectedRow, 7);
+            tableModel.setValueAt(ngayDk, selectedRow, 8);
 
             // Xóa nội dung trong các ô TextField sau khi sửa
             txtMa.setText("");
@@ -368,10 +390,18 @@ public class QuanLyKhachHang extends JPanel {
 
             // Lấy danh sách khách hàng từ cơ sở dữ liệu
             ArrayList<KhachHang> list = KH_DAO.timKiemKhachHangTheoTen(tenKHCanTim);
+            if(list.isEmpty()) {
+            	list = KH_DAO.timKiemKhachHangTheoSDT(tenKHCanTim);
+            }
+            ArrayList<TheThanhVien> listTTV = TTV_DAO.getAllTheThanhVien();
 
             // Hiển thị danh sách khách hàng tìm được lên bảng
             for (KhachHang kh : list) {
-                tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không"});
+            	for(TheThanhVien ttv : listTTV) {
+            		if(kh.getMaKhachHang().equalsIgnoreCase(ttv.getKhachHang().getMaKhachHang())) {
+            			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", ttv.getMaTheThanhVien(), ttv.getLoai(), ttv.getDiemTichLuy(), ttv.getNgayDangKy()});            			
+            		}
+            	}
             }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên khách hàng cần tìm kiếm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
@@ -380,9 +410,14 @@ public class QuanLyKhachHang extends JPanel {
 
     private void docDuLieuVaoTable() {
         ArrayList<KhachHang> list = KH_DAO.getAllKhachHang();
+        ArrayList<TheThanhVien> listTTV = TTV_DAO.getAllTheThanhVien();
 
         for (KhachHang kh : list) {
-            tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không"});
+        	for(TheThanhVien ttv : listTTV) {
+        		if(kh.getMaKhachHang().equalsIgnoreCase(ttv.getKhachHang().getMaKhachHang())) {
+        			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", ttv.getMaTheThanhVien(), ttv.getLoai(), ttv.getDiemTichLuy(), ttv.getNgayDangKy()});        			
+        		}
+        	}
         }
     }
     

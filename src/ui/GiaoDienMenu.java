@@ -59,7 +59,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		add(pnUer);
 
 		// panel Quản lí Phim
-		ImageIcon imgFilm = new ImageIcon("img/movies-icon.png");
+		ImageIcon imgFilm = new ImageIcon("img/icons8-movie-32.png");
 		Image scaledFilm = scaleImage(imgFilm.getImage(), 30, 30);
 		ImageIcon imgScaled = new ImageIcon(scaledFilm);
 		JLabel lblImgScaled = new JLabel(imgScaled);
@@ -126,13 +126,15 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		((CustomButton) btnQLHoadon).setBorderRadius(0);
 		add(btnQLHoadon);
 		
-		// panel QL Thẻ thành viên
-		ImageIcon imgQLTheThanhVien = new ImageIcon("img/order-icon.png");
-		Image scaledQLTheThanhVien = scaleImage(imgQLTheThanhVien.getImage(), 30, 30);
-		ImageIcon imgScaled6 = new ImageIcon(scaledQLTheThanhVien);
+		// panel thống kê
+		ImageIcon imgQLThongKe = new ImageIcon("img/icons8-statistic-32.png");
+		Image scaledQLThongKe = scaleImage(imgQLThongKe.getImage(), 30, 30);
+		ImageIcon imgScaled5 = new ImageIcon(scaledQLThongKe);
+		JLabel lblImgScaled5= new JLabel(imgScaled5);
 
-		btnThongKe = new CustomButton("Thống Kê", imgScaled6); // Thêm hình ảnh trực tiếp vào button
+		btnThongKe = new CustomButton("Quản lý thống kê");
 		btnThongKe.setFocusPainted(false);
+		btnThongKe.add(lblImgScaled5);
 		btnThongKe.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThongKe.setBackground(Color.white);
 		btnThongKe.setBorder(new LineBorder(Color.white, 2, true));
@@ -152,12 +154,12 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		
 		ImageIcon imgDangxuat = new ImageIcon("img/sign-out-icon.png");
 		Image scaledDangxuat = scaleImage(imgDangxuat.getImage(), 30, 30);
-		ImageIcon imgScaled5 = new ImageIcon(scaledDangxuat);
-		JLabel lblImgScaled5 = new JLabel(imgScaled5);
+		ImageIcon imgScaled6 = new ImageIcon(scaledDangxuat);
+		JLabel lblImgScaled6 = new JLabel(imgScaled6);
 		
 		btnDangxuat = new CustomButton("Đăng xuất");
 		btnDangxuat.setFocusPainted(false); // Tắt viền khi button được focus
-		btnDangxuat.add(lblImgScaled5);
+		btnDangxuat.add(lblImgScaled6);
 		btnDangxuat.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnDangxuat.setBackground(Color.white);
 		btnDangxuat.setBorder(new LineBorder(Color.white, 2, true));

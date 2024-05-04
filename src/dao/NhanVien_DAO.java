@@ -9,6 +9,7 @@ import java.util.Date;
 
 import connectDB.ConnectDB;
 import entity.NhanVien;
+import entity.TaiKhoan;
 
 public class NhanVien_DAO {
 	public ArrayList<NhanVien> getAllNhanVien() {
@@ -34,6 +35,28 @@ public class NhanVien_DAO {
 			e.printStackTrace();
 		}
 		return dsNhanVien;
+	}
+	
+	public NhanVien getNVTheoMa(String ma) { 
+		NhanVien nv = new NhanVien();
+		ConnectDB.getIntance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from [dbo].[NhanVien] where maNhanVien = '"+ma+"'";
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				nv.setMaNhanVien(rs.getString(1));
+				nv.setNgayVaoLam(rs.getDate(2));
+				nv.setLuong(rs.getDouble(3));
+				nv.setTenNhanVien(rs.getString(4));
+				nv.setTuoi(rs.getInt(5));
+				nv.setSoDienThoai(rs.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nv;
 	}
 	
 }

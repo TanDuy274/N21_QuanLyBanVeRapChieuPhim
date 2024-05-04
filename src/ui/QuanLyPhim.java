@@ -415,7 +415,6 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 			} else {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn phim cần sửa");
 			}
-			System.out.println(selectedRow);
 		} else if (o.equals(btnRemove)) {
 			int selectedRow = tablePhim.getSelectedRow() > tablePhim.getRowCount() ? -1 : tablePhim.getSelectedRow();
 			if (selectedRow != -1) {

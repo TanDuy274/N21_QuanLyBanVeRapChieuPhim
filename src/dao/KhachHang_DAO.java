@@ -83,4 +83,35 @@ public class KhachHang_DAO {
 		}
 		return list;
 	}
+	
+	public ArrayList<KhachHang> timKiemKhachHangTheoSDT(String soDT) {
+		ArrayList<KhachHang> list = new ArrayList<KhachHang>();
+		ConnectDB.getIntance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement statement = null;
+		try {
+			String sql = "select * from KhachHang where soDienThoai = ?";
+			statement = con.prepareStatement(sql);
+			statement.setString(1, soDT);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				String ma = rs.getString("maKhachHang");
+				String tenKH = rs.getString("tenKhachHang");
+				Integer tuoi = rs.getInt("tuoi");
+				String dt = rs.getString("soDienThoai");
+				Integer ttv = rs.getInt("hasTheThanhVien");
+				KhachHang kh = new KhachHang(ma, tenKH, dt, tuoi, ttv == 1 ? true : false);
+				list.add(kh);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 }
