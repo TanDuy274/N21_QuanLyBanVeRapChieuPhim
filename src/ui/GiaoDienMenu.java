@@ -145,9 +145,14 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		add(btnThongKe);
 		
 		// qly suất chiêu
+		ImageIcon imgQLSuatChieu = new ImageIcon("img/icons8-movie-theater-32.png");
+		Image scaledQLSuatChieu = scaleImage(imgQLSuatChieu.getImage(), 30, 30);
+		ImageIcon imgScaled6 = new ImageIcon(scaledQLSuatChieu);
+		JLabel lblImgScaled6= new JLabel(imgScaled6);
+		
 		btnQLSuatChieu = new CustomButton("Quản lý suất chiếu");
 		btnQLSuatChieu.setFocusPainted(false);
-//				btnQLSuatChieu.add(lblImgScaled5);
+				btnQLSuatChieu.add(lblImgScaled6);
 		btnQLSuatChieu.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnQLSuatChieu.setBackground(Color.white);
 		btnQLSuatChieu.setBorder(new LineBorder(Color.white, 2, true));
@@ -167,12 +172,12 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		
 		ImageIcon imgDangxuat = new ImageIcon("img/sign-out-icon.png");
 		Image scaledDangxuat = scaleImage(imgDangxuat.getImage(), 30, 30);
-		ImageIcon imgScaled6 = new ImageIcon(scaledDangxuat);
-		JLabel lblImgScaled6 = new JLabel(imgScaled6);
+		ImageIcon imgScaled7 = new ImageIcon(scaledDangxuat);
+		JLabel lblImgScaled7 = new JLabel(imgScaled6);
 		
 		btnDangxuat = new CustomButton("Đăng xuất");
 		btnDangxuat.setFocusPainted(false); // Tắt viền khi button được focus
-		btnDangxuat.add(lblImgScaled6);
+		btnDangxuat.add(lblImgScaled7);
 		btnDangxuat.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnDangxuat.setBackground(Color.white);
 		btnDangxuat.setBorder(new LineBorder(Color.white, 2, true));

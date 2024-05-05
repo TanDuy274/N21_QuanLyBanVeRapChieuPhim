@@ -5,6 +5,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 import connectDB.ConnectDB;
 import dao.KhachHang_DAO;
 import dao.TheThanhVien_DAO;
@@ -208,7 +210,23 @@ public class QuanLyKhachHang extends JPanel {
         tableModel.addColumn("Ngày đăng ký");
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chỉ cho phép chọn một dòng tại một thời điểm
-        JScrollPane scrollPane = new JScrollPane(table);
+        table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        table.setShowHorizontalLines(true);
+        table.setShowGrid(true);
+        table.setBackground(Color.WHITE);
+        table.setFont(new Font("Helvetica", Font.PLAIN, 14));
+        table.setSelectionBackground(new Color(00, 153, 255, 30));
+        table.setSelectionForeground(new Color(00, 153, 255));
+        table.setRowHeight(30);
+        JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setBackground(new Color(00, 153, 255));
+		tableHeader.setForeground(Color.white);
+		tableHeader.setFont(new Font("Helvetica", Font.BOLD, 14));
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(new LineBorder(new Color(00, 153, 255), 1, true));
+        scrollPane.setBackground(new Color(00, 153, 255));
+        scrollPane.getHorizontalScrollBar();
 
         docDuLieuVaoTable();
 
