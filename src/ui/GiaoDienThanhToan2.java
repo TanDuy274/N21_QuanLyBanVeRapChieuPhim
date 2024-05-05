@@ -75,6 +75,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 	private JPanel pnThueGTGT;
 	private JPanel pnDiemDoi;
 	private JPanel pnTongThanhToan;
+	private JButton btnInVe;
 
 	public GiaoDienThanhToan2 ()  { 
 		setLayout(new BorderLayout());
@@ -226,6 +227,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
         lblTongThanhToan = new JLabel("Tổng thanh toán:");
         btnInHoaDon = new JButton("IN HÓA ĐƠN");
         btnLuuHoaDon = new JButton("LƯU HÓA ĐƠN");
+        btnInVe = new JButton("IN VÉ");
         txtTiensanpham = new JTextField("160.000");
         txtThueGTGT = new JTextField("16.000");
         txtDiemDoi = new JTextField("400");
@@ -234,7 +236,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
         txtTongThanhToan.setForeground(new Color(0, 255, 0));
         btnInHoaDon.setBackground(Color.PINK);
         btnLuuHoaDon.setBackground(Color.PINK);
-        
+        btnInVe.setBackground(Color.PINK);
         
        
         pnTiensanpham = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
@@ -256,9 +258,10 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
         pnBtnHoaDon = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,10));
         pnBtnHoaDon.add(btnInHoaDon);
         pnBtnHoaDon.add(btnLuuHoaDon);
+        pnBtnHoaDon.add(btnInVe);
         box2.add(pnBtnHoaDon);
         Box box12 = Box.createHorizontalBox();
-        box12.add(box1); 
+        box12.add(box1); box12.add(Box.createHorizontalStrut(100));
         box12.add(box2);
         pnBoder3 = new JPanel(new FlowLayout(FlowLayout.LEFT, 50,20));
         pnBoder3.add(box12);
