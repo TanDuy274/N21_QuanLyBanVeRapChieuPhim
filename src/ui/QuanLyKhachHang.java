@@ -397,11 +397,16 @@ public class QuanLyKhachHang extends JPanel {
 
             // Hiển thị danh sách khách hàng tìm được lên bảng
             for (KhachHang kh : list) {
+            	boolean check = true;
             	for(TheThanhVien ttv : listTTV) {
             		if(kh.getMaKhachHang().equalsIgnoreCase(ttv.getKhachHang().getMaKhachHang())) {
-            			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", ttv.getMaTheThanhVien(), ttv.getLoai(), ttv.getDiemTichLuy(), ttv.getNgayDangKy()});            			
-            		}
+            			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", ttv.getMaTheThanhVien(), ttv.getLoai(), ttv.getDiemTichLuy(), ttv.getNgayDangKy()});
+            			check = false;
+            		} 
             	}
+        		if(check) {
+        			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", "", "", "", ""});       
+        		}
             }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên khách hàng cần tìm kiếm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
@@ -413,11 +418,16 @@ public class QuanLyKhachHang extends JPanel {
         ArrayList<TheThanhVien> listTTV = TTV_DAO.getAllTheThanhVien();
 
         for (KhachHang kh : list) {
+        	boolean check = true;
         	for(TheThanhVien ttv : listTTV) {
         		if(kh.getMaKhachHang().equalsIgnoreCase(ttv.getKhachHang().getMaKhachHang())) {
-        			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", ttv.getMaTheThanhVien(), ttv.getLoai(), ttv.getDiemTichLuy(), ttv.getNgayDangKy()});        			
-        		}
+        			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", ttv.getMaTheThanhVien(), ttv.getLoai(), ttv.getDiemTichLuy(), ttv.getNgayDangKy()});
+        			check = false;
+        		} 
         	}
+    		if(check) {
+    			tableModel.addRow(new Object[]{kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getTuoi(), kh.getSoDienThoai(), kh.hasTheThanhVien() ? "Có" : "Không", "", "", "", ""});       
+    		}
         }
     }
     
