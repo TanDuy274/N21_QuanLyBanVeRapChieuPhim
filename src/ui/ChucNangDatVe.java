@@ -66,11 +66,14 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
                 String duongDanHinh = giaoDienChonPhim.posterPathVar;          
                 GiaoDienChonThoiGian.layThongTinPhim("PHIM: "+tenPhim);
                 GiaoDienChonThoiGian.capNhatHinhAnh(duongDanHinh);                  
-                flag1 = true;
                 cardLayout.next(cardPanel);
+               
             }
-                      
-            else if(giaoDienChonThoiGian.thoiGian != null && giaoDienChonThoiGian.suatChieu != null && giaoDienChonThoiGian.soPhong!=null) {
+            else {
+            	JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN PHIM!!!");
+            	
+            }      
+            if(giaoDienChonThoiGian.thoiGian != null && giaoDienChonThoiGian.suatChieu != null && giaoDienChonThoiGian.soPhong!=null) {
             	String ten = giaoDienChonPhim.tenPhimVar;
             	String rap = "Galaxy";
             	String soPhong = giaoDienChonThoiGian.soPhong;
@@ -81,23 +84,16 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
             	String theLoai = giaoDienChonThoiGian.thoiGian;
             	GiaoDienThanhToan.setThongTinPhim(ten, rap, soPhong, xuatChieu, ghe, thoiLuong1, theLoai);
             	String duongDanHinh = giaoDienChonPhim.posterPathVar; 
-            	GiaoDienThanhToan.capNhatHinhAnhPhim(duongDanHinh);
-            	cardLayout.next(cardPanel); 
-            	flag2 = true;
-            }
+            	GiaoDienThanhToan.capNhatHinhAnhPhim(duongDanHinh);   
+            	
+            	
+            }          
+            else {
+            	JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN THỜI GIAN");
+            	return;
+            	
+            } 
             
-           
-            if(flag1==false) {
-            		
-            		JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN PHIM!!!");
-            		return;
-            	}
-            if(flag1 == true && flag2==false)
-            	{ 
-            		JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN THỜI GIAN!!!");
-            		return;
-            	}
-           	
            
             
         }
