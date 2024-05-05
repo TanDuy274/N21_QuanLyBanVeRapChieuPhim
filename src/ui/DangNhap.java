@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 
 import connectDB.ConnectDB;
+import dao.NhanVien_DAO;
 import dao.TaiKhoan_DAO;
 import entity.TaiKhoan;
 
@@ -34,7 +35,9 @@ public class DangNhap extends JFrame implements ActionListener {
 	private JPanel pnPass1;
 	private JPanel pnPass2;
 	private TaiKhoan_DAO TK_DAO;
+	private NhanVien_DAO NV_DAO;
 	public static String maNhanVien;
+	public static String tenNhanVien;
 
     public DangNhap() {
         setTitle("Đăng nhập");
@@ -143,6 +146,8 @@ public class DangNhap extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
 	// HoangTan fix			
 				maNhanVien = tk.getTaiKhoan();
+				NV_DAO = new NhanVien_DAO();
+				tenNhanVien = NV_DAO.getNVTheoMa(maNhanVien).getTenNhanVien();
 				setVisible(false);
 				new GiaoDienChinh().setVisible(true);
 				flag = true;

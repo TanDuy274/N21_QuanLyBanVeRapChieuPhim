@@ -103,7 +103,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 		lblTenNhanvien = new JLabel("Tên nhân viên:");
 		txtMaHoaDon = new JTextField("HD123");
 		txtNgayLap = new JTextField("04/05/2024");
-		txtTenNhanvien = new JTextField("Nhân Viên Ẩn Danh");
+		txtTenNhanvien = new JTextField(DangNhap.tenNhanVien);
 		
 		lblMaHoaDon.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font chữ
 		lblNgayLap.setFont(new Font("Arial", Font.PLAIN, 14));

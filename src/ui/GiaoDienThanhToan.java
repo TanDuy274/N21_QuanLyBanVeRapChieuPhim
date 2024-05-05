@@ -470,7 +470,9 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
 		    }
 		    if (radioButtonKhongThe.isSelected()) {
 		    	 KhachHang_DAO khachHangDAO = new KhachHang_DAO();
-		            boolean khachHangInserted = khachHangDAO.insertKhachHang("", "", 0, false);
+
+		            String tuoi = txtTuoi.getText().trim();
+		            boolean khachHangInserted = khachHangDAO.insertKhachHang("Khách vãng lai", "", Integer.parseInt(tuoi), false);
 		            
 		            if (khachHangInserted) {
 		            	 HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
