@@ -227,7 +227,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		}else if(source.equals(btnThongKe)) {
 			 mainFrame.displayContent("ThongKe");
 		} else if (source.equals(btnQLSuatChieu)) {
-			mainFrame.displayContent("QLSuatChieu");
+			mainFrame.displayContent("SuatChieu");
 		}
 
 	}

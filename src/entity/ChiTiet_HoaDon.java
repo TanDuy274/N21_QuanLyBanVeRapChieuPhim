@@ -50,9 +50,10 @@ public class ChiTiet_HoaDon {
 	}
 
 	
-//	public double tongGiaTien() { // có tính thuế các kiểu
-//		return 0;
-//	}
+	public double tongGiaTien() { 
+		
+		return 0;
+	}
 	
 	@Override
 	public String toString() {

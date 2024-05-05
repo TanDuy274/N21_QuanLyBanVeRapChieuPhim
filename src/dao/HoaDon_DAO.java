@@ -152,6 +152,12 @@ public class HoaDon_DAO {
 	        System.out.println("Ngày lập hóa đơn không được null.");
 	        return; // hoặc xử lý theo ý của bạn
 	    }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 2fd27e9d9bc7413418364e4b39c6a2312fd4328c
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -244,12 +250,70 @@ public class HoaDon_DAO {
 	        e.printStackTrace();
 	    }
 	}
+    
+        public HoaDon layHoaDonCuoiCung() {
+            HoaDon hoaDon = null;
+            String sqlSelectLastHoaDon = "SELECT TOP 1 * FROM HoaDon ORDER BY maHoaDon DESC";
+
+            try {
+                Connection conn = ConnectDB.getConnection();
+                Statement statement = conn.createStatement();
+                ResultSet rsLastHoaDon = statement.executeQuery(sqlSelectLastHoaDon);
+
+                if (rsLastHoaDon.next()) {
+                    String maHoaDon = rsLastHoaDon.getString("maHoaDon");
+                    Date ngayLapHoaDon = rsLastHoaDon.getDate("ngayLapHD");
+                    String maKhachHang = rsLastHoaDon.getString("maKhachHang");
+                    String maNhanVien = rsLastHoaDon.getString("maNhanVien");
+
+                    // Khởi tạo đối tượng hoá đơn
+                    hoaDon = new HoaDon(maHoaDon, ngayLapHoaDon, new KhachHang(maKhachHang), new NhanVien(maNhanVien));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return hoaDon;
+        }
+        public HoaDon layHoaDonCuoiCungCoTen() {
+            HoaDon hoaDon = null;
+            try {
+                ConnectDB.getIntance();
+                Connection con = ConnectDB.getConnection();
+                String sql = "SELECT TOP 1 hd.*, nv.*, kh.* " +
+                             "FROM HoaDon hd " +
+                             "INNER JOIN NhanVien nv ON hd.maNhanVien = nv.maNhanVien " +
+                             "INNER JOIN KhachHang kh ON hd.maKhachHang = kh.maKhachHang " +
+                             "ORDER BY hd.maHoaDon DESC";
+                PreparedStatement statement = con.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                if (rs.next()) {
+                    String maHoaDon = rs.getString("maHoaDon");
+                    Date ngayLapHD = rs.getDate("ngayLapHD");
+                    NhanVien nv = new NhanVien(rs.getString("maNhanVien"));
+                    nv.setTenNhanVien(rs.getString("tenNhanVien")); 
+                    KhachHang kh = new KhachHang(rs.getString("maKhachHang"));
+                    kh.setTenKhachHang(rs.getString("tenKhachHang"));
+                    kh.setSoDienThoai(rs.getString("soDienThoai"));
+                    hoaDon = new HoaDon(maHoaDon, ngayLapHD, kh, nv);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return hoaDon;
+        }
+
+
+    
+
 
    
 
     
 
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 2fd27e9d9bc7413418364e4b39c6a2312fd4328c
