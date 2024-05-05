@@ -24,7 +24,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 import dao.HoaDon_DAO;
+import dao.TheThanhVien_DAO;
 import entity.HoaDon;
+import entity.TheThanhVien;
 
 public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseListener {
 	private static HoaDon_DAO hoaDonDAO;
@@ -53,6 +55,8 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	private static JTextField txtMaHoaDon;
 	private static JTextField txtNgayLap;
 	private static JTextField txtTenNhanvien;
+	private static TheThanhVien_DAO theThanhVienDAO;
+	private static HoaDon hoaDon;
 	private JPanel pnThongTinHoaDon;
 	private JPanel pnNgayLap;
 	private JPanel pnMaHoaDon;
@@ -85,6 +89,16 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	private JPanel pnTongThanhToan;
 	private JButton btnInVe;
 	private JTable table;
+	private int total;
+	private JButton btnCapNhat;
+	private String txtDiemCanSuDung;
+	private int diemCanSuDung;
+	private double doiDiemThanhTien;
+	private double tongGiaTien;
+	private double thueGTGT;
+	private double soDiemConLai;
+	private TheThanhVien_DAO ttvDAO;
+	private HoaDon_DAO hoaDonDAO2;
 
 	public GiaoDienThanhToan2 ()  { 
 		setLayout(new BorderLayout());
@@ -266,19 +280,20 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
         btnInHoaDon = new JButton("IN HÓA ĐƠN");
         btnLuuHoaDon = new JButton("LƯU HÓA ĐƠN");
         btnInVe = new JButton("IN VÉ");
+        btnCapNhat = new JButton("CẬP NHẬT");
         
        
         
-        txtTiensanpham = new JTextField("");
-        txtThueGTGT = new JTextField("16.000");
-        txtDiemDoi = new JTextField("400");
-        txtTongThanhToan = new JTextField("143,600");
+        txtTiensanpham = new JTextField("0");
+        txtThueGTGT = new JTextField("0");
+        txtDiemDoi = new JTextField("0");
+        txtTongThanhToan = new JTextField("0");
         
         txtTongThanhToan.setForeground(new Color(0, 255, 0));
         btnInHoaDon.setBackground(Color.PINK);
         btnLuuHoaDon.setBackground(Color.PINK);
         btnInVe.setBackground(Color.PINK);
-        
+        btnCapNhat.setBackground(Color.PINK);
         lblTiensanpham.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font chữ
         lblThueGTGT.setFont(new Font("Arial", Font.PLAIN, 14));
         lblDiemDoi.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -286,6 +301,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
         btnInHoaDon.setFont(new Font("Arial", Font.PLAIN, 14));
         btnLuuHoaDon.setFont(new Font("Arial", Font.PLAIN, 14));
         btnInVe.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnCapNhat.setFont(new Font("Arial", Font.PLAIN, 14));
         txtTiensanpham.setFont(new Font("Arial", Font.PLAIN, 14));
         txtThueGTGT.setFont(new Font("Arial", Font.PLAIN, 14));
         txtDiemDoi.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -319,6 +335,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
         pnBtnHoaDon.add(btnInHoaDon);
         pnBtnHoaDon.add(btnLuuHoaDon);
         pnBtnHoaDon.add(btnInVe);
+        pnBtnHoaDon.add(btnCapNhat);
         box2.add(pnBtnHoaDon);
         Box box12 = Box.createHorizontalBox();
         box12.add(box1); box12.add(Box.createHorizontalStrut(100));
@@ -350,6 +367,11 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 		btnInHoaDon.addActionListener(this);
 		
 		table.addMouseListener(this);
+		btnCapNhat.addActionListener(this);
+		txtTiensanpham.addActionListener(this);
+		txtTiensanpham.addMouseListener(this);
+		btnApdung.addActionListener(this);
+		
 		
 	}
 	
@@ -359,7 +381,8 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	
 	public static void capNhatThongTinTrangThanhToan() {
 	    hoaDonDAO = new HoaDon_DAO();
-	    HoaDon hoaDon = hoaDonDAO.layHoaDonCuoiCungCoTen();
+	    hoaDon = hoaDonDAO.layHoaDonCuoiCungCoTen();
+	    
 	    
 	    if (hoaDon != null) {
 	        txtMaHoaDon.setText(hoaDon.getMaHoaDon());
@@ -367,20 +390,70 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	        txtTenNhanvien.setText(hoaDon.getNhanVien().getTenNhanVien());
 	        txtTen.setText(hoaDon.getKhachHang().getTenKhachHang());
 	        txtSdt.setText(hoaDon.getKhachHang().getSoDienThoai());
+	        
+	        theThanhVienDAO = new TheThanhVien_DAO();
+		    TheThanhVien theThanhVien = theThanhVienDAO.layTheThanhVienTheoMaKhachHang(hoaDon.getKhachHang().getMaKhachHang());
+		    txtDiem.setText(String.valueOf(theThanhVien.getDiemTichLuy()));
+		    
+	       
+	        
 	    } else {
 	        
 	    }
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
-		if (o.equals(btnInHoaDon)) {
-			GiaoDienHoaDon giaoDienHoaDon = new GiaoDienHoaDon();
-			giaoDienHoaDon.setVisible(true);
-		}
-		
-	}
+	    Object o = e.getSource();
+	    if (o.equals(btnInHoaDon)) {
+	        GiaoDienHoaDon giaoDienHoaDon = new GiaoDienHoaDon();
+	        giaoDienHoaDon.setVisible(true);
+	        
+	    }
+	    else if(o.equals(btnCapNhat)) {
+	        updateUI();
+	    }
+	    else if (o.equals(btnApdung)) {
+	        String txtDiemCanSuDung = txtDiemsudung.getText();
+	        double diemCanSuDung = 0;
+	        try {
+	            diemCanSuDung = Double.parseDouble(txtDiemCanSuDung);
+	        } catch (NumberFormatException ex) {
+	            ex.printStackTrace();
+	            JOptionPane.showMessageDialog(this, "Vui lòng nhập số điểm hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	            return;
+	        }
+	        
+	        double diemHienCo = Double.parseDouble(txtDiem.getText());
+	        if (diemHienCo > diemCanSuDung) {
+	        	soDiemConLai = diemHienCo-diemCanSuDung;
+	        	
+	            double doiDiemThanhTien = diemCanSuDung * 1000;
+	            txtDiemDoi.setText(String.valueOf(doiDiemThanhTien));
+	            
+	            double tienSauThue = tongGiaTien - doiDiemThanhTien;
+	            txtTongThanhToan.setText(String.valueOf(tienSauThue));
+	            txtDiem.setText(String.valueOf(soDiemConLai));
+	            updateUI();
+	            
+	            ttvDAO = new TheThanhVien_DAO();
+	            ttvDAO.capNhatDiemTichLuy("KH001", soDiemConLai);
+	            
+	            
+	            
+	        } else {
+	            JOptionPane.showMessageDialog(this, "Bạn không đủ điểm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+	        }
+	    }
+
+	    	
+	    	
+	    	
+	    	
+	    	
+	    }
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -398,12 +471,26 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	                        table.setValueAt(quantity, selectedRow, 3);
 	                        table.setValueAt(quantity * price, selectedRow, 4);
 
-	                        // Tính và cập nhật tổng tiền
-	                        int total = 0;
+	                        
+	                        total = 0;
 	                        for (int row = 0; row < table.getRowCount(); row++) {
 	                            total += Integer.parseInt(table.getValueAt(row, 4).toString());
 	                        }
-	                        txtTiensanpham.setText(String.valueOf(total));
+	                        
+	                        
+	                        SwingUtilities.invokeLater(new Runnable() {
+	                            
+
+								public void run() {
+	                                txtTiensanpham.setText(String.valueOf(total));
+	                                thueGTGT = total * 0.1;
+	                                txtThueGTGT.setText(String.format("%.2f", thueGTGT));
+	                                tongGiaTien = total+thueGTGT;	                             
+	                                txtTongThanhToan.setText(String.format("%.2f", tongGiaTien));
+
+	                            }
+	                        });
+	                        updateUI();
 	                    }
 	                } else {
 	                    JOptionPane.showMessageDialog(null, "Số lượng phải là một số nguyên dương.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -415,10 +502,9 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	    }
 	}
 
-
 	@Override
 	public void mousePressed(MouseEvent e) {
-		 
+		// TODO Auto-generated method stub
 		
 	}
 
