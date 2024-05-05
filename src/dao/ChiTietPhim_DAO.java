@@ -40,7 +40,63 @@ public class ChiTietPhim_DAO {
 		return dsChiTietPhim;
 	}
 	
+	public ArrayList<Phong> getPhongByNgayChieuVaMaPhim(Date date, String maPhim) {
+		ArrayList<Phong> dsPhong = new ArrayList<Phong>();
+		PreparedStatement statement = null;
+		try {
+			ConnectDB.getIntance();
+			Connection con = ConnectDB.getConnection();
+			String sql = "SELECT p.maPhong, p.soLuongGhe, p.tenPhong " +
+                    "FROM ChiTietPhim ct " +
+                    "JOIN Phong p ON ct.maPhong = p.maPhong " +
+                    "WHERE CONVERT(DATE, ct.lichChieu) = ? AND ct.maPhim = ?";
+	        statement = con.prepareStatement(sql);
+	        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+	        statement.setDate(1, sqlDate);
+	        statement.setString(2, maPhim);
+			
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				String maPhong = rs.getString("maPhong");
+                int soLuongGhe = rs.getInt("soLuongGhe");
+                String tenPhong = rs.getString("tenPhong");
 
+                Phong phong = new Phong(maPhong, tenPhong, soLuongGhe);
+                dsPhong.add(phong);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dsPhong;
+	}
+	
+	public ArrayList<ChiTietPhim> getChiTietPhimByNgayMaPhimMaPhong(Date date, String maPhim, String maPhong) {
+		ArrayList<ChiTietPhim> dsChiTietPhim = new ArrayList<ChiTietPhim>();
+		PreparedStatement statement = null;
+		try {
+			ConnectDB.getIntance();
+			Connection con = ConnectDB.getConnection();
+			String sql = "SELECT * FROM ChiTietPhim WHERE maPhim = ? AND maPhong = ? AND CONVERT(date, lichChieu) = ?";
+	        statement = con.prepareStatement(sql);
+	        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+	        statement.setString(1, maPhim);
+	        statement.setString(2, maPhong);
+	        statement.setDate(3, sqlDate);
+	        
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				Timestamp lichChieuTimestamp = rs.getTimestamp("lichChieu");
+				LocalDateTime lichChieu = lichChieuTimestamp.toLocalDateTime();
+				Phim phim = new Phim(rs.getString("maPhim"));
+				Phong phong = new Phong(rs.getString("maPhong"));
+				ChiTietPhim ctp = new ChiTietPhim(lichChieu, phim, phong);
+				dsChiTietPhim.add(ctp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dsChiTietPhim;
+	}
 	
 	public ArrayList<ChiTietPhim> getChiTietPhimByMaPhong(String maPhong) { 
 		ArrayList<ChiTietPhim> dsChiTietPhim = new ArrayList<>();

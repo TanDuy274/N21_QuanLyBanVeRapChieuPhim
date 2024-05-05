@@ -84,7 +84,7 @@ public class TheThanhVien_DAO {
 
 	// Phương thức sinh mã thẻ thành viên mới
 	private String generateMaTTV() {
-	    String newMaTTV = "TTV00001"; // Mã thẻ thành viên mặc định nếu không có thẻ nào trong cơ sở dữ liệu
+	    String newMaTTV = "TTV001"; // Mã thẻ thành viên mặc định nếu không có thẻ nào trong cơ sở dữ liệu
 	    try {
 	        ConnectDB.getIntance();
 	        Connection con = ConnectDB.getConnection();
@@ -98,14 +98,15 @@ public class TheThanhVien_DAO {
 	            String maxMaTTV = rsMaxMaTTV.getString(1);
 	            // Tách số từ mã thẻ thành viên hiện tại và tăng giá trị lên 1
 	            int number = Integer.parseInt(maxMaTTV.trim().substring(3)) + 1;
-	            // Format lại chuỗi số với độ dài 5 ký tự và thêm vào "TTV"
-	            newMaTTV = String.format("TTV%05d", number);
+	            // Format lại chuỗi số với độ dài 3 ký tự và thêm vào "TTV"
+	            newMaTTV = String.format("TTV%03d", number);
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	    return newMaTTV;
 	}
+
 
 	// Phương thức để lấy mã khách hàng cuối cùng từ cơ sở dữ liệu
 	private String getLastMaKhachHang() {

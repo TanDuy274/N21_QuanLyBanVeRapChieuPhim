@@ -58,7 +58,7 @@ public class GiaoDienHoaDon extends JFrame{
 	public GiaoDienHoaDon() {
 		setSize(550, 640);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		setResizable(false);
 		
 		lblTitle = new JLabel("Cinema ABC");

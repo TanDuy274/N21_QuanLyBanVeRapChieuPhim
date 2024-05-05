@@ -33,65 +33,23 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 
 	private static int widthImg = 380;
 	private static int heightImg = 500;
-	JButton currentSelectedButton = null;
+	JButton currenNgaytBtn = null;
+	JButton currentPhongBtn = null;
+	JButton currentSuatChieuBtn = null;
 	private static JLabel lblTitle;
 	private ImageIcon phimDoremon;
 	private Object scaled7;
 	private static JLabel lblPhimDoremon;
-	private JButton btnSuatChieu1;
+
 	private JPanel pnSuatChieu;
-	private JButton btnSuatChieu2;
-	private JButton btnSuatChieu3;
-	private JButton btnSuatChieu4;
-	private JButton btnSuatChieu5;
-	private JButton btnSuatChieu6;
-	private JButton btnSuatChieu7;
-	private JButton btnSuatChieu8, btnSuatChieu9, btnSuatChieu10, btnSuatChieu11, btnSuatChieu12, btnSuatChieu13,
-			btnSuatChieu14, btnSuatChieu15, btnSuatChieu16, btnSuatChieu17, btnSuatChieu18, btnSuatChieu19,
-			btnSuatChieu20, btnSuatChieu21, btnSuatChieu22, btnSuatChieu23, btnSuatChieu24;
-	private JButton btnNgay1;
-	private JPanel pnNgay;
-	private JPanel pnThoiGian;
-	private JButton btnNgay2;
-	private JButton btnNgay3;
-	private JButton btnNgay4;
-	private JButton btnNgay5;
-	private JButton btnNgay6;
-	private JButton btnNgay7;
-	private JButton btnNgay8;
-	private JLabel lblNgay1;
-	private JLabel lblThu1;
-	private JPanel pnTg1;
-	private JPanel pnTg2;
-	private JLabel lblNgay2;
-	private JLabel lblThu2;
-	private JLabel lblNgay3;
-	private JPanel pnTg3;
-	private JLabel lblThu3;
-	private JPanel pnTg4;
-	private JLabel lblNgay4;
-	private JLabel lblThu4;
-	private JPanel pnTg5;
-	private JLabel lblNgay5;
-	private JLabel lblThu5;
-	private JPanel pnTg6;
-	private JLabel lblNgay6;
-	private JLabel lblThu6;
-	private JPanel pnTg7;
-	private JLabel lblThu7;
-	private JLabel lblNgay7;
-	private JPanel pnTg8;
-	private JLabel lblThu8;
-	private JLabel lblNgay8;
-	private JPanel pnPhong;
-	private JButton btnRap1, btnRap2, btnRap3, btnRap4, btnRap5, btnRap6, btnRap7, btnRap8;
+
 	private JPanel pnThongTin;
 	private JLabel lblSoPhong;
 	private JLabel lblSoSuatChieu;
 	private JLabel lblSoThoiGian;
 	private JTextField txtSoPhong;
 	private JTextField txtSoSuatChieu;
-	private JTextField txtSoThoiGian;
+	private JTextField txtNgay;
 
 	private JButton btnTest;
 	private static GiaoDienChonPhim gdChonPhim;
@@ -108,6 +66,10 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 	private Set<String> tenPhongSet;
 	private Set<String> ngChieuSet;
 	private Set<String> giChieuSet;
+	private JPanel pnPhong;
+	private JPanel pnNgay;
+	private Container pnThoiGian;
+	private String ngayText;
 
 	public GiaoDienChonThoiGian2() {
 
@@ -165,19 +127,10 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 			String gioChieu = timeFormat.format(lichChieu);
 			String gioKetThucStr = timeFormat.format(gioKetThuc);
 
-			tenPhongSet.add(phong.getTenPhong());
 			ngChieuSet.add(ngayChieu);
-			giChieuSet.add(gioChieu + " - " + gioKetThucStr);
+//			tenPhongSet.add(phong.getTenPhong());
+//			giChieuSet.add(gioChieu + " - " + gioKetThucStr);
 
-		}
-
-		pnPhong = new JPanel();
-		for (String tenPhong : tenPhongSet) {
-			JButton btnPhong = new JButton(tenPhong);
-			btnPhong.setPreferredSize(new Dimension(120, 50));
-			btnPhong.setBackground(Color.ORANGE);
-			btnPhong.addActionListener(this);
-			pnPhong.add(btnPhong);
 		}
 
 		// Tạo JPanel cho ngày
@@ -190,37 +143,39 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 			pnNgay.add(btnNgay);
 		}
 
+		pnPhong = new JPanel();
+//		for (String tenPhong : tenPhongSet) {
+//			JButton btnPhong = new JButton(tenPhong);
+//			btnPhong.setPreferredSize(new Dimension(120, 50));
+//			btnPhong.setBackground(Color.ORANGE);
+//			btnPhong.addActionListener(this);
+//			pnPhong.add(btnPhong);
+//		}
+
 		// Tạo JPanel cho suất chiếu
 		pnSuatChieu = new JPanel();
-		for (String giChieu : giChieuSet) {
-			JButton btnSuatChieu = new JButton(giChieu);
-			btnSuatChieu.setPreferredSize(new Dimension(120, 50));
-			btnSuatChieu.setBackground(Color.ORANGE);
-			btnSuatChieu.addActionListener(this);
-			pnSuatChieu.add(btnSuatChieu);
-		}
+//		for (String giChieu : giChieuSet) {
+//			JButton btnSuatChieu = new JButton(giChieu);
+//			btnSuatChieu.setPreferredSize(new Dimension(120, 50));
+//			btnSuatChieu.setBackground(Color.ORANGE);
+//			btnSuatChieu.addActionListener(this);
+//			pnSuatChieu.add(btnSuatChieu);
+//		}
 
 		// hết suất
 //		btnSuatChieu1.setBackground(new Color(0, 153, 255));
-//		btnSuatChieu2.setBackground(new Color(0, 153, 255));
-//		btnSuatChieu3.setBackground(new Color(0, 153, 255));
-//		btnSuatChieu4.setBackground(new Color(0, 153, 255));
-//		btnSuatChieu5.setBackground(new Color(0, 153, 255));
 //		btnSuatChieu1.setEnabled(false);
-//		btnSuatChieu2.setEnabled(false);
-//		btnSuatChieu3.setEnabled(false);
-//		btnSuatChieu4.setEnabled(false);
-//		btnSuatChieu5.setEnabled(false);
 //		btnSuatChieu1.setForeground(Color.darkGray);
 
 		pnThongTin = new JPanel(new GridLayout(3, 2));
+		lblSoThoiGian = new JLabel("Ngày đã chọn");
+		txtNgay = new JTextField(30);
+
 		lblSoPhong = new JLabel("Phòng đã chọn");
 		txtSoPhong = new JTextField(30);
 
 		lblSoSuatChieu = new JLabel("Suất chiếu đã chọn");
 		txtSoSuatChieu = new JTextField(30);
-		lblSoThoiGian = new JLabel("Thời gian đã chọn");
-		txtSoThoiGian = new JTextField(30);
 
 		// Đặt font cho các nhãn và ô nhập liệu
 		Font font1 = new Font("Arial", Font.BOLD, 15);
@@ -229,36 +184,36 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 		lblSoThoiGian.setFont(font1);
 		txtSoPhong.setFont(font1);
 		txtSoSuatChieu.setFont(font1);
-		txtSoThoiGian.setFont(font1);
+		txtNgay.setFont(font1);
 
 		// Ẩn viền và background cho các ô nhập liệu
 		txtSoPhong.setBorder(null);
 		txtSoSuatChieu.setBorder(null);
-		txtSoThoiGian.setBorder(null);
+		txtNgay.setBorder(null);
 		txtSoPhong.setOpaque(false);
 		txtSoSuatChieu.setOpaque(false);
-		txtSoThoiGian.setOpaque(false);
+		txtNgay.setOpaque(false);
 
 //     // Không cho phép người dùng nhập vào các ô nhập liệu
 //        txtSoPhong.setEnabled(false);
 //        txtSoSuatChieu.setEnabled(false);
-//        txtSoThoiGian.setEnabled(false);
+//        txtNgay.setEnabled(false);
 
 		// Không cho phép người dùng chỉnh sửa nội dung của các ô nhập liệu
 		txtSoPhong.setEditable(false);
 		txtSoSuatChieu.setEditable(false);
-		txtSoThoiGian.setEditable(false);
+		txtNgay.setEditable(false);
+		pnThongTin.add(lblSoThoiGian);
+		pnThongTin.add(txtNgay);
 		pnThongTin.add(lblSoPhong);
 		pnThongTin.add(txtSoPhong);
 		pnThongTin.add(lblSoSuatChieu);
 		pnThongTin.add(txtSoSuatChieu);
-		pnThongTin.add(lblSoThoiGian);
-		pnThongTin.add(txtSoThoiGian);
 
 		// Không cho phép focus vào các ô nhập liệu
 		txtSoPhong.setFocusable(false);
 		txtSoSuatChieu.setFocusable(false);
-		txtSoThoiGian.setFocusable(false);
+		txtNgay.setFocusable(false);
 
 		pnThoiGian = new JPanel();
 
@@ -274,7 +229,7 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 
 		pnPhong.setBorder(BorderFactory.createTitledBorder("Chọn Phòng"));
 		pnSuatChieu.setBorder(BorderFactory.createTitledBorder("Chọn Suất Chiếu"));
-		pnNgay.setBorder(BorderFactory.createTitledBorder("Chọn Thời Gian"));
+		pnNgay.setBorder(BorderFactory.createTitledBorder("Chọn Ngày"));
 
 		Box pnWrap = Box.createVerticalBox();
 		pnWrap.add(titlePanel);
@@ -283,7 +238,6 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 		pnWrap.add(pnSuatChieu);
 		pnWrap.add(pnThoiGian);
 		add(pnWrap, BorderLayout.CENTER);
-		
 
 	}
 
@@ -311,15 +265,113 @@ public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+//		Object o = e.getSource();
+//		if (o.equals(btnTest)) {
+//			lblTitle.setText("PHIM: " + gdChonPhim.getTenPhim());
+//			String duongDanMoi = "img/" + gdChonPhim.getPosterPath();
+//			capNhatHinhAnh(duongDanMoi);
+//			revalidate();
+//			repaint();
+//		}
 		Object o = e.getSource();
-		if (o.equals(btnTest)) {
-			lblTitle.setText("PHIM: " + gdChonPhim.getTenPhim());
-			String duongDanMoi = "img/" + gdChonPhim.getPosterPath();
-			capNhatHinhAnh(duongDanMoi);
-			revalidate();
-			repaint();
+		if (o instanceof JButton) {
+			JButton clickNgayBtn = (JButton) o;
+			JButton clickPhongBtn = (JButton) o;
+			JButton clickSuatChieuBtn = (JButton) o;
+			if (clickNgayBtn.getParent() == pnNgay) {
+				if (currenNgaytBtn != null) {
+					currenNgaytBtn.setBackground(Color.ORANGE);
+					txtSoPhong.setText("");
+					txtSoSuatChieu.setText("");
+				}
+				currenNgaytBtn = clickNgayBtn;
+				clickNgayBtn.setBackground(Color.GREEN);
+				// Hiển thị ngày
+				txtNgay.setText(clickNgayBtn.getText());
+
+				ngayText = clickNgayBtn.getText();
+				SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					Date ngay = sdfInput.parse(ngayText);
+
+//		            ArrayList<Phong> dsPhong = ctpDAO.getPhongByNgayChieuVaMaPhim(ngay, gdChonPhim.getMaPhim());
+					ArrayList<Phong> dsPhong = ctpDAO.getPhongByNgayChieuVaMaPhim(ngay, "PH002");
+					if (dsPhong.isEmpty()) {
+						pnPhong.removeAll();
+						pnPhong.revalidate();
+						pnPhong.repaint();
+						pnSuatChieu.removeAll();
+						pnSuatChieu.revalidate();
+						pnSuatChieu.repaint();
+					} else {
+						pnPhong.removeAll();
+						pnSuatChieu.removeAll();
+						for (Phong phong : dsPhong) {
+							JButton btnPhong = new JButton(phong.getTenPhong());
+							btnPhong.setPreferredSize(new Dimension(120, 50));
+							btnPhong.setBackground(Color.ORANGE);
+							btnPhong.addActionListener(this);
+							pnPhong.add(btnPhong);
+						}
+						pnPhong.revalidate();
+						pnPhong.repaint();
+					}
+
+				} catch (ParseException ex) {
+					ex.printStackTrace();
+				}
+			} else if (clickPhongBtn.getParent() == pnPhong) {
+				if (currentPhongBtn != null) {
+					currentPhongBtn.setBackground(Color.ORANGE);
+					txtSoSuatChieu.setText("");
+				}
+				currentPhongBtn = clickPhongBtn;
+				clickPhongBtn.setBackground(Color.GREEN);
+				txtSoPhong.setText(clickPhongBtn.getText());
+
+				SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					Date ngay = sdfInput.parse(ngayText);
+					String maPhong = phongDAO.getMaTheoTenPhong(clickPhongBtn.getText());
+
+//		            ArrayList<Phong> dsPhong = ctpDAO.getChiTietPhimByNgayMaPhimMaPhong(ngay, maPhim, maPhong);
+					ArrayList<ChiTietPhim> dsCtp = ctpDAO.getChiTietPhimByNgayMaPhimMaPhong(ngay, "PH002", maPhong);
+					if (dsCtp.isEmpty()) {
+						pnSuatChieu.removeAll();
+						pnSuatChieu.revalidate();
+						pnSuatChieu.repaint();
+					} else {
+						pnSuatChieu.removeAll();
+						for (ChiTietPhim ctp : dsCtp) {
+							Phim phim = phimDAO.getPhimTheoMa(ctp.getPhim().getMaPhim());
+							LocalDateTime lichChieu = ctp.getLichChieu();
+							LocalDateTime gioKetThuc = lichChieu.plusMinutes((long) phim.getThoiLuong());
+							DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+							String gioChieu = timeFormat.format(lichChieu);
+							String gioKetThucStr = timeFormat.format(gioKetThuc);
+
+							JButton btnSuatChieu = new JButton(gioChieu + " - " + gioKetThucStr);
+							btnSuatChieu.setPreferredSize(new Dimension(120, 50));
+							btnSuatChieu.setBackground(Color.ORANGE);
+							btnSuatChieu.addActionListener(this);
+							pnSuatChieu.add(btnSuatChieu);
+						}
+						pnPhong.revalidate();
+						pnPhong.repaint();
+					}
+
+				} catch (ParseException ex) {
+					ex.printStackTrace();
+				}
+			} else if (clickSuatChieuBtn.getParent() == pnSuatChieu) {
+				if (currentSuatChieuBtn != null) {
+					currentSuatChieuBtn.setBackground(Color.ORANGE);
+				}
+				currentSuatChieuBtn = clickSuatChieuBtn;
+				clickSuatChieuBtn.setBackground(Color.GREEN);
+				txtSoSuatChieu.setText(clickSuatChieuBtn.getText());
+			}
 		}
-		
 	}
 
 	public static void main(String[] args) {

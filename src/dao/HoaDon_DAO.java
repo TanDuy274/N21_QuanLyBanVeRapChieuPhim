@@ -66,16 +66,7 @@ public class HoaDon_DAO {
 		return lsHD;
 
 	}
-<<<<<<< HEAD
 
-=======
-	
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
 	public ArrayList<HoaDon> getAllHoaDonWithDetails() {
         ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
         try {
@@ -163,11 +154,7 @@ public class HoaDon_DAO {
 	    }
 
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
+
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -208,7 +195,7 @@ public class HoaDon_DAO {
     }
    
 
-<<<<<<< HEAD
+
     // Phương thức để lấy mã khách hàng cuối cùng từ cơ sở dữ liệu
     private String getLastMaKhachHang() {
         String maKhachHang = "";
@@ -260,16 +247,66 @@ public class HoaDon_DAO {
 	        e.printStackTrace();
 	    }
 	}
+    
+        public HoaDon layHoaDonCuoiCung() {
+            HoaDon hoaDon = null;
+            String sqlSelectLastHoaDon = "SELECT TOP 1 * FROM HoaDon ORDER BY maHoaDon DESC";
+
+            try {
+                Connection conn = ConnectDB.getConnection();
+                Statement statement = conn.createStatement();
+                ResultSet rsLastHoaDon = statement.executeQuery(sqlSelectLastHoaDon);
+
+                if (rsLastHoaDon.next()) {
+                    String maHoaDon = rsLastHoaDon.getString("maHoaDon");
+                    Date ngayLapHoaDon = rsLastHoaDon.getDate("ngayLapHD");
+                    String maKhachHang = rsLastHoaDon.getString("maKhachHang");
+                    String maNhanVien = rsLastHoaDon.getString("maNhanVien");
+
+                    // Khởi tạo đối tượng hoá đơn
+                    hoaDon = new HoaDon(maHoaDon, ngayLapHoaDon, new KhachHang(maKhachHang), new NhanVien(maNhanVien));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return hoaDon;
+        }
+        public HoaDon layHoaDonCuoiCungCoTen() {
+            HoaDon hoaDon = null;
+            try {
+                ConnectDB.getIntance();
+                Connection con = ConnectDB.getConnection();
+                String sql = "SELECT TOP 1 hd.maHoaDon, hd.ngayLapHD, nv.maNhanVien, nv.tenNhanVien, kh.maKhachHang, kh.tenKhachHang, kh.soDienThoai "
+                		+ "FROM HoaDon hd "
+                		+ "INNER JOIN NhanVien nv "
+                		+ "ON hd.maNhanVien = nv.maNhanVien "
+                		+ "INNER JOIN KhachHang kh "
+                		+ "ON hd.maKhachHang = kh.maKhachHang "
+                		+ "ORDER BY hd.maHoaDon DESC";
+                PreparedStatement statement = con.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                if (rs.next()) {
+                    String maHoaDon = rs.getString("maHoaDon");
+                    Date ngayLapHD = rs.getDate("ngayLapHD");
+                    NhanVien nv = new NhanVien(rs.getString("maNhanVien"));
+                    nv.setTenNhanVien(rs.getString("tenNhanVien")); 
+                    KhachHang kh = new KhachHang(rs.getString("maKhachHang"));
+                    kh.setTenKhachHang(rs.getString("tenKhachHang"));
+                    kh.setSoDienThoai(rs.getString("soDienThoai"));
+                    hoaDon = new HoaDon(maHoaDon, ngayLapHD, kh, nv);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return hoaDon;
+        }
+
+
+    
+
 
    
 
     
 
 }
-<<<<<<< HEAD
-
-=======
-=======
-}
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
