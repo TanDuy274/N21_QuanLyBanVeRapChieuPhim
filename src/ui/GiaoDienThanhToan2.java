@@ -87,13 +87,21 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 		pnLapHoaDon = new  JPanel(new FlowLayout(FlowLayout.CENTER, 0, 10));
 		pnLapHoaDon.add(lblLapHoaDon);
 		
+		
 //		thông tin hóa đơn
-		lblMaHoaDon = new JLabel("Mã hóa đơn");
-		lblNgayLap = new JLabel("Ngày lập");
-		lblTenNhanvien = new JLabel("Tên nhân viên");
+		lblMaHoaDon = new JLabel("Mã hóa đơn:");
+		lblNgayLap = new JLabel("Ngày lập:");
+		lblTenNhanvien = new JLabel("Tên nhân viên:");
 		txtMaHoaDon = new JTextField("HD123");
 		txtNgayLap = new JTextField("04/05/2024");
 		txtTenNhanvien = new JTextField("Nhân Viên Ẩn Danh");
+		
+		lblMaHoaDon.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font chữ
+		lblNgayLap.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblTenNhanvien.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtMaHoaDon.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtNgayLap.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtTenNhanvien.setFont(new Font("Arial", Font.PLAIN, 14));
 		
 		// Định nghĩa màu trong suốt
 		Color transparentColor = new Color(255, 255, 255, 100); // 100 là độ mờ, giá trị nằm trong khoảng từ 0 đến 255
@@ -142,13 +150,12 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 		
 //		thẻ thành viên áp dụng điểm
 		lblTTV = new JLabel("Đổi điểm thẻ thành viên");
-		lblTTV.setForeground(new Color(0, 255, 0));
 		pnTTV = new JPanel(new FlowLayout(FlowLayout.LEFT, 5,10));
 		pnTTV.add(lblTTV);
-		lblTen = new JLabel("Thành viên");
-		lblSdt = new JLabel("Số điện thoại");
-		lblDiem = new JLabel("Điểm");
-		lblDiemsudung = new JLabel("Số điểm sử dụng");
+		lblTen = new JLabel("Thành viên:");
+		lblSdt = new JLabel("Số điện thoại:");
+		lblDiem = new JLabel("Điểm:");
+		lblDiemsudung = new JLabel("Số điểm sử dụng:");
 		
 		txtTen = new JTextField("Nguyễn Văn C");
 		txtSdt = new JTextField("012345678");
@@ -160,6 +167,27 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 		btnHuy = new JButton("HỦY BỎ");
 		btnApdung.setBackground(Color.orange);
 		btnHuy.setBackground(Color.orange);
+		
+		lblTTV.setFont(new Font("Arial", Font.BOLD, 16)); // Set font chữ
+		lblTen.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblSdt.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblDiem.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblDiemsudung.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtTen.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtSdt.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtDiem.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblChiTietUudai.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtDiemsudung.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnApdung.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnHuy.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnApdung.setFont(new Font("Arial", Font.PLAIN, 14));
+		btnHuy.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtTen.setBorder(null); txtTen.setOpaque(false);txtTen.setEditable(false);txtTen.setFocusable(false);
+		txtSdt.setBorder(null); txtSdt.setOpaque(false);txtSdt.setEditable(false);txtSdt.setFocusable(false);
+		txtDiem.setBorder(null); txtDiem.setOpaque(false);txtDiem.setEditable(false);txtDiem.setFocusable(false);
+		txtTen.setForeground(new Color(0, 0, 200));
+		txtSdt.setForeground(new Color(0, 0, 200));
+		txtDiem.setForeground(new Color(0, 0, 200));
 		
 		
 		pnTen = new JPanel(new FlowLayout(FlowLayout.LEFT, 5,5));
@@ -201,7 +229,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 	
 //        box ngang chứa thông tin hóa đơn và thẻ thành viên
         Box boxHeader = Box.createHorizontalBox();
-        boxHeader.add(panelBoder1);  boxHeader.add(Box.createHorizontalStrut(420)); //khoảng cách thông tin hóa đơn và đổi điểm
+        boxHeader.add(panelBoder1);  boxHeader.add(Box.createHorizontalStrut(350)); //khoảng cách thông tin hóa đơn và đổi điểm
         boxHeader.add(panelBoder2);
         
 //        bảng
@@ -238,7 +266,26 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
         btnLuuHoaDon.setBackground(Color.PINK);
         btnInVe.setBackground(Color.PINK);
         
-       
+        lblTiensanpham.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font chữ
+        lblThueGTGT.setFont(new Font("Arial", Font.PLAIN, 14));
+        lblDiemDoi.setFont(new Font("Arial", Font.PLAIN, 14));
+        lblTongThanhToan.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnInHoaDon.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnLuuHoaDon.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnInVe.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtTiensanpham.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtThueGTGT.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtDiemDoi.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtTongThanhToan.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtTiensanpham.setBorder(null); txtTiensanpham.setOpaque(false);txtTiensanpham.setEditable(false);txtTiensanpham.setFocusable(false);
+        txtThueGTGT.setBorder(null); txtThueGTGT.setOpaque(false);txtThueGTGT.setEditable(false);txtThueGTGT.setFocusable(false);
+        txtDiemDoi.setBorder(null); txtDiemDoi.setOpaque(false);txtDiemDoi.setEditable(false);txtDiemDoi.setFocusable(false);
+        txtTiensanpham.setBorder(null); txtTongThanhToan.setOpaque(false);txtTongThanhToan.setEditable(false);txtTongThanhToan.setFocusable(false);
+        txtThueGTGT.setForeground(new Color(0, 0, 200));
+        txtDiemDoi.setForeground(new Color(0, 0, 200));
+        txtTiensanpham.setForeground(new Color(0, 0, 200));
+        
+        
         pnTiensanpham = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
         pnTiensanpham.add(lblTiensanpham); pnTiensanpham.add(txtTiensanpham);
         pnThueGTGT = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
@@ -273,7 +320,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 		Box boxMain = Box.createVerticalBox();
 		
 		boxMain.add(boxHeader); boxMain.add(Box.createVerticalStrut(30));
-		boxMain.add(scrollPane);boxMain.add(Box.createVerticalStrut(30));
+		boxMain.add(scrollPane);boxMain.add(Box.createVerticalStrut(10));
 		boxMain.add(pnBoder3);
 		pnMain = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
 		pnMain.add(boxMain);
