@@ -115,22 +115,11 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 		List<ChiTietPhim> ctpList = ctpDAO.getChiTietPhimByMaPhim("PH003");
 		for (ChiTietPhim chiTietPhim : ctpList) {
 			Phim phim = phimDAO.getPhimTheoMa(chiTietPhim.getPhim().getMaPhim());
-			Phong phong = phongDAO.getPhongTheoMa(chiTietPhim.getPhong().getMaPhong());
-
 			LocalDateTime lichChieu = chiTietPhim.getLichChieu();
-			LocalDateTime gioKetThuc = lichChieu.plusMinutes((long) phim.getThoiLuong());
-
 			DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-
 			String ngayChieu = dateFormat.format(lichChieu);
-			String gioChieu = timeFormat.format(lichChieu);
-			String gioKetThucStr = timeFormat.format(gioKetThuc);
-
 			ngChieuSet.add(ngayChieu);
-//			tenPhongSet.add(phong.getTenPhong());
-//			giChieuSet.add(gioChieu + " - " + gioKetThucStr);
-
 		}
 
 		// Tạo JPanel cho ngày
@@ -144,28 +133,8 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 		}
 
 		pnPhong = new JPanel();
-//		for (String tenPhong : tenPhongSet) {
-//			JButton btnPhong = new JButton(tenPhong);
-//			btnPhong.setPreferredSize(new Dimension(120, 50));
-//			btnPhong.setBackground(Color.ORANGE);
-//			btnPhong.addActionListener(this);
-//			pnPhong.add(btnPhong);
-//		}
-
-		// Tạo JPanel cho suất chiếu
+		
 		pnSuatChieu = new JPanel();
-//		for (String giChieu : giChieuSet) {
-//			JButton btnSuatChieu = new JButton(giChieu);
-//			btnSuatChieu.setPreferredSize(new Dimension(120, 50));
-//			btnSuatChieu.setBackground(Color.ORANGE);
-//			btnSuatChieu.addActionListener(this);
-//			pnSuatChieu.add(btnSuatChieu);
-//		}
-
-		// hết suất
-//		btnSuatChieu1.setBackground(new Color(0, 153, 255));
-//		btnSuatChieu1.setEnabled(false);
-//		btnSuatChieu1.setForeground(Color.darkGray);
 
 		pnThongTin = new JPanel(new GridLayout(3, 2));
 		lblSoThoiGian = new JLabel("Ngày đã chọn");
@@ -217,9 +186,9 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 
 		pnThoiGian = new JPanel();
 
-		btnTest = new JButton("LOAD DỮ LIỆU PHIM");
-		btnTest.setPreferredSize(new Dimension(180, 40));
-		btnTest.setBackground(Color.white);
+//		btnTest = new JButton("LOAD DỮ LIỆU PHIM");
+//		btnTest.setPreferredSize(new Dimension(180, 40));
+//		btnTest.setBackground(Color.white);
 
 		pnThoiGian.add(pnPhong);
 		pnThoiGian.add(pnNgay);
@@ -282,13 +251,16 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 				if (currenNgaytBtn != null) {
 					currenNgaytBtn.setBackground(Color.ORANGE);
 					txtSoPhong.setText("");
+					soPhong = null;
 					txtSoSuatChieu.setText("");
+					suatChieu = null;
 				}
 				currenNgaytBtn = clickNgayBtn;
 				clickNgayBtn.setBackground(Color.GREEN);
 				// Hiển thị ngày
 				txtNgay.setText(clickNgayBtn.getText());
-
+				thoiGian = clickNgayBtn.getText();
+				
 				ngayText = clickNgayBtn.getText();
 				SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
 				try {
@@ -323,10 +295,13 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 				if (currentPhongBtn != null) {
 					currentPhongBtn.setBackground(Color.ORANGE);
 					txtSoSuatChieu.setText("");
+					suatChieu = null;
 				}
 				currentPhongBtn = clickPhongBtn;
 				clickPhongBtn.setBackground(Color.GREEN);
+				// Hiển thị phòng
 				txtSoPhong.setText(clickPhongBtn.getText());
+				soPhong = clickNgayBtn.getText();
 
 				SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
 				try {
@@ -367,7 +342,9 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 				}
 				currentSuatChieuBtn = clickSuatChieuBtn;
 				clickSuatChieuBtn.setBackground(Color.GREEN);
+				// Hiển thị suất chiếu
 				txtSoSuatChieu.setText(clickSuatChieuBtn.getText());
+				suatChieu = clickSuatChieuBtn.getText();
 			}
 		}
 	}
@@ -380,6 +357,5 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true); // Hiển thị frame
-
 	}
 }

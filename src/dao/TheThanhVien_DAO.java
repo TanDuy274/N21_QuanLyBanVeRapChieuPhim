@@ -128,36 +128,6 @@ public class TheThanhVien_DAO {
 	    }
 	    return maKhachHang;
 	}
-
-
-
-/**
- * 
- * @author Daddy_Tan
- */
-	
-//	public int insertTheThanhVien(TheThanhVien ttv)
-//	{
-//		try {
-//			ConnectDB.getIntance();
-//			Connection con = ConnectDB.getConnection();
-//			String sql = "INSERT INTO TheThanhVien (maTTV, ngayDangKy, loai, diemTichLuy, maKhachHang) VALUES ('" + ttv.getMaTheThanhVien() + "', '" + ttv.getNgayDangKy() + "', '" + ttv.getLoai() + "', '" + ttv.getDiemTichLuy() + "', '" + ttv.getKhachHang().getMaKhachHang() + "')";
-//			
-//			Statement st = con.createStatement();			
-//			int kq = st.executeUpdate(sql);
-//			
-//			System.out.println("Bạn đã dùng lệnh:"+sql);
-//			
-//			System.out.println("có "+kq+" bị thay đổi");
-//			
-//			
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return 0;
-//		
-//	}
 	public void insertTheThanhVien(TheThanhVien ttv) {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -201,4 +171,50 @@ public class TheThanhVien_DAO {
             }
         }
     }
+	 public TheThanhVien layTheThanhVienTheoMaKhachHang(String maKhachHang) {
+	        TheThanhVien theThanhVien = null;
+	        try {
+	            ConnectDB.getIntance();
+	            Connection con = ConnectDB.getConnection();
+	            String sql = "SELECT maTTV, ngayDangky, loai, diemTichLuy "
+	                       + "FROM TheThanhVien "
+	                       + "WHERE maKhachHang = ?";
+	            PreparedStatement statement = con.prepareStatement(sql);
+	            statement.setString(1, maKhachHang);
+	            ResultSet rs = statement.executeQuery();
+	            if (rs.next()) {
+	                String maTheThanhVien = rs.getString("maTTV");
+	                String loai = rs.getString("loai");
+	                Date ngayDangKy = rs.getDate("ngayDangky");
+	                double diemTichLuy = rs.getDouble("diemTichLuy");	                
+	                KhachHang khachHang = new KhachHang(maKhachHang);
+	                theThanhVien = new TheThanhVien(maTheThanhVien, loai, ngayDangKy, diemTichLuy, khachHang);
+	            }
+	            con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return theThanhVien;
+	    }
+	 public void capNhatDiemTichLuy(String maKhachHang, double diemMoi) {
+	        try {
+	            ConnectDB.getIntance().connect(); // Mở kết nối đến cơ sở dữ liệu
+	            Connection con = ConnectDB.getConnection(); // Lấy kết nối từ ConnectDB
+	            String sql = "UPDATE TheThanhVien SET diemTichLuy = ? WHERE maKhachHang = ?";
+	            PreparedStatement statement = con.prepareStatement(sql);
+	            statement.setDouble(1, diemMoi);
+	            statement.setString(2, maKhachHang);
+	            int rowsUpdated = statement.executeUpdate();
+	            if (rowsUpdated > 0) {
+	                System.out.println("Cập nhật số điểm tích lũy thành công.");
+	            } else {
+	                System.out.println("Không có dòng nào được cập nhật.");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } 
+	    }
+
+
+
 }
