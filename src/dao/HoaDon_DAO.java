@@ -66,16 +66,7 @@ public class HoaDon_DAO {
 		return lsHD;
 
 	}
-<<<<<<< HEAD
 
-=======
-	
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
 	public ArrayList<HoaDon> getAllHoaDonWithDetails() {
         ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
         try {
@@ -161,13 +152,6 @@ public class HoaDon_DAO {
 	        System.out.println("Ngày lập hóa đơn không được null.");
 	        return; // hoặc xử lý theo ý của bạn
 	    }
-
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -208,7 +192,7 @@ public class HoaDon_DAO {
     }
    
 
-<<<<<<< HEAD
+
     // Phương thức để lấy mã khách hàng cuối cùng từ cơ sở dữ liệu
     private String getLastMaKhachHang() {
         String maKhachHang = "";
@@ -266,10 +250,6 @@ public class HoaDon_DAO {
     
 
 }
-<<<<<<< HEAD
 
-=======
-=======
-}
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
+
+
