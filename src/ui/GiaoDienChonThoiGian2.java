@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
+public class GiaoDienChonThoiGian2 extends JPanel implements ActionListener {
 	public static String soPhong;
 	public static String thoiGian;
 	public static String suatChieu;
@@ -79,7 +79,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	private static GiaoDienChonPhim gdChonPhim;
 	private static String duongDanHinhAnh;
 
-	public GiaoDienChonThoiGian() {
+	public GiaoDienChonThoiGian2() {
 		setLayout(new BorderLayout());
 
 		gdChonPhim = new GiaoDienChonPhim();
@@ -581,7 +581,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Chọn thời gian");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GiaoDienChonThoiGian chontime = new GiaoDienChonThoiGian();
+		GiaoDienChonThoiGian2 chontime = new GiaoDienChonThoiGian2();
 		frame.getContentPane().add(chontime);
 		frame.pack();
 		frame.setLocationRelativeTo(null);

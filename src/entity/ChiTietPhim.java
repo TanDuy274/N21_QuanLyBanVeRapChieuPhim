@@ -1,24 +1,25 @@
 package entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ChiTietPhim {
-	private Date lichChieu;
+	private LocalDateTime lichChieu;
 	private Phim phim;
 	private Phong phong;
 	public ChiTietPhim() {
 		
 	}
-	public ChiTietPhim(Date lichChieu, Phim phim, Phong phong) {
+	public ChiTietPhim(LocalDateTime lichChieu, Phim phim, Phong phong) {
 		super();
 		this.lichChieu = lichChieu;
 		this.phim = phim;
 		this.phong = phong;
 	}
-	public Date getLichChieu() {
+	public LocalDateTime getLichChieu() {
 		return lichChieu;
 	}
-	public void setLichChieu(Date lichChieu) {
+	public void setLichChieu(LocalDateTime lichChieu) {
 		this.lichChieu = lichChieu;
 	}
 	public Phim getPhim() {
