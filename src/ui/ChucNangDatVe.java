@@ -54,6 +54,9 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
         panelButton.add(nextButton);
         add(panelButton, BorderLayout.SOUTH);
     }
+    public void nextCard() {
+        cardLayout.next(cardPanel);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
