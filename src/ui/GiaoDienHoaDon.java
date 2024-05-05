@@ -58,7 +58,6 @@ public class GiaoDienHoaDon extends JFrame{
 	public GiaoDienHoaDon() {
 		setSize(550, 640);
 		setLocationRelativeTo(null);
-		
 		setResizable(false);
 		
 		lblTitle = new JLabel("Cinema ABC");
@@ -86,7 +85,7 @@ public class GiaoDienHoaDon extends JFrame{
 		txtThuNgan.setBorder(null); txtThuNgan.setOpaque(false);txtThuNgan.setEditable(false);txtThuNgan.setFocusable(false);
 		txtKH.setBorder(null); txtKH.setOpaque(false);txtKH.setEditable(false);txtKH.setFocusable(false);
 		 
-		pnTitle = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,5));
+		pnTitle = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,5)); 
 		pnDiaChi = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,5));
 		pnTitle2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 10));
 		pnMaHD = new JPanel(new FlowLayout(FlowLayout.LEFT, 10 , 10));

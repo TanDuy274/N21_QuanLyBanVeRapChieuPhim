@@ -145,9 +145,14 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		add(btnThongKe);
 		
 		// qly suất chiêu
+		ImageIcon imgQLXuatChieu = new ImageIcon("img/quanlixuatchieu-icon.png");
+		Image scaledQLXuatChieu = scaleImage(imgQLXuatChieu.getImage(), 30, 30);
+		ImageIcon imgScaled7 = new ImageIcon(scaledQLXuatChieu);
+		JLabel lblImgScaled7= new JLabel(imgScaled7);
+		
 		btnQLSuatChieu = new CustomButton("Quản lý suất chiếu");
 		btnQLSuatChieu.setFocusPainted(false);
-//				btnQLSuatChieu.add(lblImgScaled5);
+				btnQLSuatChieu.add(lblImgScaled7);
 		btnQLSuatChieu.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnQLSuatChieu.setBackground(Color.white);
 		btnQLSuatChieu.setBorder(new LineBorder(Color.white, 2, true));
