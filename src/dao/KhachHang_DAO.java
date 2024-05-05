@@ -116,12 +116,14 @@ public class KhachHang_DAO {
 	}
 	public String timMaKhachHangTheoSDT(String soDienThoai) {
         String maKhachHang = null;
-        try (Connection conn = ConnectDB.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT maKhachHang FROM KhachHang WHERE soDienThoai = ?")) {
+        try {Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT maKhachHang FROM KhachHang WHERE soDienThoai = ?"); 
             ps.setString(1, soDienThoai);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 maKhachHang = rs.getString("maKhachHang");
+            } else {
+            	 maKhachHang = null;
             }
         } catch (SQLException e) {
             e.printStackTrace();

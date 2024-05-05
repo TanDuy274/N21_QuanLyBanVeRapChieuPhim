@@ -150,24 +150,36 @@ public class HoaDon_DAO {
 	    return dsHoaDon;
 	}
 	public void themHoaDon(HoaDon hoaDon) {
+	    if (hoaDon.getNgayLapHoaDon() == null) {
+	        System.out.println("Ngày lập hóa đơn không được null.");
+	        return; // hoặc xử lý theo ý của bạn
+	    }
+
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
-	    try (Connection conn = ConnectDB.getConnection();
-	         PreparedStatement psSelectMaxMaHD = conn.prepareStatement(sqlSelectMaxMaHD);
-	         ResultSet rsMaxMaHD = psSelectMaxMaHD.executeQuery()) {
-	        String maHD = generateMaHoaDon(rsMaxMaHD.getString(1)); // Tạo mã hoá đơn mới
-	        try (PreparedStatement psInsertHoaDon = conn.prepareStatement(sqlInsertHoaDon)) {
+	    try {
+	        Connection conn = ConnectDB.getConnection();
+	        PreparedStatement psSelectMaxMaHD = conn.prepareStatement(sqlSelectMaxMaHD);
+	        ResultSet rsMaxMaHD = psSelectMaxMaHD.executeQuery();
+	        String maHD = "HD0001"; // Giá trị mặc định
+	        if (rsMaxMaHD.next()) {
+	            String maxMaHoaDon = rsMaxMaHD.getString(1);
+	            maHD = generateMaHoaDon(maxMaHoaDon);
+	        }
+//	        try (PreparedStatement psInsertHoaDon = conn.prepareStatement(sqlInsertHoaDon)) {
+	        	PreparedStatement psInsertHoaDon = conn.prepareStatement(sqlInsertHoaDon);
 	            psInsertHoaDon.setString(1, maHD);
 	            psInsertHoaDon.setDate(2, new java.sql.Date(hoaDon.getNgayLapHoaDon().getTime()));
-	            psInsertHoaDon.setString(3, DangNhap.maNhanVien);
-	            psInsertHoaDon.setString(4, maKhachHang);
+	            psInsertHoaDon.setString(3, hoaDon.getNhanVien().getMaNhanVien());
+	            psInsertHoaDon.setString(4, hoaDon.getKhachHang().getMaKhachHang());
 	            psInsertHoaDon.executeUpdate();
-	        }
+//	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	}
+
 
 
     // Phương thức sinh mã hoá đơn mới
@@ -175,9 +187,9 @@ public class HoaDon_DAO {
         String newMaHoaDon = "HD0001"; // Mã hoá đơn mặc định nếu không có hóa đơn nào trong cơ sở dữ liệu
         if (maxMaHoaDon != null) {
             // Tách số từ mã hoá đơn hiện tại và tăng giá trị lên 1
-            int number = Integer.parseInt(maxMaHoaDon.substring(2)) + 1;
+            int number = Integer.parseInt(maxMaHoaDon.trim().substring(2)) + 1;
             // Format lại chuỗi số với độ dài 4 ký tự và thêm vào "HD"
-            newMaHoaDon = String.format("HD%04d", number);
+            newMaHoaDon = String.format("HD%05d", number);
         }
         return newMaHoaDon;
     }

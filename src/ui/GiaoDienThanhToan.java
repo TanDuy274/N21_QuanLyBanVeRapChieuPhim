@@ -4,13 +4,16 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.*;
 
+import connectDB.ConnectDB;
 import dao.HoaDon_DAO;
 import dao.KhachHang_DAO;
 import entity.HoaDon;
 import entity.KhachHang;
+import entity.NhanVien;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GiaoDienThanhToan extends JPanel implements ActionListener{
@@ -66,6 +69,13 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
         pnTitle = new JPanel(new FlowLayout(FlowLayout.LEFT,20,30));
         pnTitle.add(lblTitle1);
         add(pnTitle, BorderLayout.NORTH);
+        
+//      connectDB
+      try {
+			ConnectDB.getIntance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         
 //      màu xanh chủ đạo: 
 		Color blueDark = new Color(0, 153, 255);
@@ -408,8 +418,8 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
 		}
 		
 		else if (o.equals(btnThanhtoan)) {
-		    if (o.equals(radioButtonDaCoThe.isSelected())) {	    	
-		        String sdt = txtSDT.getText();
+		    if (radioButtonDaCoThe.isSelected()) {	    	
+		        String sdt = txtSDT.getText().trim();
 		        HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
 		        KhachHang_DAO khachHangDAO = new KhachHang_DAO();
 		        String maKhachHang = khachHangDAO.timMaKhachHangTheoSDT(sdt);
@@ -418,6 +428,7 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
 		        if (maKhachHang != null) {
 		        	 HoaDon hoaDon = new HoaDon();
 		             hoaDon.setKhachHang(new KhachHang(maKhachHang));
+		             hoaDon.setNhanVien(new NhanVien(DangNhap.maNhanVien));
 		             hoaDonDAO.themHoaDon(hoaDon);
 		            JOptionPane.showMessageDialog(this, "Đã tạo hoá đơn thành công.");
 		        } 
