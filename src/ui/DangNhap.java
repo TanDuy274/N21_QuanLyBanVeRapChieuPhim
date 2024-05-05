@@ -142,7 +142,7 @@ public class DangNhap extends JFrame implements ActionListener {
 			if(username.equals(tk.getTaiKhoan().trim()) && password.equals(tk.getMatKhau().trim())) {
 				JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
 	// HoangTan fix			
-				maNhanVien = username;
+				maNhanVien = tk.getTaiKhoan();
 				setVisible(false);
 				new GiaoDienChinh().setVisible(true);
 				flag = true;

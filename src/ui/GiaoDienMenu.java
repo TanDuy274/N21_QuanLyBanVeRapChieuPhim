@@ -34,6 +34,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 	private JButton btnQLHoadon;
 	private JButton btnDangxuat;
 	private CustomButton btnThongKe;
+	private CustomButton btnQLSuatChieu;
 
 	public GiaoDienMenu(GiaoDienChinh mainFrame) {
 		this.mainFrame = mainFrame;
@@ -142,6 +143,18 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		btnThongKe.setPreferredSize(new Dimension(210, 50));
 		((CustomButton) btnThongKe).setBorderRadius(0);
 		add(btnThongKe);
+		
+		// qly suất chiêu
+		btnQLSuatChieu = new CustomButton("Quản lý suất chiếu");
+		btnQLSuatChieu.setFocusPainted(false);
+//				btnQLSuatChieu.add(lblImgScaled5);
+		btnQLSuatChieu.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnQLSuatChieu.setBackground(Color.white);
+		btnQLSuatChieu.setBorder(new LineBorder(Color.white, 2, true));
+		btnQLSuatChieu.setForeground(Color.black);
+		btnQLSuatChieu.setPreferredSize(new Dimension(210, 50));
+		((CustomButton)btnQLSuatChieu).setBorderRadius(0);
+		add(btnQLSuatChieu);
 
 
 //        panel đẩy
@@ -175,6 +188,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		btnDangxuat.addActionListener(this);
 		btnQLHoadon.addActionListener(this);;
 		btnThongKe.addActionListener(this);
+		btnQLSuatChieu.addActionListener(this);
 
 	}
 
@@ -212,6 +226,8 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 			 mainFrame.displayContent("QlHoaDon");
 		}else if(source.equals(btnThongKe)) {
 			 mainFrame.displayContent("ThongKe");
+		} else if (source.equals(btnQLSuatChieu)) {
+			mainFrame.displayContent("QLSuatChieu");
 		}
 
 	}

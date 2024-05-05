@@ -11,6 +11,7 @@ import java.util.Date;
 import connectDB.ConnectDB;
 import entity.LoaiPhim;
 import entity.Phim;
+import entity.Phong;
 
 public class Phim_DAO {
 	public ArrayList<Phim> getAllPhim() {
@@ -39,6 +40,51 @@ public class Phim_DAO {
 			e.printStackTrace();
 		}
 		return dsPhim;
+	}
+	
+	public String getMaTheoTenPhim(String tenPhim) { 
+	    String maPhim = null;
+	    ConnectDB.getIntance();
+	    Connection con = ConnectDB.getConnection();
+	    String sql = "SELECT maPhim FROM phim WHERE tenPhim like ?";
+	    try {
+	        PreparedStatement pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, "%" + tenPhim + "%");
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            maPhim = rs.getString("maPhim");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return maPhim;
+	}
+
+	
+	public Phim getPhimTheoMa(String ma) { 
+		Phim ph = new Phim();
+		ConnectDB.getIntance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from [dbo].[Phim] where maPhim = '"+ma+"'";
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				ph.setMaPhim(rs.getString(1));
+				ph.setTenPhim(rs.getString(2));
+				ph.setNgayKhoiChieu(rs.getDate(3));
+				ph.setThoiLuong(rs.getDouble(4));
+				ph.setNgonNgu(rs.getString(5));
+				ph.setGioiHanDoTuoi(rs.getInt(6));
+				ph.setTrangThai(rs.getBoolean(7));
+				ph.setGiaTien(rs.getDouble(8));
+				ph.setLoaiPhim(new LoaiPhim(rs.getString(9)));
+				ph.setPoster(rs.getString(10));				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ph;
 	}
 	
 	public ArrayList<Phim> getPhimByTen(String ten) {
