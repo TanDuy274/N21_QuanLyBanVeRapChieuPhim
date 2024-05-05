@@ -152,9 +152,12 @@ public class HoaDon_DAO {
 	        System.out.println("Ngày lập hóa đơn không được null.");
 	        return; // hoặc xử lý theo ý của bạn
 	    }
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> 2fd27e9d9bc7413418364e4b39c6a2312fd4328c
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -310,3 +313,9 @@ public class HoaDon_DAO {
     
 
 }
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 2fd27e9d9bc7413418364e4b39c6a2312fd4328c
