@@ -295,7 +295,7 @@ public class GiaoDienChonPhim extends JPanel implements ActionListener, FocusLis
 	}
 
 	private void loadMovieFromDatabase() {
-		List<Phim> movieListData = movieDAO.getAllPhim();
+		List<Phim> movieListData = movieDAO.getPhimDangChieu();
 		List<LoaiPhim> categoryList = categoryDAO.getAllLoaiPhim();
 		for (Phim movie : movieListData) {
 			for (LoaiPhim loaiPhim : categoryList) {
