@@ -7,6 +7,7 @@ import javax.swing.table.*;
 import connectDB.ConnectDB;
 import dao.HoaDon_DAO;
 import dao.KhachHang_DAO;
+import dao.TheThanhVien_DAO;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
@@ -15,6 +16,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GiaoDienThanhToan extends JPanel implements ActionListener{
     private JLabel lblTitle1;
@@ -417,38 +419,86 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
             txtTuoi.setVisible(true);
 		}
 		
-		else if (o.equals(btnThanhtoan)) {
-		    if (radioButtonDaCoThe.isSelected()) {	    	
+		else if (o.equals(btnThanhtoan)) 
+		{
+		    if (radioButtonDaCoThe.isSelected()) 
+		    {	    	
 		        String sdt = txtSDT.getText().trim();
 		        HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
 		        KhachHang_DAO khachHangDAO = new KhachHang_DAO();
 		        String maKhachHang = khachHangDAO.timMaKhachHangTheoSDT(sdt);
-		        
-		        
+		        		        
 		        if (maKhachHang != null) {
 		        	 HoaDon hoaDon = new HoaDon();
 		             hoaDon.setKhachHang(new KhachHang(maKhachHang));
 		             hoaDon.setNhanVien(new NhanVien(DangNhap.maNhanVien));
-		             hoaDonDAO.themHoaDon(hoaDon);
+		             hoaDonDAO.themHoaDonKhiCoTheThanhVien(hoaDon);
 		            JOptionPane.showMessageDialog(this, "Đã tạo hoá đơn thành công.");
 		        } 
 		        else {
 		            JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với số điện thoại này.");
 		        }
+		        
+		     
 		    }
-		}
+		    if (radioButtonLamThe.isSelected()) {
+		        if (txtSDT != null && txtHoTen != null && txtTuoi != null) {
+		            String sdt = txtSDT.getText().trim();
+		            String hoTen = txtHoTen.getText();
+		            String tuoi = txtTuoi.getText().trim();
+		            int tuoi2 = Integer.parseInt(tuoi);
+		            
+		            KhachHang_DAO khachHangDAO = new KhachHang_DAO();
+		            boolean khachHangInserted = khachHangDAO.insertKhachHang(hoTen, sdt, tuoi2, true);
+		            
+		            if (khachHangInserted) {
+		                
+		                TheThanhVien_DAO ttvDAO = new TheThanhVien_DAO();
+		                boolean theThanhVienInserted = ttvDAO.taoTheThanhVienVsKhachHangCuoiCung();
+		                
+		                if (theThanhVienInserted) {
+		                    JOptionPane.showMessageDialog(this, "Đã tạo khách hàng và thẻ thành viên thành công");
+		                } else {
+		                    JOptionPane.showMessageDialog(this, "Tạo khách hàng thành công nhưng không thể tạo thẻ thành viên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		                }
+		            } else {
+		                JOptionPane.showMessageDialog(this, "Không thành công khi tạo khách hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		            }
+		        } else {
+		            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		    if (radioButtonKhongThe.isSelected()) {
+		    	 KhachHang_DAO khachHangDAO = new KhachHang_DAO();
+		            boolean khachHangInserted = khachHangDAO.insertKhachHang("", "", 0, false);
+		            
+		            if (khachHangInserted) {
+		            	 HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
+		 		        HoaDon hoaDon = new HoaDon();
+		 		
+		 		        hoaDon.setNgayLapHoaDon(new Date());		        
+		 		        hoaDon.setNhanVien(new NhanVien(DangNhap.maNhanVien)); 		        		     
+		 		        hoaDonDAO.themHoaDonVoiKhachHangCuoiCung(hoaDon);		        
+
+		 		        JOptionPane.showMessageDialog(this, "Đã tạo hoá đơn thành công.");
+		            }
+		            
+		       
+		        
+		    }
 
 
-			else if(o.equals(radioButtonLamThe)) {
-				
-			}
-			else if(o.equals(radioButtonKhongThe)) {
-				
-			}
-			
-		}
+		    
+		    }
 		
-	}
+		}
+
+}
+
+
+		
+		
+	
 	
 	
 	/*
