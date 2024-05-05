@@ -149,7 +149,7 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
 		lblPhong = new JLabel("Phòng:  ");
 		lblSuatChieu = new JLabel("Xuất chiếu:  ");
 		lblGhe = new JLabel("Ghế:  ");
-		lblThoiLuong = new JLabel("Thời lượng:  ");
+		lblThoiLuong = new JLabel("Thời lượng:  "); 
 		lblTheLoai = new JLabel("Ngày:  ");
 		//lblTongTien = new JLabel("Tổng tiền:  ");
 		txtTen = new JTextField("Quật mộ trùng ma");

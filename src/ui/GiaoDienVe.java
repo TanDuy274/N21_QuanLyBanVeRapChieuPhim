@@ -25,7 +25,7 @@ public class GiaoDienVe extends JPanel {
 	private JPanel gioChieuPanel;
 	private JPanel phongChieuPanel;
 	private JPanel ghePanel;
-
+ 
 	public GiaoDienVe() {
         lblTenPhim = new JLabel("Avengers: Endgame");
         lblTenPhim.setFont(new Font("Arial", Font.BOLD, 30));

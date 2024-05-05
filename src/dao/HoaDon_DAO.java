@@ -67,8 +67,11 @@ public class HoaDon_DAO {
 
 	}
 	
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3f3316209e73b1af37640226417e208b756fd276
 	public ArrayList<HoaDon> getAllHoaDonWithDetails() {
         ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
         try {
@@ -155,7 +158,10 @@ public class HoaDon_DAO {
 	        return; // hoặc xử lý theo ý của bạn
 	    }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3f3316209e73b1af37640226417e208b756fd276
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -196,6 +202,7 @@ public class HoaDon_DAO {
     }
    
 
+<<<<<<< HEAD
     // Phương thức để lấy mã khách hàng cuối cùng từ cơ sở dữ liệu
     private String getLastMaKhachHang() {
         String maKhachHang = "";
@@ -253,3 +260,6 @@ public class HoaDon_DAO {
     
 
 }
+=======
+}
+>>>>>>> 3f3316209e73b1af37640226417e208b756fd276
