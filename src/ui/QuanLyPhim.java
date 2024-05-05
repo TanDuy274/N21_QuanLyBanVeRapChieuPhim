@@ -52,7 +52,7 @@ public class QuanLyPhim extends JPanel implements ActionListener, FocusListener 
 	private Phim_DAO movieDAO;
 	private LoaiPhim_DAO categoryDAO;
 	private CustomButton btnFilterDate;
-	private LocalDate now = LocalDate.now();
+	private LocalDate now = LocalDate.now(); 
 	@SuppressWarnings("deprecation")
 	private Date dfNow = new Date(now.getYear() - 1900, now.getMonthValue() - 1, now.getDayOfMonth());
 	@SuppressWarnings("deprecation")

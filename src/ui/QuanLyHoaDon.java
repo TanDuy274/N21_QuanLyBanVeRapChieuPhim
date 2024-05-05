@@ -48,7 +48,7 @@ public class QuanLyHoaDon extends JPanel implements ActionListener, FocusListene
 	private KhachHang_DAO khachHangDAO;
 	
 	private CustomButton btnFilterDate;
-	private LocalDate now = LocalDate.now();
+	private LocalDate now = LocalDate.now(); 
 	@SuppressWarnings("deprecation")
 	private Date dfNow = new Date(now.getYear() - 1900, now.getMonthValue() - 1, now.getDayOfMonth());
 	@SuppressWarnings("deprecation")
