@@ -59,9 +59,9 @@ public class KhachHang_DAO {
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
 		try {
-			String sql = "select * from KhachHang where tenKhachHang = ?";
+			String sql = "select * from KhachHang where tenKhachHang like ?";
 			statement = con.prepareStatement(sql);
-			statement.setString(1, ten);
+			statement.setString(1, "%" + ten + "%");
 			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				String ma = rs.getString("maKhachHang");
