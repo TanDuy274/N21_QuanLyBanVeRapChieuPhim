@@ -13,6 +13,8 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
     private JPanel panelButton;
 	private GiaoDienChonPhim giaoDienChonPhim;
 	private GiaoDienChonThoiGian giaoDienChonThoiGian;
+	private boolean flag1 = false;
+	private boolean flag2 = false;
 
     public ChucNangDatVe() {
         cardLayout = new CardLayout();
@@ -63,12 +65,40 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
                 String tenPhim = giaoDienChonPhim.tenPhimVar;    
                 String duongDanHinh = giaoDienChonPhim.posterPathVar;          
                 GiaoDienChonThoiGian.layThongTinPhim("PHIM: "+tenPhim);
-                GiaoDienChonThoiGian.capNhatHinhAnh(duongDanHinh);
-                cardLayout.next(cardPanel);    
+                GiaoDienChonThoiGian.capNhatHinhAnh(duongDanHinh);                  
+                flag1 = true;
+                cardLayout.next(cardPanel);
             }
-            else {
-            	JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN PHIM!!!");
+                      
+            else if(giaoDienChonThoiGian.thoiGian != null && giaoDienChonThoiGian.suatChieu != null && giaoDienChonThoiGian.soPhong!=null) {
+            	String ten = giaoDienChonPhim.tenPhimVar;
+            	String rap = "Galaxy";
+            	String soPhong = giaoDienChonThoiGian.soPhong;
+            	String xuatChieu = giaoDienChonThoiGian.suatChieu;
+            	String ghe = "H100";            	
+            	double thoiLuong = GiaoDienChonPhim.thoiLuongVar;
+            	String thoiLuong1 = String.valueOf(thoiLuong)+" Phút"; 
+            	String theLoai = giaoDienChonThoiGian.thoiGian;
+            	GiaoDienThanhToan.setThongTinPhim(ten, rap, soPhong, xuatChieu, ghe, thoiLuong1, theLoai);
+            	String duongDanHinh = giaoDienChonPhim.posterPathVar; 
+            	GiaoDienThanhToan.capNhatHinhAnhPhim(duongDanHinh);
+            	cardLayout.next(cardPanel); 
+            	flag2 = true;
             }
+            
+           
+            if(flag1==false) {
+            		
+            		JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN PHIM!!!");
+            		return;
+            	}
+            if(flag1 == true && flag2==false)
+            	{ 
+            		JOptionPane.showMessageDialog(this, "VUI LÒNG CHỌN THỜI GIAN!!!");
+            		return;
+            	}
+           	
+           
             
         }
         

@@ -43,14 +43,15 @@ public class GiaoDienThanhToan extends JPanel {
 	private JLabel lblThoiLuong;
 	private JLabel lblTheLoai;
 	private JLabel lblTongTien;
-	private JTextField txtTen;
-	private JTextField txtRap;
-	private JTextField txtPhong;
-	private JTextField txtSuatChieu;
-	private JTextField txtGhe;
-	private JTextField txtThoiLuong;
-	private JTextField txtTongTien;
-	private JTextField txtTheLoai;
+	private static JLabel lblImgScaled;
+	private static JTextField txtTen;
+	private static JTextField txtRap;
+	private static JTextField txtPhong;
+	private static JTextField txtSuatChieu;
+	private static JTextField txtGhe;
+	private static JTextField txtThoiLuong;
+	private static JTextField txtTongTien;
+	private static JTextField txtTheLoai;
 
     public GiaoDienThanhToan() {
         setLayout(new BorderLayout());
@@ -117,10 +118,11 @@ public class GiaoDienThanhToan extends JPanel {
 		ImageIcon imgPhim = new ImageIcon("img/quat-mo-trung-ma.jpg");
 		Image scaledPhim = scaleImage(imgPhim.getImage(), 200, 280);
 		ImageIcon imgScaled = new ImageIcon(scaledPhim);
-		JLabel lblImgScaled = new JLabel(imgScaled);
+		lblImgScaled = new JLabel(imgScaled);
 //		pnThongTinPhim = new JPanel(new BorderLayout());
 		Box boxThongTinVe = Box.createHorizontalBox();
 		boxThongTinVe.add(lblImgScaled, BorderLayout.WEST);
+		
 		
         //thông tin phim
 		lblTen = new JLabel("Tên:  ");
@@ -129,16 +131,16 @@ public class GiaoDienThanhToan extends JPanel {
 		lblSuatChieu = new JLabel("Xuất chiếu:  ");
 		lblGhe = new JLabel("Ghế:  ");
 		lblThoiLuong = new JLabel("Thời lượng:  ");
-		lblTheLoai = new JLabel("Thể loại:  ");
-		lblTongTien = new JLabel("Tổng tiền:  ");
+		lblTheLoai = new JLabel("Ngày:  ");
+		//lblTongTien = new JLabel("Tổng tiền:  ");
 		txtTen = new JTextField("Quật mộ trùng ma");
 		txtRap = new JTextField("Galaxy");
 		txtPhong = new JTextField("1");
 		txtSuatChieu = new JTextField("21:00");
 		txtGhe = new JTextField("H5");
 		txtThoiLuong = new JTextField("1 giờ");
-		txtTheLoai = new JTextField("Kinh Dị");
-		txtTongTien = new JTextField("24000");
+		txtTheLoai = new JTextField("10 tg 1");
+		//txtTongTien = new JTextField("24000");
 		
 		txtTen.setBorder(null); txtTen.setOpaque(false);txtTen.setEditable(false);txtTen.setFocusable(false);
 		txtRap.setBorder(null); txtRap.setOpaque(false);txtRap.setEditable(false);txtRap.setFocusable(false);
@@ -147,7 +149,7 @@ public class GiaoDienThanhToan extends JPanel {
 		txtGhe.setBorder(null); txtGhe.setOpaque(false);txtGhe.setEditable(false);txtGhe.setFocusable(false);
 		txtThoiLuong.setBorder(null); txtThoiLuong.setOpaque(false);txtThoiLuong.setEditable(false);txtThoiLuong.setFocusable(false);
 		txtTheLoai.setBorder(null); txtTheLoai.setOpaque(false);txtTheLoai.setEditable(false);txtTheLoai.setFocusable(false);
-		txtTongTien.setBorder(null); txtTongTien.setOpaque(false);txtTongTien.setEditable(false);txtTongTien.setFocusable(false);
+		//txtTongTien.setBorder(null); txtTongTien.setOpaque(false);txtTongTien.setEditable(false);txtTongTien.setFocusable(false);
 		
 		
 		// Định nghĩa màu trong suốt
@@ -162,7 +164,7 @@ public class GiaoDienThanhToan extends JPanel {
 		txtGhe.setBackground(systemColor);
 		txtThoiLuong.setBackground(systemColor);
 		txtTheLoai.setBackground(systemColor);
-		txtTongTien.setBackground(systemColor);
+		//txtTongTien.setBackground(systemColor);
 		
 		// Đặt border cho JTextField
         
@@ -174,7 +176,7 @@ public class GiaoDienThanhToan extends JPanel {
 		txtGhe.setBorder(border);
 		txtThoiLuong.setBorder(border);
 		txtTheLoai.setBorder(border);
-		txtTongTien.setBorder(border);
+		//txtTongTien.setBorder(border);
 	        
 		
 		Box boxTen = Box.createHorizontalBox();
@@ -184,7 +186,7 @@ public class GiaoDienThanhToan extends JPanel {
 		Box boxGhe = Box.createHorizontalBox();
 		Box boxThoiLuong = Box.createHorizontalBox();
 		Box boxTheLoai = Box.createHorizontalBox();
-		Box boxTongTien = Box.createHorizontalBox();
+		//Box boxTongTien = Box.createHorizontalBox();
 		
 		boxTen.add(lblTen); boxTen.add(txtTen);
 		boxRap.add(lblRap); boxRap.add(txtRap);
@@ -193,7 +195,7 @@ public class GiaoDienThanhToan extends JPanel {
 		boxGhe.add(lblGhe); boxGhe.add(txtGhe);
 		boxThoiLuong.add(lblThoiLuong); boxThoiLuong.add(txtThoiLuong);
 		boxTheLoai.add(lblTheLoai); boxTheLoai.add(txtTheLoai);
-		boxTongTien.add(lblTongTien); boxTongTien.add(txtTongTien);
+		//boxTongTien.add(lblTongTien); boxTongTien.add(txtTongTien);
 		
 		Box boxThongTinPhim = Box.createVerticalBox();
 		boxThongTinPhim.add(Box.createVerticalStrut(12));
@@ -211,7 +213,7 @@ public class GiaoDienThanhToan extends JPanel {
 		boxThongTinPhim.add(Box.createVerticalStrut(12));
 		boxThongTinPhim.add(boxTheLoai);
 		boxThongTinPhim.add(Box.createVerticalStrut(12));
-		boxThongTinPhim.add(boxTongTien);
+		//boxThongTinPhim.add(boxTongTien);
 		// Đặt khoảng cách từ lề trái
 		boxThongTinPhim.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxThongTinPhim.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0)); // Cách trái 50px
@@ -290,6 +292,8 @@ public class GiaoDienThanhToan extends JPanel {
                 txtTuoi.setVisible(true);		
                 lblGhiChu.setVisible(true);
                 txtGhiChu.setVisible(true);
+                
+                
             }
         });
         
@@ -338,12 +342,21 @@ public class GiaoDienThanhToan extends JPanel {
         
     }
 
-	private Image scaleImage(Image image, int i, int j) {
+	private static Image scaleImage(Image image, int i, int j) {
 		Image scaled = image.getScaledInstance(i, j, Image.SCALE_SMOOTH);
 		return scaled;
 	}
 
-
+	// Định nghĩa phương thức để cập nhật hình ảnh cho nhãn
+	public static void capNhatHinhAnhPhim(String duongDan) {
+	    ImageIcon imgPhim = new ImageIcon("img/"+duongDan);
+	    Image scaledPhim = scaleImage(imgPhim.getImage(), 200, 280);
+	    ImageIcon imgScaled = new ImageIcon(scaledPhim);
+	    lblImgScaled.setIcon(imgScaled);
+	}
+	
+	
+	 
 	// Renderer để chèn hình ảnh vào bên trái của văn bản
     static class ImageTextRenderer extends DefaultTableCellRenderer {
         private JLabel label = new JLabel();
@@ -392,5 +405,14 @@ public class GiaoDienThanhToan extends JPanel {
             comboBox.setSelectedItem(value); // Đặt giá trị mặc định cho JComboBox
             return comboBox; // Trả về JComboBox làm editor cho ô cụ thể
         }
+    }
+    public static void setThongTinPhim(String ten,String rap,String phong,String suatChieu,String ghe,String thoiLuong,String theLoai) {
+    	txtTen.setText(ten);
+    	txtRap.setText(rap);
+    	txtPhong.setText(phong);
+    	txtSuatChieu.setText(suatChieu);
+    	txtGhe.setText(ghe);
+    	txtThoiLuong.setText(thoiLuong);
+    	txtTheLoai.setText(theLoai); // đã đổi thành thời gian
     }
 }
