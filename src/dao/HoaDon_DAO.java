@@ -66,12 +66,16 @@ public class HoaDon_DAO {
 		return lsHD;
 
 	}
-	
-
 <<<<<<< HEAD
-=======
 
->>>>>>> 3bc1061b486e23284b2edd890ca2c4b0bcea956f
+=======
+	
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 3f3316209e73b1af37640226417e208b756fd276
+>>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
 	public ArrayList<HoaDon> getAllHoaDonWithDetails() {
         ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
         try {
@@ -152,16 +156,18 @@ public class HoaDon_DAO {
 	    }
 	    return dsHoaDon;
 	}
-	public void themHoaDon(HoaDon hoaDon) {
+	public void themHoaDonKhiCoTheThanhVien(HoaDon hoaDon) {
 	    if (hoaDon.getNgayLapHoaDon() == null) {
 	        System.out.println("Ngày lập hóa đơn không được null.");
 	        return; // hoặc xử lý theo ý của bạn
 	    }
 
-<<<<<<< HEAD
 
-}
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3f3316209e73b1af37640226417e208b756fd276
+>>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -169,7 +175,7 @@ public class HoaDon_DAO {
 	        Connection conn = ConnectDB.getConnection();
 	        PreparedStatement psSelectMaxMaHD = conn.prepareStatement(sqlSelectMaxMaHD);
 	        ResultSet rsMaxMaHD = psSelectMaxMaHD.executeQuery();
-	        String maHD = "HD0001"; // Giá trị mặc định
+	        String maHD = "HD00001"; // Giá trị mặc định
 	        if (rsMaxMaHD.next()) {
 	            String maxMaHoaDon = rsMaxMaHD.getString(1);
 	            maHD = generateMaHoaDon(maxMaHoaDon);
@@ -200,6 +206,70 @@ public class HoaDon_DAO {
         }
         return newMaHoaDon;
     }
+   
+
+<<<<<<< HEAD
+    // Phương thức để lấy mã khách hàng cuối cùng từ cơ sở dữ liệu
+    private String getLastMaKhachHang() {
+        String maKhachHang = "";
+        try {
+            ConnectDB.getIntance();
+            Connection con = ConnectDB.getConnection();
+
+            // Tạo câu lệnh SQL để lấy mã khách hàng cuối cùng từ cơ sở dữ liệu
+            String sqlSelectLastMaKH = "SELECT TOP 1 maKhachHang FROM KhachHang ORDER BY maKhachHang DESC";
+            Statement statement = con.createStatement();
+            ResultSet rsLastMaKH = statement.executeQuery(sqlSelectLastMaKH);
+
+            if (rsLastMaKH.next()) {
+                maKhachHang = rsLastMaKH.getString("maKhachHang");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maKhachHang;
+    }
+    public void themHoaDonVoiKhachHangCuoiCung(HoaDon hoaDon) {
+	    if (hoaDon.getNgayLapHoaDon() == null) {
+	        System.out.println("Ngày lập hóa đơn không được null.");
+	        return; // hoặc xử lý theo ý của bạn
+	    }
+
+
+	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
+	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
+	    String maKhachHang = getLastMaKhachHang();
+	    try {
+	        Connection conn = ConnectDB.getConnection();
+	        PreparedStatement psSelectMaxMaHD = conn.prepareStatement(sqlSelectMaxMaHD);
+	        ResultSet rsMaxMaHD = psSelectMaxMaHD.executeQuery();
+	        String maHD = "HD00001"; // Giá trị mặc định
+	        if (rsMaxMaHD.next()) {
+	            String maxMaHoaDon = rsMaxMaHD.getString(1);
+	            maHD = generateMaHoaDon(maxMaHoaDon);
+	        }
+//	        try (PreparedStatement psInsertHoaDon = conn.prepareStatement(sqlInsertHoaDon)) {
+	        	PreparedStatement psInsertHoaDon = conn.prepareStatement(sqlInsertHoaDon);
+	            psInsertHoaDon.setString(1, maHD);
+	            psInsertHoaDon.setDate(2, new java.sql.Date(hoaDon.getNgayLapHoaDon().getTime()));
+	            psInsertHoaDon.setString(3, DangNhap.maNhanVien);
+	            psInsertHoaDon.setString(4, getLastMaKhachHang());
+	            psInsertHoaDon.executeUpdate();
+//	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+   
+
+    
 
 }
->>>>>>> 3bc1061b486e23284b2edd890ca2c4b0bcea956f
+<<<<<<< HEAD
+
+=======
+=======
+}
+>>>>>>> 3f3316209e73b1af37640226417e208b756fd276
+>>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
