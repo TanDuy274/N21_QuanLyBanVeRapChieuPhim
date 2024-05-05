@@ -3,10 +3,17 @@ package ui;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.*;
+
+import dao.HoaDon_DAO;
+import dao.KhachHang_DAO;
+import entity.HoaDon;
+import entity.KhachHang;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
-public class GiaoDienThanhToan extends JPanel {
+public class GiaoDienThanhToan extends JPanel implements ActionListener{
     private JLabel lblTitle1;
 	private JLabel lblTien;
 	private JPanel pnThongTin;
@@ -239,7 +246,7 @@ public class GiaoDienThanhToan extends JPanel {
         lblGhiChu = new JLabel("Ghi chú:");
         txtGhiChu = new JTextArea(2,40);
         JScrollPane scrollPaneGhiChu = new JScrollPane(txtGhiChu);
-        btnThanhtoan = new JButton("Thanh toán");
+        btnThanhtoan = new JButton("XÁC NHẬN");
         btnThanhtoan.setBackground(blueDark);
         txtSDT.setPreferredSize(new Dimension(40, 30));
         txtHoTen.setPreferredSize(new Dimension(40, 30));
@@ -263,74 +270,7 @@ public class GiaoDienThanhToan extends JPanel {
         boxThongTin.add(pnGhiChu);
         boxThongTin.add(btnThanhtoan);
         
-        radioButtonDaCoThe.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	  // Xử lý sự kiện khi radio button Đã có thẻ thành viên được chọn
-                // Hiển thị input yêu cầu nhập số điện thoại
-                lblSDT.setVisible(true);
-                txtSDT.setVisible(true);
-                lblGhiChu.setVisible(true);
-                txtGhiChu.setVisible(true);
-                // Ẩn input nhập họ tên 
-                lblHoTen.setVisible(false);
-                txtHoTen.setVisible(false);
-                lblTuoi.setVisible(false);
-                txtTuoi.setVisible(false);
-               
-            }
-        });
-        
-        radioButtonLamThe.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	 // Xử lý sự kiện khi radio button Làm thẻ thành viên được chọn
-                // Hiển thị input yêu cầu nhập số điện thoại và họ tên
-                lblSDT.setVisible(true);
-                txtSDT.setVisible(true);
-                lblHoTen.setVisible(true);
-                txtHoTen.setVisible(true);
-                lblTuoi.setVisible(true);
-                txtTuoi.setVisible(true);		
-                lblGhiChu.setVisible(true);
-                txtGhiChu.setVisible(true);
-                
-                
-            }
-        });
-        
-        radioButtonKhongThe.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	// Xử lý sự kiện khi radio button Không có thẻ thành viên được chọn
-                // Hiển thị input yêu cầu nhập ghi chú
-                lblGhiChu.setVisible(true);
-                txtGhiChu.setVisible(true);
-                // Ẩn input nhập số điện thoại và họ tên
-                lblSDT.setVisible(false);
-                txtSDT.setVisible(false);
-                lblHoTen.setVisible(false);
-                txtHoTen.setVisible(false);
-                lblTuoi.setVisible(true);
-                txtTuoi.setVisible(true);
-            }
-        });
-        
-        btnThanhtoan.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Xử lý dữ liệu khi nhấn nút Submit
-                if (checkBox.isSelected()) {
-                    // Đã có thẻ thành viên
-                    String sdt = txtSDT.getText();
-                    String hoTen = txtHoTen.getText();
-                    // Xử lý dữ liệu đã nhập
-                    // Ví dụ: Hiển thị hoặc lưu vào cơ sở dữ liệu
-                } else {
-                    // Không có thẻ thành viên
-                    String ghiChu = txtGhiChu.getText();
-                    // Xử lý dữ liệu đã nhập
-                    // Ví dụ: Hiển thị hoặc lưu vào cơ sở dữ liệu
-                }
-            }
-        });
-        
+  
      // Tạo một nhóm để chỉ cho phép chọn một radio button trong nhóm
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(radioButtonDaCoThe);
@@ -339,6 +279,12 @@ public class GiaoDienThanhToan extends JPanel {
         
         add(box, BorderLayout.WEST);
         add(boxThongTin, BorderLayout.CENTER);
+        
+        
+        btnThanhtoan.addActionListener(this);
+        radioButtonDaCoThe.addActionListener(this);
+        radioButtonKhongThe.addActionListener(this);
+        radioButtonLamThe.addActionListener(this);
         
     }
 
@@ -415,4 +361,159 @@ public class GiaoDienThanhToan extends JPanel {
     	txtThoiLuong.setText(thoiLuong);
     	txtTheLoai.setText(theLoai); // đã đổi thành thời gian
     }
-}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Object o = e.getSource();
+		if(o.equals(radioButtonDaCoThe)) {
+			// Hiển thị input yêu cầu nhập số điện thoại
+            lblSDT.setVisible(true);
+            txtSDT.setVisible(true);
+            lblGhiChu.setVisible(true);
+            txtGhiChu.setVisible(true);
+            // Ẩn input nhập họ tên 
+            lblHoTen.setVisible(false);
+            txtHoTen.setVisible(false);
+            lblTuoi.setVisible(false);
+            txtTuoi.setVisible(false);
+			
+			
+			
+		}
+		else if(o.equals(radioButtonLamThe)) {
+			// Xử lý sự kiện khi radio button Làm thẻ thành viên được chọn
+            // Hiển thị input yêu cầu nhập số điện thoại và họ tên
+            lblSDT.setVisible(true);
+            txtSDT.setVisible(true);
+            lblHoTen.setVisible(true);
+            txtHoTen.setVisible(true);
+            lblTuoi.setVisible(true);
+            txtTuoi.setVisible(true);		
+            lblGhiChu.setVisible(true);
+            txtGhiChu.setVisible(true);
+		}
+		else if(o.equals(radioButtonKhongThe)) {
+			// Xử lý sự kiện khi radio button Không có thẻ thành viên được chọn
+            // Hiển thị input yêu cầu nhập ghi chú
+            lblGhiChu.setVisible(true);
+            txtGhiChu.setVisible(true);
+            // Ẩn input nhập số điện thoại và họ tên
+            lblSDT.setVisible(false);
+            txtSDT.setVisible(false);
+            lblHoTen.setVisible(false);
+            txtHoTen.setVisible(false);
+            lblTuoi.setVisible(true);
+            txtTuoi.setVisible(true);
+		}
+		
+		else if (o.equals(btnThanhtoan)) {
+		    if (o.equals(radioButtonDaCoThe.isSelected())) {	    	
+		        String sdt = txtSDT.getText();
+		        HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
+		        KhachHang_DAO khachHangDAO = new KhachHang_DAO();
+		        String maKhachHang = khachHangDAO.timMaKhachHangTheoSDT(sdt);
+		        
+		        
+		        if (maKhachHang != null) {
+		        	 HoaDon hoaDon = new HoaDon();
+		             hoaDon.setKhachHang(new KhachHang(maKhachHang));
+		             hoaDonDAO.themHoaDon(hoaDon);
+		            JOptionPane.showMessageDialog(this, "Đã tạo hoá đơn thành công.");
+		        } 
+		        else {
+		            JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với số điện thoại này.");
+		        }
+		    }
+		}
+
+
+			else if(o.equals(radioButtonLamThe)) {
+				
+			}
+			else if(o.equals(radioButtonKhongThe)) {
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	/*
+	 *         radioButtonDaCoThe.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  // Xử lý sự kiện khi radio button Đã có thẻ thành viên được chọn
+                // Hiển thị input yêu cầu nhập số điện thoại
+                lblSDT.setVisible(true);
+                txtSDT.setVisible(true);
+                lblGhiChu.setVisible(true);
+                txtGhiChu.setVisible(true);
+                // Ẩn input nhập họ tên 
+                lblHoTen.setVisible(false);
+                txtHoTen.setVisible(false);
+                lblTuoi.setVisible(false);
+                txtTuoi.setVisible(false);
+               
+            }
+        });
+        
+        radioButtonLamThe.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	 // Xử lý sự kiện khi radio button Làm thẻ thành viên được chọn
+                // Hiển thị input yêu cầu nhập số điện thoại và họ tên
+                lblSDT.setVisible(true);
+                txtSDT.setVisible(true);
+                lblHoTen.setVisible(true);
+                txtHoTen.setVisible(true);
+                lblTuoi.setVisible(true);
+                txtTuoi.setVisible(true);		
+                lblGhiChu.setVisible(true);
+                txtGhiChu.setVisible(true);
+                
+                
+            }
+        });
+        
+        radioButtonKhongThe.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	// Xử lý sự kiện khi radio button Không có thẻ thành viên được chọn
+                // Hiển thị input yêu cầu nhập ghi chú
+                lblGhiChu.setVisible(true);
+                txtGhiChu.setVisible(true);
+                // Ẩn input nhập số điện thoại và họ tên
+                lblSDT.setVisible(false);
+                txtSDT.setVisible(false);
+                lblHoTen.setVisible(false);
+                txtHoTen.setVisible(false);
+                lblTuoi.setVisible(true);
+                txtTuoi.setVisible(true);
+            }
+        });
+        
+        btnThanhtoan.addActionListener(new ActionListener() {
+        	 public void actionPerformed(ActionEvent e) {
+        	        if (checkBox.isSelected()) {
+        	            // Nếu CheckBox được chọn
+        	            
+        	            // Xử lý dữ liệu khi có CheckBox được chọn
+        	        } else {
+        	            // Nếu CheckBox không được chọn
+        	            JOptionPane.showMessageDialog(this,"Vui lòng check vào loại thành viên");
+        	        }
+        	        
+        	        if (radioButtonDaCoThe.isSelected()) {
+        	            // Nếu RadioButton "Đã có thẻ" được chọn
+        	            // Xử lý khi RadioButton "Đã có thẻ" được chọn
+        	        } else if (radioButtonLamThe.isSelected()) {
+        	            // Nếu RadioButton "Làm thẻ" được chọn
+        	            // Xử lý khi RadioButton "Làm thẻ" được chọn
+        	        } else if (radioButtonKhongThe.isSelected()) {
+        	            // Nếu RadioButton "Không có thẻ" được chọn
+        	            // Xử lý khi RadioButton "Không có thẻ" được chọn
+        	        }
+        	    }
+        });
+      
+	 */
+

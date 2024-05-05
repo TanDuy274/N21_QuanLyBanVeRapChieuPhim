@@ -114,4 +114,19 @@ public class KhachHang_DAO {
 		}
 		return list;
 	}
+	public String timMaKhachHangTheoSDT(String soDienThoai) {
+        String maKhachHang = null;
+        try (Connection conn = ConnectDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT maKhachHang FROM KhachHang WHERE soDienThoai = ?")) {
+            ps.setString(1, soDienThoai);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                maKhachHang = rs.getString("maKhachHang");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maKhachHang;
+    }
+	
 }
