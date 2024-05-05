@@ -66,12 +66,7 @@ public class HoaDon_DAO {
 		return lsHD;
 
 	}
-	
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3bc1061b486e23284b2edd890ca2c4b0bcea956f
 	public ArrayList<HoaDon> getAllHoaDonWithDetails() {
         ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
         try {
@@ -158,10 +153,7 @@ public class HoaDon_DAO {
 	        return; // hoặc xử lý theo ý của bạn
 	    }
 
-<<<<<<< HEAD
 
-}
-=======
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -202,4 +194,4 @@ public class HoaDon_DAO {
     }
 
 }
->>>>>>> 3bc1061b486e23284b2edd890ca2c4b0bcea956f
+
