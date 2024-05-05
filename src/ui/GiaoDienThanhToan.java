@@ -488,8 +488,9 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
 		    }
 
 
-		    
+		    GiaoDienThanhToan2.capNhatThongTinTrangThanhToan();
 		    }
+		
 		
 		}
 
