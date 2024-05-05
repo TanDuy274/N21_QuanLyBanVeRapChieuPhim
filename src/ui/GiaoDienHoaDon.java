@@ -44,9 +44,9 @@ public class GiaoDienHoaDon extends JFrame{
 	
 		Box box = Box.createVerticalBox();
 		box.add(pnTitle);
-//		box.add(lblDiachi);
-//		box.add(pnTitle2);
-//		box.add(lblMaHD);
+		box.add(lblDiachi);
+		box.add(pnTitle2);
+		box.add(lblMaHD);
 		
 		pnMain = new JPanel();
 		pnMain.add(box);

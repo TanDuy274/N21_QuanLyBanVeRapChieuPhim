@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,7 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-public class GiaoDienThanhToan2 extends JPanel {
+public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 	private JLabel lblTen;
 	private JLabel lblSdt;
 	private JLabel lblDiem;
@@ -74,7 +76,7 @@ public class GiaoDienThanhToan2 extends JPanel {
 	private JPanel pnDiemDoi;
 	private JPanel pnTongThanhToan;
 
-	public GiaoDienThanhToan2 ()  {
+	public GiaoDienThanhToan2 ()  { 
 		setLayout(new BorderLayout());
 //		setSize(1200, 725);
 //		setLocationRelativeTo(null);
@@ -282,10 +284,22 @@ public class GiaoDienThanhToan2 extends JPanel {
 		add(pnLapHoaDon, BorderLayout.NORTH);
 		add(pnMain, BorderLayout.CENTER);
 		
+		btnInHoaDon.addActionListener(this);
+		
 	}
 	
 	public static void main(String[] args) {
 		new GiaoDienThanhToan2().setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object o = e.getSource();
+		if (o.equals(btnInHoaDon)) {
+			GiaoDienHoaDon giaoDienHoaDon = new GiaoDienHoaDon();
+			giaoDienHoaDon.setVisible(true);
+		}
+		
 	}
 	
 }
