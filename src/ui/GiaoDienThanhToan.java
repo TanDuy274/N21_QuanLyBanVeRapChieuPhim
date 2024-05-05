@@ -136,7 +136,7 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
         // ẢNH PHIM
 		ImageIcon imgPhim = new ImageIcon("img/quat-mo-trung-ma.jpg");
 		Image scaledPhim = scaleImage(imgPhim.getImage(), 200, 280);
-		ImageIcon imgScaled = new ImageIcon(scaledPhim);
+		ImageIcon imgScaled = new ImageIcon(scaledPhim); 
 		lblImgScaled = new JLabel(imgScaled);
 //		pnThongTinPhim = new JPanel(new BorderLayout());
 		Box boxThongTinVe = Box.createHorizontalBox();
@@ -157,7 +157,7 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
 		txtPhong = new JTextField("1");
 		txtSuatChieu = new JTextField("21:00");
 		txtGhe = new JTextField("H5");
-		txtThoiLuong = new JTextField("1 giờ");
+		txtThoiLuong = new JTextField("1 giờ"); 
 		txtTheLoai = new JTextField("10 tg 1");
 		//txtTongTien = new JTextField("24000");
 		

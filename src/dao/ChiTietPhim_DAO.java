@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import connectDB.ConnectDB;
 import entity.ChiTietPhim;
@@ -38,6 +39,8 @@ public class ChiTietPhim_DAO {
 		}
 		return dsChiTietPhim;
 	}
+	
+
 	
 	public ArrayList<ChiTietPhim> getChiTietPhimByMaPhong(String maPhong) { 
 		ArrayList<ChiTietPhim> dsChiTietPhim = new ArrayList<>();
