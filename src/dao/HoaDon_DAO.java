@@ -153,6 +153,11 @@ public class HoaDon_DAO {
 	        return; // hoặc xử lý theo ý của bạn
 	    }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 007d895a0fe6186668dbcbf9d93c4b3c68268f53
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -274,11 +279,13 @@ public class HoaDon_DAO {
             try {
                 ConnectDB.getIntance();
                 Connection con = ConnectDB.getConnection();
-                String sql = "SELECT TOP 1 hd.*, nv.*, kh.* " +
-                             "FROM HoaDon hd " +
-                             "INNER JOIN NhanVien nv ON hd.maNhanVien = nv.maNhanVien " +
-                             "INNER JOIN KhachHang kh ON hd.maKhachHang = kh.maKhachHang " +
-                             "ORDER BY hd.maHoaDon DESC";
+                String sql = "SELECT TOP 1 hd.maHoaDon, hd.ngayLapHD, nv.maNhanVien, nv.tenNhanVien, kh.maKhachHang, kh.tenKhachHang, kh.soDienThoai "
+                		+ "FROM HoaDon hd "
+                		+ "INNER JOIN NhanVien nv "
+                		+ "ON hd.maNhanVien = nv.maNhanVien "
+                		+ "INNER JOIN KhachHang kh "
+                		+ "ON hd.maKhachHang = kh.maKhachHang "
+                		+ "ORDER BY hd.maHoaDon DESC";
                 PreparedStatement statement = con.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
                 if (rs.next()) {
@@ -301,4 +308,7 @@ public class HoaDon_DAO {
     
 
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 007d895a0fe6186668dbcbf9d93c4b3c68268f53
