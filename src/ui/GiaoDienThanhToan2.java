@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,7 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-public class GiaoDienThanhToan2 extends JPanel {
+public class GiaoDienThanhToan2 extends JPanel implements ActionListener {
 	private JLabel lblTen;
 	private JLabel lblSdt;
 	private JLabel lblDiem;
@@ -73,8 +75,9 @@ public class GiaoDienThanhToan2 extends JPanel {
 	private JPanel pnThueGTGT;
 	private JPanel pnDiemDoi;
 	private JPanel pnTongThanhToan;
+	private JButton btnInVe;
 
-	public GiaoDienThanhToan2 ()  {
+	public GiaoDienThanhToan2 ()  { 
 		setLayout(new BorderLayout());
 //		setSize(1200, 725);
 //		setLocationRelativeTo(null);
@@ -224,6 +227,7 @@ public class GiaoDienThanhToan2 extends JPanel {
         lblTongThanhToan = new JLabel("Tổng thanh toán:");
         btnInHoaDon = new JButton("IN HÓA ĐƠN");
         btnLuuHoaDon = new JButton("LƯU HÓA ĐƠN");
+        btnInVe = new JButton("IN VÉ");
         txtTiensanpham = new JTextField("160.000");
         txtThueGTGT = new JTextField("16.000");
         txtDiemDoi = new JTextField("400");
@@ -232,17 +236,17 @@ public class GiaoDienThanhToan2 extends JPanel {
         txtTongThanhToan.setForeground(new Color(0, 255, 0));
         btnInHoaDon.setBackground(Color.PINK);
         btnLuuHoaDon.setBackground(Color.PINK);
-        
+        btnInVe.setBackground(Color.PINK);
         
        
         pnTiensanpham = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
         pnTiensanpham.add(lblTiensanpham); pnTiensanpham.add(txtTiensanpham);
         pnThueGTGT = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
-        pnThueGTGT.add(lblTiensanpham); pnThueGTGT.add(txtTiensanpham);
+        pnThueGTGT.add(lblThueGTGT); pnThueGTGT.add(txtThueGTGT);
         pnDiemDoi = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
-        pnDiemDoi.add(lblTiensanpham); pnDiemDoi.add(txtTiensanpham);
+        pnDiemDoi.add(lblDiemDoi); pnDiemDoi.add(txtDiemDoi);
         pnTongThanhToan = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
-        pnTongThanhToan.add(lblTiensanpham); pnTongThanhToan.add(txtTiensanpham);
+        pnTongThanhToan.add(lblTongThanhToan); pnTongThanhToan.add(txtTongThanhToan);
         
         
         Box box1 = Box.createVerticalBox();
@@ -254,12 +258,14 @@ public class GiaoDienThanhToan2 extends JPanel {
         pnBtnHoaDon = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,10));
         pnBtnHoaDon.add(btnInHoaDon);
         pnBtnHoaDon.add(btnLuuHoaDon);
+        pnBtnHoaDon.add(btnInVe);
         box2.add(pnBtnHoaDon);
         Box box12 = Box.createHorizontalBox();
-        box12.add(box1); box12.add(box2);
-        pnBoder3 = new JPanel();
+        box12.add(box1); box12.add(Box.createHorizontalStrut(100));
+        box12.add(box2);
+        pnBoder3 = new JPanel(new FlowLayout(FlowLayout.LEFT, 50,20));
         pnBoder3.add(box12);
-        // Tạo border
+//         Tạo border
         Border border3 = BorderFactory.createLineBorder(Color.BLACK); // Border đơn giản với đường viền đen
         pnBoder3.setBorder(border3);
         		
@@ -267,7 +273,7 @@ public class GiaoDienThanhToan2 extends JPanel {
 		Box boxMain = Box.createVerticalBox();
 		
 		boxMain.add(boxHeader); boxMain.add(Box.createVerticalStrut(30));
-		boxMain.add(scrollPane);
+		boxMain.add(scrollPane);boxMain.add(Box.createVerticalStrut(30));
 		boxMain.add(pnBoder3);
 		pnMain = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
 		pnMain.add(boxMain);
@@ -281,10 +287,22 @@ public class GiaoDienThanhToan2 extends JPanel {
 		add(pnLapHoaDon, BorderLayout.NORTH);
 		add(pnMain, BorderLayout.CENTER);
 		
+		btnInHoaDon.addActionListener(this);
+		
 	}
 	
 	public static void main(String[] args) {
 		new GiaoDienThanhToan2().setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object o = e.getSource();
+		if (o.equals(btnInHoaDon)) {
+			GiaoDienHoaDon giaoDienHoaDon = new GiaoDienHoaDon();
+			giaoDienHoaDon.setVisible(true);
+		}
+		
 	}
 	
 }

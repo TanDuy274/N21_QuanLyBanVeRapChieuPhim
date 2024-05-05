@@ -34,6 +34,7 @@ public class DangNhap extends JFrame implements ActionListener {
 	private JPanel pnPass1;
 	private JPanel pnPass2;
 	private TaiKhoan_DAO TK_DAO;
+	public static String maNhanVien;
 
     public DangNhap() {
         setTitle("Đăng nhập");
@@ -140,9 +141,12 @@ public class DangNhap extends JFrame implements ActionListener {
 		for(TaiKhoan tk : dsTK) {
 			if(username.equals(tk.getTaiKhoan().trim()) && password.equals(tk.getMatKhau().trim())) {
 				JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+	// HoangTan fix			
+				maNhanVien = tk.getTaiKhoan();
 				setVisible(false);
 				new GiaoDienChinh().setVisible(true);
 				flag = true;
+				
 			} 
 		}
 			if(!flag) {

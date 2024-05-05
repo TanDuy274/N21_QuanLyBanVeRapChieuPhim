@@ -21,7 +21,7 @@ public class GiaoDienChinh extends JFrame {
 
         // Thêm thanh menu và phần nội dung vào cửa sổ chính
         add(menuPanel, BorderLayout.WEST);
-        add(contentPanel, BorderLayout.CENTER);
+        add(contentPanel, BorderLayout.CENTER); 
     }
 
     // Phương thức để hiển thị nội dung tương ứng với chức năng

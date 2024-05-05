@@ -3,10 +3,20 @@ package ui;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.*;
+
+import connectDB.ConnectDB;
+import dao.HoaDon_DAO;
+import dao.KhachHang_DAO;
+import entity.HoaDon;
+import entity.KhachHang;
+import entity.NhanVien;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class GiaoDienThanhToan extends JPanel {
+public class GiaoDienThanhToan extends JPanel implements ActionListener{
     private JLabel lblTitle1;
 	private JLabel lblTien;
 	private JPanel pnThongTin;
@@ -43,14 +53,15 @@ public class GiaoDienThanhToan extends JPanel {
 	private JLabel lblThoiLuong;
 	private JLabel lblTheLoai;
 	private JLabel lblTongTien;
-	private JTextField txtTen;
-	private JTextField txtRap;
-	private JTextField txtPhong;
-	private JTextField txtSuatChieu;
-	private JTextField txtGhe;
-	private JTextField txtThoiLuong;
-	private JTextField txtTongTien;
-	private JTextField txtTheLoai;
+	private static JLabel lblImgScaled;
+	private static JTextField txtTen;
+	private static JTextField txtRap;
+	private static JTextField txtPhong;
+	private static JTextField txtSuatChieu;
+	private static JTextField txtGhe;
+	private static JTextField txtThoiLuong;
+	private static JTextField txtTongTien;
+	private static JTextField txtTheLoai;
 
     public GiaoDienThanhToan() {
         setLayout(new BorderLayout());
@@ -58,6 +69,13 @@ public class GiaoDienThanhToan extends JPanel {
         pnTitle = new JPanel(new FlowLayout(FlowLayout.LEFT,20,30));
         pnTitle.add(lblTitle1);
         add(pnTitle, BorderLayout.NORTH);
+        
+//      connectDB
+      try {
+			ConnectDB.getIntance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         
 //      màu xanh chủ đạo: 
 		Color blueDark = new Color(0, 153, 255);
@@ -117,10 +135,11 @@ public class GiaoDienThanhToan extends JPanel {
 		ImageIcon imgPhim = new ImageIcon("img/quat-mo-trung-ma.jpg");
 		Image scaledPhim = scaleImage(imgPhim.getImage(), 200, 280);
 		ImageIcon imgScaled = new ImageIcon(scaledPhim);
-		JLabel lblImgScaled = new JLabel(imgScaled);
+		lblImgScaled = new JLabel(imgScaled);
 //		pnThongTinPhim = new JPanel(new BorderLayout());
 		Box boxThongTinVe = Box.createHorizontalBox();
 		boxThongTinVe.add(lblImgScaled, BorderLayout.WEST);
+		
 		
         //thông tin phim
 		lblTen = new JLabel("Tên:  ");
@@ -129,16 +148,16 @@ public class GiaoDienThanhToan extends JPanel {
 		lblSuatChieu = new JLabel("Xuất chiếu:  ");
 		lblGhe = new JLabel("Ghế:  ");
 		lblThoiLuong = new JLabel("Thời lượng:  ");
-		lblTheLoai = new JLabel("Thể loại:  ");
-		lblTongTien = new JLabel("Tổng tiền:  ");
+		lblTheLoai = new JLabel("Ngày:  ");
+		//lblTongTien = new JLabel("Tổng tiền:  ");
 		txtTen = new JTextField("Quật mộ trùng ma");
 		txtRap = new JTextField("Galaxy");
 		txtPhong = new JTextField("1");
 		txtSuatChieu = new JTextField("21:00");
 		txtGhe = new JTextField("H5");
 		txtThoiLuong = new JTextField("1 giờ");
-		txtTheLoai = new JTextField("Kinh Dị");
-		txtTongTien = new JTextField("24000");
+		txtTheLoai = new JTextField("10 tg 1");
+		//txtTongTien = new JTextField("24000");
 		
 		txtTen.setBorder(null); txtTen.setOpaque(false);txtTen.setEditable(false);txtTen.setFocusable(false);
 		txtRap.setBorder(null); txtRap.setOpaque(false);txtRap.setEditable(false);txtRap.setFocusable(false);
@@ -147,7 +166,7 @@ public class GiaoDienThanhToan extends JPanel {
 		txtGhe.setBorder(null); txtGhe.setOpaque(false);txtGhe.setEditable(false);txtGhe.setFocusable(false);
 		txtThoiLuong.setBorder(null); txtThoiLuong.setOpaque(false);txtThoiLuong.setEditable(false);txtThoiLuong.setFocusable(false);
 		txtTheLoai.setBorder(null); txtTheLoai.setOpaque(false);txtTheLoai.setEditable(false);txtTheLoai.setFocusable(false);
-		txtTongTien.setBorder(null); txtTongTien.setOpaque(false);txtTongTien.setEditable(false);txtTongTien.setFocusable(false);
+		//txtTongTien.setBorder(null); txtTongTien.setOpaque(false);txtTongTien.setEditable(false);txtTongTien.setFocusable(false);
 		
 		
 		// Định nghĩa màu trong suốt
@@ -162,7 +181,7 @@ public class GiaoDienThanhToan extends JPanel {
 		txtGhe.setBackground(systemColor);
 		txtThoiLuong.setBackground(systemColor);
 		txtTheLoai.setBackground(systemColor);
-		txtTongTien.setBackground(systemColor);
+		//txtTongTien.setBackground(systemColor);
 		
 		// Đặt border cho JTextField
         
@@ -174,7 +193,7 @@ public class GiaoDienThanhToan extends JPanel {
 		txtGhe.setBorder(border);
 		txtThoiLuong.setBorder(border);
 		txtTheLoai.setBorder(border);
-		txtTongTien.setBorder(border);
+		//txtTongTien.setBorder(border);
 	        
 		
 		Box boxTen = Box.createHorizontalBox();
@@ -184,7 +203,7 @@ public class GiaoDienThanhToan extends JPanel {
 		Box boxGhe = Box.createHorizontalBox();
 		Box boxThoiLuong = Box.createHorizontalBox();
 		Box boxTheLoai = Box.createHorizontalBox();
-		Box boxTongTien = Box.createHorizontalBox();
+		//Box boxTongTien = Box.createHorizontalBox();
 		
 		boxTen.add(lblTen); boxTen.add(txtTen);
 		boxRap.add(lblRap); boxRap.add(txtRap);
@@ -193,7 +212,7 @@ public class GiaoDienThanhToan extends JPanel {
 		boxGhe.add(lblGhe); boxGhe.add(txtGhe);
 		boxThoiLuong.add(lblThoiLuong); boxThoiLuong.add(txtThoiLuong);
 		boxTheLoai.add(lblTheLoai); boxTheLoai.add(txtTheLoai);
-		boxTongTien.add(lblTongTien); boxTongTien.add(txtTongTien);
+		//boxTongTien.add(lblTongTien); boxTongTien.add(txtTongTien);
 		
 		Box boxThongTinPhim = Box.createVerticalBox();
 		boxThongTinPhim.add(Box.createVerticalStrut(12));
@@ -211,7 +230,7 @@ public class GiaoDienThanhToan extends JPanel {
 		boxThongTinPhim.add(Box.createVerticalStrut(12));
 		boxThongTinPhim.add(boxTheLoai);
 		boxThongTinPhim.add(Box.createVerticalStrut(12));
-		boxThongTinPhim.add(boxTongTien);
+		//boxThongTinPhim.add(boxTongTien);
 		// Đặt khoảng cách từ lề trái
 		boxThongTinPhim.setAlignmentX(Component.LEFT_ALIGNMENT);
 		boxThongTinPhim.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0)); // Cách trái 50px
@@ -237,7 +256,7 @@ public class GiaoDienThanhToan extends JPanel {
         lblGhiChu = new JLabel("Ghi chú:");
         txtGhiChu = new JTextArea(2,40);
         JScrollPane scrollPaneGhiChu = new JScrollPane(txtGhiChu);
-        btnThanhtoan = new JButton("Thanh toán");
+        btnThanhtoan = new JButton("XÁC NHẬN");
         btnThanhtoan.setBackground(blueDark);
         txtSDT.setPreferredSize(new Dimension(40, 30));
         txtHoTen.setPreferredSize(new Dimension(40, 30));
@@ -261,72 +280,7 @@ public class GiaoDienThanhToan extends JPanel {
         boxThongTin.add(pnGhiChu);
         boxThongTin.add(btnThanhtoan);
         
-        radioButtonDaCoThe.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	  // Xử lý sự kiện khi radio button Đã có thẻ thành viên được chọn
-                // Hiển thị input yêu cầu nhập số điện thoại
-                lblSDT.setVisible(true);
-                txtSDT.setVisible(true);
-                lblGhiChu.setVisible(true);
-                txtGhiChu.setVisible(true);
-                // Ẩn input nhập họ tên 
-                lblHoTen.setVisible(false);
-                txtHoTen.setVisible(false);
-                lblTuoi.setVisible(false);
-                txtTuoi.setVisible(false);
-               
-            }
-        });
-        
-        radioButtonLamThe.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	 // Xử lý sự kiện khi radio button Làm thẻ thành viên được chọn
-                // Hiển thị input yêu cầu nhập số điện thoại và họ tên
-                lblSDT.setVisible(true);
-                txtSDT.setVisible(true);
-                lblHoTen.setVisible(true);
-                txtHoTen.setVisible(true);
-                lblTuoi.setVisible(true);
-                txtTuoi.setVisible(true);		
-                lblGhiChu.setVisible(true);
-                txtGhiChu.setVisible(true);
-            }
-        });
-        
-        radioButtonKhongThe.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	// Xử lý sự kiện khi radio button Không có thẻ thành viên được chọn
-                // Hiển thị input yêu cầu nhập ghi chú
-                lblGhiChu.setVisible(true);
-                txtGhiChu.setVisible(true);
-                // Ẩn input nhập số điện thoại và họ tên
-                lblSDT.setVisible(false);
-                txtSDT.setVisible(false);
-                lblHoTen.setVisible(false);
-                txtHoTen.setVisible(false);
-                lblTuoi.setVisible(true);
-                txtTuoi.setVisible(true);
-            }
-        });
-        
-        btnThanhtoan.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Xử lý dữ liệu khi nhấn nút Submit
-                if (checkBox.isSelected()) {
-                    // Đã có thẻ thành viên
-                    String sdt = txtSDT.getText();
-                    String hoTen = txtHoTen.getText();
-                    // Xử lý dữ liệu đã nhập
-                    // Ví dụ: Hiển thị hoặc lưu vào cơ sở dữ liệu
-                } else {
-                    // Không có thẻ thành viên
-                    String ghiChu = txtGhiChu.getText();
-                    // Xử lý dữ liệu đã nhập
-                    // Ví dụ: Hiển thị hoặc lưu vào cơ sở dữ liệu
-                }
-            }
-        });
-        
+  
      // Tạo một nhóm để chỉ cho phép chọn một radio button trong nhóm
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(radioButtonDaCoThe);
@@ -336,14 +290,29 @@ public class GiaoDienThanhToan extends JPanel {
         add(box, BorderLayout.WEST);
         add(boxThongTin, BorderLayout.CENTER);
         
+        
+        btnThanhtoan.addActionListener(this);
+        radioButtonDaCoThe.addActionListener(this);
+        radioButtonKhongThe.addActionListener(this);
+        radioButtonLamThe.addActionListener(this);
+        
     }
 
-	private Image scaleImage(Image image, int i, int j) {
+	private static Image scaleImage(Image image, int i, int j) {
 		Image scaled = image.getScaledInstance(i, j, Image.SCALE_SMOOTH);
 		return scaled;
 	}
 
-
+	// Định nghĩa phương thức để cập nhật hình ảnh cho nhãn
+	public static void capNhatHinhAnhPhim(String duongDan) {
+	    ImageIcon imgPhim = new ImageIcon("img/"+duongDan);
+	    Image scaledPhim = scaleImage(imgPhim.getImage(), 200, 280);
+	    ImageIcon imgScaled = new ImageIcon(scaledPhim);
+	    lblImgScaled.setIcon(imgScaled);
+	}
+	
+	
+	 
 	// Renderer để chèn hình ảnh vào bên trái của văn bản
     static class ImageTextRenderer extends DefaultTableCellRenderer {
         private JLabel label = new JLabel();
@@ -393,4 +362,169 @@ public class GiaoDienThanhToan extends JPanel {
             return comboBox; // Trả về JComboBox làm editor cho ô cụ thể
         }
     }
-}
+    public static void setThongTinPhim(String ten,String rap,String phong,String suatChieu,String ghe,String thoiLuong,String theLoai) {
+    	txtTen.setText(ten);
+    	txtRap.setText(rap);
+    	txtPhong.setText(phong);
+    	txtSuatChieu.setText(suatChieu);
+    	txtGhe.setText(ghe);
+    	txtThoiLuong.setText(thoiLuong);
+    	txtTheLoai.setText(theLoai); // đã đổi thành thời gian
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Object o = e.getSource();
+		if(o.equals(radioButtonDaCoThe)) {
+			// Hiển thị input yêu cầu nhập số điện thoại
+            lblSDT.setVisible(true);
+            txtSDT.setVisible(true);
+            lblGhiChu.setVisible(true);
+            txtGhiChu.setVisible(true);
+            // Ẩn input nhập họ tên 
+            lblHoTen.setVisible(false);
+            txtHoTen.setVisible(false);
+            lblTuoi.setVisible(false);
+            txtTuoi.setVisible(false);
+			
+			
+			
+		}
+		else if(o.equals(radioButtonLamThe)) {
+			// Xử lý sự kiện khi radio button Làm thẻ thành viên được chọn
+            // Hiển thị input yêu cầu nhập số điện thoại và họ tên
+            lblSDT.setVisible(true);
+            txtSDT.setVisible(true);
+            lblHoTen.setVisible(true);
+            txtHoTen.setVisible(true);
+            lblTuoi.setVisible(true);
+            txtTuoi.setVisible(true);		
+            lblGhiChu.setVisible(true);
+            txtGhiChu.setVisible(true);
+		}
+		else if(o.equals(radioButtonKhongThe)) {
+			// Xử lý sự kiện khi radio button Không có thẻ thành viên được chọn
+            // Hiển thị input yêu cầu nhập ghi chú
+            lblGhiChu.setVisible(true);
+            txtGhiChu.setVisible(true);
+            // Ẩn input nhập số điện thoại và họ tên
+            lblSDT.setVisible(false);
+            txtSDT.setVisible(false);
+            lblHoTen.setVisible(false);
+            txtHoTen.setVisible(false);
+            lblTuoi.setVisible(true);
+            txtTuoi.setVisible(true);
+		}
+		
+		else if (o.equals(btnThanhtoan)) {
+		    if (radioButtonDaCoThe.isSelected()) {	    	
+		        String sdt = txtSDT.getText().trim();
+		        HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
+		        KhachHang_DAO khachHangDAO = new KhachHang_DAO();
+		        String maKhachHang = khachHangDAO.timMaKhachHangTheoSDT(sdt);
+		        
+		        
+		        if (maKhachHang != null) {
+		        	 HoaDon hoaDon = new HoaDon();
+		             hoaDon.setKhachHang(new KhachHang(maKhachHang));
+		             hoaDon.setNhanVien(new NhanVien(DangNhap.maNhanVien));
+		             hoaDonDAO.themHoaDon(hoaDon);
+		            JOptionPane.showMessageDialog(this, "Đã tạo hoá đơn thành công.");
+		        } 
+		        else {
+		            JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với số điện thoại này.");
+		        }
+		    }
+		}
+
+
+			else if(o.equals(radioButtonLamThe)) {
+				
+			}
+			else if(o.equals(radioButtonKhongThe)) {
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	/*
+	 *         radioButtonDaCoThe.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  // Xử lý sự kiện khi radio button Đã có thẻ thành viên được chọn
+                // Hiển thị input yêu cầu nhập số điện thoại
+                lblSDT.setVisible(true);
+                txtSDT.setVisible(true);
+                lblGhiChu.setVisible(true);
+                txtGhiChu.setVisible(true);
+                // Ẩn input nhập họ tên 
+                lblHoTen.setVisible(false);
+                txtHoTen.setVisible(false);
+                lblTuoi.setVisible(false);
+                txtTuoi.setVisible(false);
+               
+            }
+        });
+        
+        radioButtonLamThe.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	 // Xử lý sự kiện khi radio button Làm thẻ thành viên được chọn
+                // Hiển thị input yêu cầu nhập số điện thoại và họ tên
+                lblSDT.setVisible(true);
+                txtSDT.setVisible(true);
+                lblHoTen.setVisible(true);
+                txtHoTen.setVisible(true);
+                lblTuoi.setVisible(true);
+                txtTuoi.setVisible(true);		
+                lblGhiChu.setVisible(true);
+                txtGhiChu.setVisible(true);
+                
+                
+            }
+        });
+        
+        radioButtonKhongThe.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	// Xử lý sự kiện khi radio button Không có thẻ thành viên được chọn
+                // Hiển thị input yêu cầu nhập ghi chú
+                lblGhiChu.setVisible(true);
+                txtGhiChu.setVisible(true);
+                // Ẩn input nhập số điện thoại và họ tên
+                lblSDT.setVisible(false);
+                txtSDT.setVisible(false);
+                lblHoTen.setVisible(false);
+                txtHoTen.setVisible(false);
+                lblTuoi.setVisible(true);
+                txtTuoi.setVisible(true);
+            }
+        });
+        
+        btnThanhtoan.addActionListener(new ActionListener() {
+        	 public void actionPerformed(ActionEvent e) {
+        	        if (checkBox.isSelected()) {
+        	            // Nếu CheckBox được chọn
+        	            
+        	            // Xử lý dữ liệu khi có CheckBox được chọn
+        	        } else {
+        	            // Nếu CheckBox không được chọn
+        	            JOptionPane.showMessageDialog(this,"Vui lòng check vào loại thành viên");
+        	        }
+        	        
+        	        if (radioButtonDaCoThe.isSelected()) {
+        	            // Nếu RadioButton "Đã có thẻ" được chọn
+        	            // Xử lý khi RadioButton "Đã có thẻ" được chọn
+        	        } else if (radioButtonLamThe.isSelected()) {
+        	            // Nếu RadioButton "Làm thẻ" được chọn
+        	            // Xử lý khi RadioButton "Làm thẻ" được chọn
+        	        } else if (radioButtonKhongThe.isSelected()) {
+        	            // Nếu RadioButton "Không có thẻ" được chọn
+        	            // Xử lý khi RadioButton "Không có thẻ" được chọn
+        	        }
+        	    }
+        });
+      
+	 */
+
