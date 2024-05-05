@@ -238,11 +238,11 @@ public class GiaoDienThanhToan2 extends JPanel {
         pnTiensanpham = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
         pnTiensanpham.add(lblTiensanpham); pnTiensanpham.add(txtTiensanpham);
         pnThueGTGT = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
-        pnThueGTGT.add(lblTiensanpham); pnThueGTGT.add(txtTiensanpham);
+        pnThueGTGT.add(lblThueGTGT); pnThueGTGT.add(txtThueGTGT);
         pnDiemDoi = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
-        pnDiemDoi.add(lblTiensanpham); pnDiemDoi.add(txtTiensanpham);
+        pnDiemDoi.add(lblDiemDoi); pnDiemDoi.add(txtDiemDoi);
         pnTongThanhToan = new JPanel(new FlowLayout(FlowLayout.LEFT, 10,5));
-        pnTongThanhToan.add(lblTiensanpham); pnTongThanhToan.add(txtTiensanpham);
+        pnTongThanhToan.add(lblTongThanhToan); pnTongThanhToan.add(txtTongThanhToan);
         
         
         Box box1 = Box.createVerticalBox();
@@ -256,10 +256,11 @@ public class GiaoDienThanhToan2 extends JPanel {
         pnBtnHoaDon.add(btnLuuHoaDon);
         box2.add(pnBtnHoaDon);
         Box box12 = Box.createHorizontalBox();
-        box12.add(box1); box12.add(box2);
-        pnBoder3 = new JPanel();
+        box12.add(box1); 
+        box12.add(box2);
+        pnBoder3 = new JPanel(new FlowLayout(FlowLayout.LEFT, 50,20));
         pnBoder3.add(box12);
-        // Tạo border
+//         Tạo border
         Border border3 = BorderFactory.createLineBorder(Color.BLACK); // Border đơn giản với đường viền đen
         pnBoder3.setBorder(border3);
         		
@@ -267,7 +268,7 @@ public class GiaoDienThanhToan2 extends JPanel {
 		Box boxMain = Box.createVerticalBox();
 		
 		boxMain.add(boxHeader); boxMain.add(Box.createVerticalStrut(30));
-		boxMain.add(scrollPane);
+		boxMain.add(scrollPane);boxMain.add(Box.createVerticalStrut(30));
 		boxMain.add(pnBoder3);
 		pnMain = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
 		pnMain.add(boxMain);
