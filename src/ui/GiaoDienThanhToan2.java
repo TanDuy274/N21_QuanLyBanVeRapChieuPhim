@@ -167,7 +167,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 		lblDiemsudung = new JLabel("Số điểm sử dụng:");
 		
 		txtTen = new JTextField("Nguyễn Văn C");
-		txtSdt = new JTextField("012345678");
+		txtSdt = new JTextField("");
 		txtDiem = new JTextField("2300");
 		lblChiTietUudai = new JLabel("Dùng điểm để thanh toán 20 điểm = 20.000đ");
 		txtDiemsudung = new JTextField("400");
@@ -266,7 +266,10 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
         btnInHoaDon = new JButton("IN HÓA ĐƠN");
         btnLuuHoaDon = new JButton("LƯU HÓA ĐƠN");
         btnInVe = new JButton("IN VÉ");
-        txtTiensanpham = new JTextField("160.000");
+        
+       
+        
+        txtTiensanpham = new JTextField("");
         txtThueGTGT = new JTextField("16.000");
         txtDiemDoi = new JTextField("400");
         txtTongThanhToan = new JTextField("143,600");
@@ -381,31 +384,37 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getClickCount() == 2 && table.getSelectedColumn() == 3) {
-            // Hiển thị hộp thoại nhập số lượng
-            String quantityStr = JOptionPane.showInputDialog(null, "Nhập số lượng:", "Nhập số lượng", JOptionPane.PLAIN_MESSAGE);
-            if (quantityStr != null && !quantityStr.isEmpty()) {
-                try {
-                    int quantity = Integer.parseInt(quantityStr);
-                    if (quantity >= 0) {
-                        int selectedRow = table.getSelectedRow();
-                        if (selectedRow != -1) {
-                            // Cập nhật giá trị số lượng và tổng tiền cho hàng tương ứng trong bảng
-                            int price = Integer.parseInt(table.getValueAt(selectedRow, 2).toString());
-                            table.setValueAt(quantity, selectedRow, 3);
-                            table.setValueAt(quantity * price, selectedRow, 4);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Số lượng phải là một số nguyên dương.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-		
-		
+	    if (e.getClickCount() == 1 && table.getSelectedColumn() == 3) {
+	        // Hiển thị hộp thoại nhập số lượng
+	        String quantityStr = JOptionPane.showInputDialog(null, "Nhập số lượng:", "Nhập số lượng", JOptionPane.PLAIN_MESSAGE);
+	        if (quantityStr != null && !quantityStr.isEmpty()) {
+	            try {
+	                int quantity = Integer.parseInt(quantityStr);
+	                if (quantity >= 0) {
+	                    int selectedRow = table.getSelectedRow();
+	                    if (selectedRow != -1) {
+	                        // Cập nhật giá trị số lượng và tổng tiền cho hàng tương ứng trong bảng
+	                        int price = Integer.parseInt(table.getValueAt(selectedRow, 2).toString());
+	                        table.setValueAt(quantity, selectedRow, 3);
+	                        table.setValueAt(quantity * price, selectedRow, 4);
+
+	                        // Tính và cập nhật tổng tiền
+	                        int total = 0;
+	                        for (int row = 0; row < table.getRowCount(); row++) {
+	                            total += Integer.parseInt(table.getValueAt(row, 4).toString());
+	                        }
+	                        txtTiensanpham.setText(String.valueOf(total));
+	                    }
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Số lượng phải là một số nguyên dương.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	                }
+	            } catch (NumberFormatException ex) {
+	                JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+	    }
 	}
+
 
 	@Override
 	public void mousePressed(MouseEvent e) {

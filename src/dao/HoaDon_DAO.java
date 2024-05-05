@@ -66,18 +66,7 @@ public class HoaDon_DAO {
 		return lsHD;
 
 	}
-<<<<<<< HEAD
 
-=======
-	
-
-<<<<<<< HEAD
-=======
-
-=======
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
->>>>>>> 5842920c9736753bb1430e4ad4f56d585bb5cc36
 	public ArrayList<HoaDon> getAllHoaDonWithDetails() {
         ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
         try {
@@ -165,14 +154,7 @@ public class HoaDon_DAO {
 	    }
 
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
->>>>>>> 5842920c9736753bb1430e4ad4f56d585bb5cc36
+
 	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -326,14 +308,3 @@ public class HoaDon_DAO {
     
 
 }
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
-}
->>>>>>> 3f3316209e73b1af37640226417e208b756fd276
->>>>>>> c24f086a7a3b3b99df1cf6fefab04d98a327721c
->>>>>>> 5842920c9736753bb1430e4ad4f56d585bb5cc36
