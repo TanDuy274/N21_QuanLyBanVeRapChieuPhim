@@ -37,7 +37,7 @@ public class HoaDon_DAO {
 		return dsHoaDon;
 	}
 	
-<<<<<<< HEAD
+
 	public	ArrayList<HoaDon> getHDTheoNgay(Date ngayBatDau,Date ngayKetThuc) {
 
 		ArrayList<HoaDon> lsHD = new ArrayList<HoaDon>();
@@ -69,7 +69,7 @@ public class HoaDon_DAO {
 	
 
 	
-=======
+
 	public ArrayList<HoaDon> getAllHoaDonWithDetails() {
         ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
         try {
@@ -153,5 +153,4 @@ public class HoaDon_DAO {
 
 
 
->>>>>>> 805bddec1b010ac3be8eb0f23497b1748ba020df
 }
