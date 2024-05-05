@@ -9,6 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
+	public static String soPhong;
+	public static String thoiGian;
+	public static String suatChieu;
+	
+	
 	 private static int widthImg = 380; 
 	 private static int heightImg = 500; 
 	JButton currentSelectedButton = null;
@@ -563,6 +568,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	            selectedButton.equals(btnRap4) || selectedButton.equals(btnRap5) || selectedButton.equals(btnRap6) ||
 	            selectedButton.equals(btnRap7) || selectedButton.equals(btnRap8)) {
 	            txtSoPhong.setText(selectedButton.getText());
+	            soPhong = selectedButton.getText();
 	        }
 	        
 	        // Cập nhật thông tin suất chiếu nếu là nút suất chiếu
@@ -579,6 +585,8 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	                 selectedButton.equals(btnSuatChieu21) || selectedButton.equals(btnSuatChieu22) || 
 	                 selectedButton.equals(btnSuatChieu23) || selectedButton.equals(btnSuatChieu24)) {
 	            txtSoSuatChieu.setText(selectedButton.getText());
+	            suatChieu = selectedButton.getText();
+
 	        }
 
 	        // Cập nhật thông tin ngày nếu là nút ngày
@@ -588,6 +596,7 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 	                 selectedButton.equals(btnNgay7) || selectedButton.equals(btnNgay8)) {
 	            
 	            txtSoThoiGian.setText(selectedButton.getText());
+	            thoiGian = selectedButton.getText();
 	        }
 	    }
 

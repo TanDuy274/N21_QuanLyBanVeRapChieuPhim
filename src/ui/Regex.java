@@ -25,7 +25,7 @@ public class Regex {
 	
 	public boolean regexThoiLuong(JTextField tfThoiluong) {
 		String input = tfThoiluong.getText().trim();
-		String regex = "^[1-9]+[0-9]*$";
+		String regex = "^[1-9]+[0-9]*(\\.[0-9]+)?$";
 		if (!input.matches(regex)) {
 			JOptionPane.showMessageDialog(null,
 					"Thời lượng không được để trống, không được nhập chữ và phải lớn hơn 0\nVí dụ: 130", "Thông báo",
@@ -39,7 +39,7 @@ public class Regex {
 	
 	public boolean regexGiaPhim(JTextField tfGiaPhim) {
 		String input = tfGiaPhim.getText();
-		String regex = "^[1-9]+[0-9]*$";
+		String regex = "^[1-9]+[0-9]*(\\.[0-9]+)?$";
 		if (!input.matches(regex)) {
 			JOptionPane.showMessageDialog(null,
 					"Giá phim không được để trống, không được nhập chữ và phải lớn hơn 0\nVí dụ: 1000000", "Thông báo",
