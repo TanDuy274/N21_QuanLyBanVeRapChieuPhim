@@ -312,6 +312,26 @@ public class HoaDon_DAO {
 
     
 
+        }
+        public String layMaKhachHangTuHoaDonCuoiCung() {
+            String maKhachHang = null;
+            try {
+                ConnectDB.getIntance().connect(); // Mở kết nối đến cơ sở dữ liệu
+                Connection con = ConnectDB.getConnection(); // Lấy kết nối từ ConnectDB
+                String sql = "SELECT TOP 1 maKhachHang FROM HoaDon ORDER BY maHoaDon DESC";
+                PreparedStatement statement = con.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                if (rs.next()) {
+                    maKhachHang = rs.getString("maKhachHang");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            
+            
+        }
+			return maKhachHang;
+
+
         }}
 
 
