@@ -433,10 +433,10 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	        giaoDienHoaDon.setVisible(true);
 	        
 	    }
-//	    else if(o.equals(btnInVe)) {
-//	    	GiaoDienVe gdve = new GiaoDienVe();
-//	    	gdve.setVisible(true);
-//	    }
+	    else if(o.equals(btnInVe)) {
+	    	GiaoDienVe gdve = new GiaoDienVe();
+	    	gdve.setVisible(true);
+	    }
 	    else if(o.equals(btnCapNhat)) {
 	        updateUI();
 	    }
