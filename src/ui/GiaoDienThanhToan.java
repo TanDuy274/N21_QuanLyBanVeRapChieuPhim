@@ -472,18 +472,24 @@ public class GiaoDienThanhToan extends JPanel implements ActionListener{
 		    	 KhachHang_DAO khachHangDAO = new KhachHang_DAO();
 
 		            String tuoi = txtTuoi.getText().trim();
-		            boolean khachHangInserted = khachHangDAO.insertKhachHang("Khách vãng lai", "", Integer.parseInt(tuoi), false);
-		            
-		            if (khachHangInserted) {
-		            	 HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
-		 		        HoaDon hoaDon = new HoaDon();
-		 		
-		 		        hoaDon.setNgayLapHoaDon(new Date());		        
-		 		        hoaDon.setNhanVien(new NhanVien(DangNhap.maNhanVien)); 		        		     
-		 		        hoaDonDAO.themHoaDonVoiKhachHangCuoiCung(hoaDon);		        
-
-		 		        JOptionPane.showMessageDialog(this, "Đã tạo hoá đơn thành công.");
+		            if(tuoi.equals("")) {
+		            	JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin", "Lỗi", JOptionPane.ERROR_MESSAGE);
 		            }
+		            else {
+		            	boolean khachHangInserted = khachHangDAO.insertKhachHang("Khách vãng lai", "", Integer.parseInt(tuoi), false);
+		            	if (khachHangInserted) {
+			            	HoaDon_DAO hoaDonDAO = new HoaDon_DAO();
+			 		        HoaDon hoaDon = new HoaDon();		 		
+			 		        hoaDon.setNgayLapHoaDon(new Date());		        
+			 		        hoaDon.setNhanVien(new NhanVien(DangNhap.maNhanVien)); 		        		     
+			 		        hoaDonDAO.themHoaDonVoiKhachHangCuoiCung(hoaDon);		        
+			 		        JOptionPane.showMessageDialog(this, "Đã tạo hoá đơn thành công.");
+			            }
+			            
+				           
+		            }
+		            
+		             
 		            
 		       
 		        

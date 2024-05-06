@@ -153,6 +153,7 @@ public class HoaDon_DAO {
 			return; // hoặc xử lý theo ý của bạn
 		}
 
+<<<<<<< HEAD
 		String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
 		String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
 		String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
@@ -165,6 +166,21 @@ public class HoaDon_DAO {
 				String maxMaHoaDon = rsMaxMaHD.getString(1);
 				maHD = generateMaHoaDon(maxMaHoaDon);
 			}
+=======
+
+	    String sqlSelectMaxMaHD = "SELECT MAX(maHoaDon) FROM HoaDon";
+	    String sqlInsertHoaDon = "INSERT INTO HoaDon (maHoaDon, ngayLapHD, maNhanVien, maKhachHang) VALUES (?, ?, ?, ?)";
+	    String maKhachHang = new KhachHang_DAO().timMaKhachHangTheoSDT(hoaDon.getKhachHang().getSoDienThoai());
+	    try {
+	        Connection conn = ConnectDB.getConnection();
+	        PreparedStatement psSelectMaxMaHD = conn.prepareStatement(sqlSelectMaxMaHD);
+	        ResultSet rsMaxMaHD = psSelectMaxMaHD.executeQuery();
+	        String maHD = "HD00001"; // Giá trị mặc định
+	        if (rsMaxMaHD.next()) {
+	            String maxMaHoaDon = rsMaxMaHD.getString(1);
+	            maHD = generateMaHoaDon(maxMaHoaDon);
+	        }
+>>>>>>> e5045faa9a699a19a026696e0770ef775ba9140a
 //	        try (PreparedStatement psInsertHoaDon = conn.prepareStatement(sqlInsertHoaDon)) {
 			PreparedStatement psInsertHoaDon = conn.prepareStatement(sqlInsertHoaDon);
 			psInsertHoaDon.setString(1, maHD);
@@ -242,9 +258,12 @@ public class HoaDon_DAO {
 		}
 	}
 
+<<<<<<< HEAD
 	public HoaDon layHoaDonCuoiCung() {
 		HoaDon hoaDon = null;
 		String sqlSelectLastHoaDon = "SELECT TOP 1 * FROM HoaDon ORDER BY maHoaDon DESC";
+=======
+>>>>>>> e5045faa9a699a19a026696e0770ef775ba9140a
 
 		try {
 			Connection conn = ConnectDB.getConnection();
@@ -257,6 +276,7 @@ public class HoaDon_DAO {
 				String maKhachHang = rsLastHoaDon.getString("maKhachHang");
 				String maNhanVien = rsLastHoaDon.getString("maNhanVien");
 
+<<<<<<< HEAD
 				// Khởi tạo đối tượng hoá đơn
 				hoaDon = new HoaDon(maHoaDon, ngayLapHoaDon, new KhachHang(maKhachHang), new NhanVien(maNhanVien));
 			}
@@ -294,3 +314,8 @@ public class HoaDon_DAO {
 
 	}
 }
+=======
+        }}
+
+
+>>>>>>> e5045faa9a699a19a026696e0770ef775ba9140a
