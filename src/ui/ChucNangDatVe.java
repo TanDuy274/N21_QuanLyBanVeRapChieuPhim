@@ -64,12 +64,19 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
 
         if (e.getSource() == nextButton) {
             
-            if(giaoDienChonPhim.tenPhimVar!= null  && giaoDienChonPhim.posterPathVar !=null ) {           	      
+            if(giaoDienChonPhim.tenPhimVar!= null  && giaoDienChonPhim.maPhimVar!= null && giaoDienChonPhim.posterPathVar !=null ) {           	      
                 String tenPhim = giaoDienChonPhim.tenPhimVar;    
-                String duongDanHinh = giaoDienChonPhim.posterPathVar;          
+                String duongDanHinh = giaoDienChonPhim.posterPathVar;
+                String maPhim = giaoDienChonPhim.maPhimVar.trim();
+                giaoDienChonThoiGian.getNgayChieu(maPhim);
                 GiaoDienChonThoiGian.layThongTinPhim("PHIM: "+tenPhim);
                 GiaoDienChonThoiGian.capNhatHinhAnh(duongDanHinh);                  
                 cardLayout.next(cardPanel);
+
+            	
+            	String[] newData = {"1",tenPhim, String.valueOf(giaoDienChonPhim.giaTienVar), String.valueOf("1"), String.valueOf(giaoDienChonPhim.giaTienVar)};
+         	
+            	GiaoDienThanhToan2.capNhatThongTinDongDauTienTrongTable(newData);
                
             }
             else {
@@ -88,6 +95,12 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
             	GiaoDienThanhToan.setThongTinPhim(ten, rap, soPhong, xuatChieu, ghe, thoiLuong1, theLoai);
             	String duongDanHinh = giaoDienChonPhim.posterPathVar; 
             	GiaoDienThanhToan.capNhatHinhAnhPhim(duongDanHinh);   
+            	
+         
+            	
+
+            	
+
             	
             	
             }          
