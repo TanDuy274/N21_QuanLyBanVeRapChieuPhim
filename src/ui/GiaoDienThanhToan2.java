@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -64,7 +65,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	private JPanel panelBoxThongTinChiTietHoaDon;
 	private JLabel lblTitle1;
 	private JPanel pnTitle1;
-	private JPanel pnMain;
+	private static JPanel pnMain;
 	private JPanel panelBoder1;
 	private JPanel panelBoder2;
 	private JLabel lblTTV;
@@ -88,7 +89,8 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	private JPanel pnDiemDoi;
 	private JPanel pnTongThanhToan;
 	private JButton btnInVe;
-	private JTable table;
+	private static JTable table;
+	private static Container boxMain;
 	private int total;
 	private JButton btnCapNhat;
 	private String txtDiemCanSuDung;
@@ -182,9 +184,9 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 		
 		txtTen = new JTextField("Nguyễn Văn C");
 		txtSdt = new JTextField("");
-		txtDiem = new JTextField("2300");
+		txtDiem = new JTextField("0");
 		lblChiTietUudai = new JLabel("Dùng điểm để thanh toán 20 điểm = 20.000đ");
-		txtDiemsudung = new JTextField("400");
+		txtDiemsudung = new JTextField("0000");
 		
 		btnApdung = new JButton("ÁP DỤNG");
 		btnHuy = new JButton("HỦY BỎ");
@@ -256,10 +258,17 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
         boxHeader.add(panelBoder2);
         
 //        bảng
+        
         String[] columnNames = {"TT", "Tên sản phẩm", "Đơn giá", "Số lượng", "Thành tiền"};
         Object[][] data = {
                 {1, "Phim Quật mộ trùng ma", 80000 , 1 , 80000},
-                {2, "Bắp + Pepsi vị chanh vừa", 80000,1, 80000}
+                {2, "Bắp + Pepsi vị chanh vừa", 87000,1, 87000},
+                {3, "Bắp + Pepsi vị chanh nhỏ", 80000,0, 0},
+                {4, "Bắp + Pepsi vị chanh lớn", 95000,0, 0},
+                {5, "Bắp rang bơ vị phô mai vừa", 87000,0, 0},
+                {6, "Combo 2 nước một bắp", 113000,0, 0},
+                {7, "2 nước siêu lớn +1 bắp lớn", 95000,0, 0},
+                {8, "Combo 1 bắp lớn + 1 nước siêu lớn", 95000,0, 0},
         	};
         
       //BẢNG
@@ -371,6 +380,7 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 		txtTiensanpham.addActionListener(this);
 		txtTiensanpham.addMouseListener(this);
 		btnApdung.addActionListener(this);
+		btnInVe.addActionListener(this);
 		
 		
 	}
@@ -378,6 +388,15 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	public static void main(String[] args) {
 		new GiaoDienThanhToan2().setVisible(true);
 	}
+
+	public static void capNhatThongTinDongDauTienTrongTable(String[] newData) {
+	    if (table.getModel().getRowCount() > 0) {
+	        for (int i = 0; i < newData.length; i++) {
+	            table.getModel().setValueAt(newData[i], 0, i);
+	        }
+	    }
+	}
+
 	
 	public static void capNhatThongTinTrangThanhToan() {
 	    hoaDonDAO = new HoaDon_DAO();
@@ -393,7 +412,10 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	        
 	        theThanhVienDAO = new TheThanhVien_DAO();
 		    TheThanhVien theThanhVien = theThanhVienDAO.layTheThanhVienTheoMaKhachHang(hoaDon.getKhachHang().getMaKhachHang());
-		    txtDiem.setText(String.valueOf(theThanhVien.getDiemTichLuy()));
+		    if (theThanhVien != null) {
+		        txtDiem.setText(String.valueOf(theThanhVien.getDiemTichLuy()));
+		    }
+
 		    
 	       
 	        
@@ -411,6 +433,10 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	        giaoDienHoaDon.setVisible(true);
 	        
 	    }
+//	    else if(o.equals(btnInVe)) {
+//	    	GiaoDienVe gdve = new GiaoDienVe();
+//	    	gdve.setVisible(true);
+//	    }
 	    else if(o.equals(btnCapNhat)) {
 	        updateUI();
 	    }
@@ -467,16 +493,16 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	                    int selectedRow = table.getSelectedRow();
 	                    if (selectedRow != -1) {
 	                        // Cập nhật giá trị số lượng và tổng tiền cho hàng tương ứng trong bảng
-	                        int price = Integer.parseInt(table.getValueAt(selectedRow, 2).toString());
+	                    	double price = Double.parseDouble(table.getValueAt(selectedRow, 2).toString());
 	                        table.setValueAt(quantity, selectedRow, 3);
 	                        table.setValueAt(quantity * price, selectedRow, 4);
-
+	                        
 	                        
 	                        total = 0;
 	                        for (int row = 0; row < table.getRowCount(); row++) {
-	                            total += Integer.parseInt(table.getValueAt(row, 4).toString());
+	                            total += Double.parseDouble(table.getValueAt(row, 4).toString());
 	                        }
-	                        
+	                      
 	                        
 	                        SwingUtilities.invokeLater(new Runnable() {
 	                            

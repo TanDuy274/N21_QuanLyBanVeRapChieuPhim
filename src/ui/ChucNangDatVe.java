@@ -70,6 +70,11 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
                 GiaoDienChonThoiGian.layThongTinPhim("PHIM: "+tenPhim);
                 GiaoDienChonThoiGian.capNhatHinhAnh(duongDanHinh);                  
                 cardLayout.next(cardPanel);
+
+            	
+            	String[] newData = {"1",tenPhim, String.valueOf(giaoDienChonPhim.giaTienVar), String.valueOf("1"), String.valueOf(giaoDienChonPhim.giaTienVar)};
+         	
+            	GiaoDienThanhToan2.capNhatThongTinDongDauTienTrongTable(newData);
                
             }
             else {
@@ -88,6 +93,12 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
             	GiaoDienThanhToan.setThongTinPhim(ten, rap, soPhong, xuatChieu, ghe, thoiLuong1, theLoai);
             	String duongDanHinh = giaoDienChonPhim.posterPathVar; 
             	GiaoDienThanhToan.capNhatHinhAnhPhim(duongDanHinh);   
+            	
+         
+            	
+
+            	
+
             	
             	
             }          
