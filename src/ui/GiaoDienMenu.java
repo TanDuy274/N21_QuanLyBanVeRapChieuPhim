@@ -145,7 +145,6 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		add(btnThongKe);
 		
 		// qly suất chiêu
-<<<<<<< HEAD
 //		ImageIcon imgQLXuatChieu = new ImageIcon("img/quanlixuatchieu-icon.png");
 //		Image scaledQLXuatChieu = scaleImage(imgQLXuatChieu.getImage(), 30, 30);
 //		ImageIcon imgScaled6 = new ImageIcon(scaledQLXuatChieu);
@@ -154,7 +153,6 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 //		btnQLSuatChieu = new CustomButton("Quản lý suất chiếu");
 //		btnQLSuatChieu.setFocusPainted(false);
 //				btnQLSuatChieu.add(lblImgScaled6);
-=======
 
 		ImageIcon imgQLXuatChieu = new ImageIcon("img/quanlixuatchieu-icon.png");
 		Image scaledQLXuatChieu = scaleImage(imgQLXuatChieu.getImage(), 30, 30);
@@ -164,7 +162,6 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		btnQLSuatChieu = new CustomButton("Quản lý suất chiếu");
 		btnQLSuatChieu.setFocusPainted(false);
 				btnQLSuatChieu.add(lblImgScaled7);
->>>>>>> e5045faa9a699a19a026696e0770ef775ba9140a
 
 		ImageIcon imgQLSuatChieu = new ImageIcon("img/icons8-movie-theater-32.png");
 		Image scaledQLSuatChieu = scaleImage(imgQLSuatChieu.getImage(), 30, 30);
@@ -174,10 +171,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		btnQLSuatChieu = new CustomButton("Quản lý suất chiếu");
 		btnQLSuatChieu.setFocusPainted(false);
 				btnQLSuatChieu.add(lblImgScaled6);
-<<<<<<< HEAD
-=======
 
->>>>>>> e5045faa9a699a19a026696e0770ef775ba9140a
 		btnQLSuatChieu.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnQLSuatChieu.setBackground(Color.white);
 		btnQLSuatChieu.setBorder(new LineBorder(Color.white, 2, true));
@@ -197,13 +191,10 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 		
 		ImageIcon imgDangxuat = new ImageIcon("img/sign-out-icon.png");
 		Image scaledDangxuat = scaleImage(imgDangxuat.getImage(), 30, 30);
-<<<<<<< HEAD
-		ImageIcon imgScaled7 = new ImageIcon(scaledDangxuat);
-		JLabel lblImgScaled7 = new JLabel(imgScaled7);
-=======
+//		ImageIcon imgScaled7 = new ImageIcon(scaledDangxuat);
+//		JLabel lblImgScaled7 = new JLabel(imgScaled7);
 		ImageIcon imgScaled8 = new ImageIcon(scaledDangxuat);
 		JLabel lblImgScaled8 = new JLabel(imgScaled6);
->>>>>>> e5045faa9a699a19a026696e0770ef775ba9140a
 		
 		btnDangxuat = new CustomButton("Đăng xuất");
 		btnDangxuat.setFocusPainted(false); // Tắt viền khi button được focus
