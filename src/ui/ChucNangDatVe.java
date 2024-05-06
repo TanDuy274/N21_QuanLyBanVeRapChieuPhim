@@ -64,9 +64,11 @@ public class ChucNangDatVe extends JPanel implements ActionListener {
 
         if (e.getSource() == nextButton) {
             
-            if(giaoDienChonPhim.tenPhimVar!= null  && giaoDienChonPhim.posterPathVar !=null ) {           	      
+            if(giaoDienChonPhim.tenPhimVar!= null  && giaoDienChonPhim.maPhimVar!= null && giaoDienChonPhim.posterPathVar !=null ) {           	      
                 String tenPhim = giaoDienChonPhim.tenPhimVar;    
-                String duongDanHinh = giaoDienChonPhim.posterPathVar;          
+                String duongDanHinh = giaoDienChonPhim.posterPathVar;
+                String maPhim = giaoDienChonPhim.maPhimVar.trim();
+                giaoDienChonThoiGian.getNgayChieu(maPhim);
                 GiaoDienChonThoiGian.layThongTinPhim("PHIM: "+tenPhim);
                 GiaoDienChonThoiGian.capNhatHinhAnh(duongDanHinh);                  
                 cardLayout.next(cardPanel);

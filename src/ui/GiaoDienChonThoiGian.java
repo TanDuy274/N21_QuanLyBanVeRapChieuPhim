@@ -33,43 +33,42 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 
 	private static int widthImg = 380;
 	private static int heightImg = 500;
-	JButton currenNgaytBtn = null;
-	JButton currentPhongBtn = null;
-	JButton currentSuatChieuBtn = null;
+	static JButton currenNgaytBtn = null;
+	static JButton currentPhongBtn = null;
+	static JButton currentSuatChieuBtn = null;
 	private static JLabel lblTitle;
 	private ImageIcon phimDoremon;
 	private Object scaled7;
 	private static JLabel lblPhimDoremon;
 
-	private JPanel pnSuatChieu;
+	private static JPanel pnSuatChieu;
 
 	private JPanel pnThongTin;
 	private JLabel lblSoPhong;
 	private JLabel lblSoSuatChieu;
 	private JLabel lblSoThoiGian;
-	private JTextField txtSoPhong;
-	private JTextField txtSoSuatChieu;
-	private JTextField txtNgay;
+	private static JTextField txtSoPhong;
+	private static JTextField txtSoSuatChieu;
+	private static JTextField txtNgay;
 
-	private JButton btnTest;
 	private static GiaoDienChonPhim gdChonPhim;
 	private static String duongDanHinhAnh;
 
-	private Phim_DAO phimDAO;
-	private Phong_DAO phongDAO;
-	private ChiTietPhim_DAO ctpDAO;
+	private static Phim_DAO phimDAO;
+	private static Phong_DAO phongDAO;
+	private static ChiTietPhim_DAO ctpDAO;
 
 	JButton btnChonPhong[];
 	JButton btnChonNgay[];
 	JButton btnChonSuat[];
 
-	private Set<String> tenPhongSet;
-	private Set<String> ngChieuSet;
-	private Set<String> giChieuSet;
-	private JPanel pnPhong;
-	private JPanel pnNgay;
+	private static Set<String> ngChieuSet;
+//	private Set<String> tenPhongSet;
+//	private Set<String> giChieuSet;
+	private static JPanel pnPhong;
+	private static JPanel pnNgay;
 	private Container pnThoiGian;
-	private String ngayText;
+	private static String ngayText;
 
 	public GiaoDienChonThoiGian() {
 
@@ -78,15 +77,16 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		gdChonPhim = new GiaoDienChonPhim();
 
 		phimDAO = new Phim_DAO();
 		phongDAO = new Phong_DAO();
 		ctpDAO = new ChiTietPhim_DAO();
 
 		setLayout(new BorderLayout());
-		gdChonPhim = new GiaoDienChonPhim();
 
-		lblTitle = new JLabel("Phim:");
+		lblTitle = new JLabel("Phim: ");
+//		lblMaPhim = new JLabel("PH001");
 
 		Font font = lblTitle.getFont();
 		Font newFont = font.deriveFont(Font.BOLD, 22);
@@ -105,35 +105,10 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 		imagePanel.add(lblPhimDoremon);
 		add(imagePanel, BorderLayout.WEST);
 
-		// Khởi tạo các Set
-		tenPhongSet = new HashSet<>();
-		ngChieuSet = new HashSet<>();
-		giChieuSet = new HashSet<>();
-
-		// get suất chiếu
-//		List<ChiTietPhim> ctpList = ctpDAO.getChiTietPhimByMaPhong(phimDAO.getMaTheoTenPhim(gdChonPhim.getMaPhim()));	
-		List<ChiTietPhim> ctpList = ctpDAO.getChiTietPhimByMaPhim("PH003");
-		for (ChiTietPhim chiTietPhim : ctpList) {
-			Phim phim = phimDAO.getPhimTheoMa(chiTietPhim.getPhim().getMaPhim());
-			LocalDateTime lichChieu = chiTietPhim.getLichChieu();
-			DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-			String ngayChieu = dateFormat.format(lichChieu);
-			ngChieuSet.add(ngayChieu);
-		}
-
-		// Tạo JPanel cho ngày
 		pnNgay = new JPanel();
-		for (String ngChieu : ngChieuSet) {
-			JButton btnNgay = new JButton(ngChieu);
-			btnNgay.setPreferredSize(new Dimension(120, 50));
-			btnNgay.setBackground(Color.ORANGE);
-			btnNgay.addActionListener(this);
-			pnNgay.add(btnNgay);
-		}
 
 		pnPhong = new JPanel();
-		
+
 		pnSuatChieu = new JPanel();
 
 		pnThongTin = new JPanel(new GridLayout(3, 2));
@@ -163,10 +138,6 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 		txtSoSuatChieu.setOpaque(false);
 		txtNgay.setOpaque(false);
 
-//     // Không cho phép người dùng nhập vào các ô nhập liệu
-//        txtSoPhong.setEnabled(false);
-//        txtSoSuatChieu.setEnabled(false);
-//        txtNgay.setEnabled(false);
 
 		// Không cho phép người dùng chỉnh sửa nội dung của các ô nhập liệu
 		txtSoPhong.setEditable(false);
@@ -186,10 +157,6 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 
 		pnThoiGian = new JPanel();
 
-//		btnTest = new JButton("LOAD DỮ LIỆU PHIM");
-//		btnTest.setPreferredSize(new Dimension(180, 40));
-//		btnTest.setBackground(Color.white);
-
 		pnThoiGian.add(pnPhong);
 		pnThoiGian.add(pnNgay);
 		pnThoiGian.add(pnSuatChieu);
@@ -208,6 +175,156 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 		pnWrap.add(pnThoiGian);
 		add(pnWrap, BorderLayout.CENTER);
 
+	}
+
+	public static void getNgayChieu(String maPhim) {
+		phimDAO = new Phim_DAO();
+		phongDAO = new Phong_DAO();
+		ctpDAO = new ChiTietPhim_DAO();
+		ngChieuSet = new HashSet<>();
+
+		pnNgay.removeAll();
+		pnPhong.removeAll();
+		pnSuatChieu.removeAll();
+		// get suất chiếu
+		List<ChiTietPhim> ctpList = ctpDAO.getChiTietPhimByMaPhim(maPhim);
+//				List<ChiTietPhim> ctpList = ctpDAO.getChiTietPhimByMaPhim("PH003");
+		for (ChiTietPhim chiTietPhim : ctpList) {
+			LocalDateTime lichChieu = chiTietPhim.getLichChieu();
+			DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			String ngayChieu = dateFormat.format(lichChieu);
+			ngChieuSet.add(ngayChieu);
+		}
+
+		// Tạo JPanel cho ngày
+		for (String ngChieu : ngChieuSet) {
+			JButton btnNgay = new JButton(ngChieu);
+			btnNgay.setPreferredSize(new Dimension(120, 50));
+			btnNgay.setBackground(Color.ORANGE);
+			btnNgay.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Object o = e.getSource();
+					if (o instanceof JButton) {
+						JButton clickNgayBtn = (JButton) o;
+						JButton clickPhongBtn = (JButton) o;
+						JButton clickSuatChieuBtn = (JButton) o;
+						// sự kiện click ngày
+						if (clickNgayBtn.getParent() == pnNgay) {
+							if (currenNgaytBtn != null) {
+								currenNgaytBtn.setBackground(Color.ORANGE);
+								txtSoPhong.setText("");
+								soPhong = null;
+								txtSoSuatChieu.setText("");
+								suatChieu = null;
+							}
+							currenNgaytBtn = clickNgayBtn;
+							clickNgayBtn.setBackground(Color.GREEN);
+							// Hiển thị ngày
+							txtNgay.setText(clickNgayBtn.getText());
+							thoiGian = clickNgayBtn.getText();
+
+							ngayText = clickNgayBtn.getText();
+							SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
+							try {
+								Date ngay = sdfInput.parse(ngayText);
+
+								ArrayList<Phong> dsPhong = ctpDAO.getPhongByNgayChieuVaMaPhim(ngay,
+										gdChonPhim.getMaPhim());
+								if (dsPhong.isEmpty()) {
+									pnPhong.removeAll();
+									pnPhong.revalidate();
+									pnPhong.repaint();
+									pnSuatChieu.removeAll();
+									pnSuatChieu.revalidate();
+									pnSuatChieu.repaint();
+								} else {
+									pnPhong.removeAll();
+									pnSuatChieu.removeAll();
+									for (Phong phong : dsPhong) {
+										JButton btnPhong = new JButton(phong.getTenPhong());
+										btnPhong.setPreferredSize(new Dimension(120, 50));
+										btnPhong.setBackground(Color.ORANGE);
+										btnPhong.addActionListener(this);
+										pnPhong.add(btnPhong);
+									}
+									pnPhong.revalidate();
+									pnPhong.repaint();
+								}
+
+							} catch (ParseException ex) {
+								ex.printStackTrace();
+							}
+							// sự kiện click phòng
+						} else if (clickPhongBtn.getParent() == pnPhong) {
+							if (currentPhongBtn != null) {
+								currentPhongBtn.setBackground(Color.ORANGE);
+								txtSoSuatChieu.setText("");
+								suatChieu = null;
+							}
+							currentPhongBtn = clickPhongBtn;
+							clickPhongBtn.setBackground(Color.GREEN);
+							// Hiển thị phòng
+							txtSoPhong.setText(clickPhongBtn.getText());
+							soPhong = clickNgayBtn.getText();
+
+							SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
+							try {
+								Date ngay = sdfInput.parse(ngayText);
+								String maPhong = phongDAO.getMaTheoTenPhong(clickPhongBtn.getText());
+
+								ArrayList<ChiTietPhim> dsCtp = ctpDAO.getChiTietPhimByNgayMaPhimMaPhong(ngay,
+										gdChonPhim.getMaPhim(), maPhong);
+								if (dsCtp.isEmpty()) {
+									pnSuatChieu.removeAll();
+									pnSuatChieu.revalidate();
+									pnSuatChieu.repaint();
+								} else {
+									pnSuatChieu.removeAll();
+									for (ChiTietPhim ctp : dsCtp) {
+										Phim phim = phimDAO.getPhimTheoMa(ctp.getPhim().getMaPhim());
+										LocalDateTime lichChieu = ctp.getLichChieu();
+										LocalDateTime gioKetThuc = lichChieu.plusMinutes((long) phim.getThoiLuong());
+										DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+										String gioChieu = timeFormat.format(lichChieu);
+										String gioKetThucStr = timeFormat.format(gioKetThuc);
+
+										JButton btnSuatChieu = new JButton(gioChieu + " - " + gioKetThucStr);
+										btnSuatChieu.setPreferredSize(new Dimension(120, 50));
+										btnSuatChieu.setBackground(Color.ORANGE);
+										btnSuatChieu.addActionListener(this);
+										pnSuatChieu.add(btnSuatChieu);
+									}
+									pnPhong.revalidate();
+									pnPhong.repaint();
+								}
+
+							} catch (ParseException ex) {
+								ex.printStackTrace();
+							}
+							// sự kiện lick suất chiếu
+						} else if (clickSuatChieuBtn.getParent() == pnSuatChieu) {
+							if (currentSuatChieuBtn != null) {
+								currentSuatChieuBtn.setBackground(Color.ORANGE);
+							}
+							currentSuatChieuBtn = clickSuatChieuBtn;
+							clickSuatChieuBtn.setBackground(Color.GREEN);
+							// Hiển thị suất chiếu
+							txtSoSuatChieu.setText(clickSuatChieuBtn.getText());
+							suatChieu = clickSuatChieuBtn.getText();
+						}
+					}
+				}
+			});
+			pnNgay.add(btnNgay);
+		}
+
+		pnNgay.revalidate();
+		pnNgay.repaint();
+		pnPhong.revalidate();
+		pnPhong.repaint();
+		pnSuatChieu.revalidate();
+		pnSuatChieu.repaint();
 	}
 
 	private static ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
@@ -234,119 +351,6 @@ public class GiaoDienChonThoiGian extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		Object o = e.getSource();
-//		if (o.equals(btnTest)) {
-//			lblTitle.setText("PHIM: " + gdChonPhim.getTenPhim());
-//			String duongDanMoi = "img/" + gdChonPhim.getPosterPath();
-//			capNhatHinhAnh(duongDanMoi);
-//			revalidate();
-//			repaint();
-//		}
-		Object o = e.getSource();
-		if (o instanceof JButton) {
-			JButton clickNgayBtn = (JButton) o;
-			JButton clickPhongBtn = (JButton) o;
-			JButton clickSuatChieuBtn = (JButton) o;
-			if (clickNgayBtn.getParent() == pnNgay) {
-				if (currenNgaytBtn != null) {
-					currenNgaytBtn.setBackground(Color.ORANGE);
-					txtSoPhong.setText("");
-					soPhong = null;
-					txtSoSuatChieu.setText("");
-					suatChieu = null;
-				}
-				currenNgaytBtn = clickNgayBtn;
-				clickNgayBtn.setBackground(Color.GREEN);
-				// Hiển thị ngày
-				txtNgay.setText(clickNgayBtn.getText());
-				thoiGian = clickNgayBtn.getText();
-				
-				ngayText = clickNgayBtn.getText();
-				SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
-				try {
-					Date ngay = sdfInput.parse(ngayText);
-
-		            ArrayList<Phong> dsPhong = ctpDAO.getPhongByNgayChieuVaMaPhim(ngay, gdChonPhim.getMaPhim());
-					if (dsPhong.isEmpty()) {
-						pnPhong.removeAll();
-						pnPhong.revalidate();
-						pnPhong.repaint();
-						pnSuatChieu.removeAll();
-						pnSuatChieu.revalidate();
-						pnSuatChieu.repaint();
-					} else {
-						pnPhong.removeAll();
-						pnSuatChieu.removeAll();
-						for (Phong phong : dsPhong) {
-							JButton btnPhong = new JButton(phong.getTenPhong());
-							btnPhong.setPreferredSize(new Dimension(120, 50));
-							btnPhong.setBackground(Color.ORANGE);
-							btnPhong.addActionListener(this);
-							pnPhong.add(btnPhong);
-						}
-						pnPhong.revalidate();
-						pnPhong.repaint();
-					}
-
-				} catch (ParseException ex) {
-					ex.printStackTrace();
-				}
-			} else if (clickPhongBtn.getParent() == pnPhong) {
-				if (currentPhongBtn != null) {
-					currentPhongBtn.setBackground(Color.ORANGE);
-					txtSoSuatChieu.setText("");
-					suatChieu = null;
-				}
-				currentPhongBtn = clickPhongBtn;
-				clickPhongBtn.setBackground(Color.GREEN);
-				// Hiển thị phòng
-				txtSoPhong.setText(clickPhongBtn.getText());
-				soPhong = clickNgayBtn.getText();
-
-				SimpleDateFormat sdfInput = new SimpleDateFormat("dd/MM/yyyy");
-				try {
-					Date ngay = sdfInput.parse(ngayText);
-					String maPhong = phongDAO.getMaTheoTenPhong(clickPhongBtn.getText());
-
-		            ArrayList<ChiTietPhim> dsCtp = ctpDAO.getChiTietPhimByNgayMaPhimMaPhong(ngay, gdChonPhim.getMaPhim(), maPhong);
-					if (dsCtp.isEmpty()) {
-						pnSuatChieu.removeAll();
-						pnSuatChieu.revalidate();
-						pnSuatChieu.repaint();
-					} else {
-						pnSuatChieu.removeAll();
-						for (ChiTietPhim ctp : dsCtp) {
-							Phim phim = phimDAO.getPhimTheoMa(ctp.getPhim().getMaPhim());
-							LocalDateTime lichChieu = ctp.getLichChieu();
-							LocalDateTime gioKetThuc = lichChieu.plusMinutes((long) phim.getThoiLuong());
-							DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-							String gioChieu = timeFormat.format(lichChieu);
-							String gioKetThucStr = timeFormat.format(gioKetThuc);
-
-							JButton btnSuatChieu = new JButton(gioChieu + " - " + gioKetThucStr);
-							btnSuatChieu.setPreferredSize(new Dimension(120, 50));
-							btnSuatChieu.setBackground(Color.ORANGE);
-							btnSuatChieu.addActionListener(this);
-							pnSuatChieu.add(btnSuatChieu);
-						}
-						pnPhong.revalidate();
-						pnPhong.repaint();
-					}
-
-				} catch (ParseException ex) {
-					ex.printStackTrace();
-				}
-			} else if (clickSuatChieuBtn.getParent() == pnSuatChieu) {
-				if (currentSuatChieuBtn != null) {
-					currentSuatChieuBtn.setBackground(Color.ORANGE);
-				}
-				currentSuatChieuBtn = clickSuatChieuBtn;
-				clickSuatChieuBtn.setBackground(Color.GREEN);
-				// Hiển thị suất chiếu
-				txtSoSuatChieu.setText(clickSuatChieuBtn.getText());
-				suatChieu = clickSuatChieuBtn.getText();
-			}
-		}
 	}
 
 	public static void main(String[] args) {
