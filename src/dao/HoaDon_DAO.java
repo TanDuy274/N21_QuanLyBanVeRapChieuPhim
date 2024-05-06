@@ -270,6 +270,32 @@ public class HoaDon_DAO {
 				String maKhachHang = rsLastHoaDon.getString("maKhachHang");
 				String maNhanVien = rsLastHoaDon.getString("maNhanVien");
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        }
+        public String layMaKhachHangTuHoaDonCuoiCung() {
+            String maKhachHang = null;
+            try {
+                ConnectDB.getIntance().connect(); // Mở kết nối đến cơ sở dữ liệu
+                Connection con = ConnectDB.getConnection(); // Lấy kết nối từ ConnectDB
+                String sql = "SELECT TOP 1 maKhachHang FROM HoaDon ORDER BY maHoaDon DESC";
+                PreparedStatement statement = con.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+                if (rs.next()) {
+                    maKhachHang = rs.getString("maKhachHang");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            
+            
+        }
+			return maKhachHang;
+
+
+=======
+<<<<<<< HEAD
+>>>>>>> ce126f5a66d4b19bf21ef44ff518416b320e1f48
 				// Khởi tạo đối tượng hoá đơn
 				hoaDon = new HoaDon(maHoaDon, ngayLapHoaDon, new KhachHang(maKhachHang), new NhanVien(maNhanVien));
 			}
@@ -307,6 +333,11 @@ public class HoaDon_DAO {
 
 	}
 }
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 0437248d0784256c69a59cbcda9a6420d909e4cf
+>>>>>>> ce126f5a66d4b19bf21ef44ff518416b320e1f48
         }}
 
 

@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -463,8 +464,10 @@ public class GiaoDienThanhToan2 extends JPanel implements ActionListener,MouseLi
 	            txtDiem.setText(String.valueOf(soDiemConLai));
 	            updateUI();
 	            
+	            
+	            
 	            ttvDAO = new TheThanhVien_DAO();
-	            ttvDAO.capNhatDiemTichLuy("KH001", soDiemConLai);
+	            ttvDAO.capNhatDiemTichLuy(hoaDonDAO.layMaKhachHangTuHoaDonCuoiCung(), soDiemConLai);
 	            
 	            
 	            
