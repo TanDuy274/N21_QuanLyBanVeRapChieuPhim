@@ -210,7 +210,7 @@ public class GiaoDienMenu extends JPanel implements ActionListener, MouseListene
 
 	private Image scaleImage(Image image, int w, int h) {
 		Image scaled = image.getScaledInstance(w, h, Image.SCALE_SMOOTH);
-		return scaled;
+		return scaled;  
 
 	}
 
